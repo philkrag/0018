@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<?php
+// /////////////////////////////////////////////////////////////////////// COPYRIGHT NOTICE
+
+// This file is part of OS-Management-Portal.
+
+// OS-Management-Portal is free software: you can redistribute it and/or modify
+// it under the terms of the GNU General Public License as published by
+// the Free Software Foundation, either version 3 of the License, or
+// (at your option) any later version.
+
+// OS-Management-Portal is distributed in the hope that it will be useful,
+// but WITHOUT ANY WARRANTY; without even the implied warranty of
+// MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+// GNU General Public License for more details.
+
+// You should have received a copy of the GNU General Public License
+// along with OS-Management-Portal.  If not, see <http://www.gnu.org/licenses/>.
+
+// /////////////////////////////////////////////////////////////////////// COPYRIGHT NOTICE
+
+// /////////////////////////////////////////////////////////////////////// VERSION CONTROL
+
+// PAGE CREATED BY: Phillip Kraguljac
+// PAGE CREATED DATE: 2020-09-21
+
+// DATE   		|| NAME 					|| MODIFICATION
+// 2020-09-21 	|| Phillip Kraguljac 		|| v1.0.
+
+// /////////////////////////////////////////////////////////////////////// VERSION CONTROL
+?>
+
+
+<html>
+
+<div id="Main_Body">
+
+<head>
+
+<?php include $_SERVER['DOCUMENT_ROOT'].'/Formats/Header_Basic.php';?>
+
+<title>Control Record</title>
+</head>
+<body>
+
+<?php $Item_ID = Basic_Filter_Input($_GET['ID']); ?>
+
+
+<?php
+
+$Display_Array = null;
+$Display_Array['ID'] = $Item_ID;
+$Display_Array['Table_Major_Heading'] = "CONTROL";
+$Display_Array['Table_Minor_Heading'] = "General Details";
+$Display_Array['Display_Items'] = array("ID",
+"Project ID",
+"Change Description",
+"Associated Document",
+"Status",
+"Approval Status",
+"Proto-Type Status",
+"Management Priority",
+"Approval Conditions",
+"Modified Date",
+"Modified By"
+);
+
+$Display_Array['Column_Width'] = array("300px", "*" );
+$Display_Array['Item_Links'] = "";
+
+$Display_Array['MySQL_Action'] = "SELECT * ";
+$Display_Array['MySQL_Table'] = "FROM `rec_controls` ";
+$Display_Array['MySQL_Filter'] = "WHERE `ID` = ".$Display_Array['ID']." ";
+$Display_Array['MySQL_Order'] = "";
+$Display_Array['MySQL_Limit'] = "LIMIT 1";
+$Display_Array['MySQL_Offset'] = "";
+
+Dispaly_Details_0001($Database_Connection, $Display_Array);
+
+?>
+
+
+Quick Inputs =>
+<?php
+$Input_Id = array("Status", "Approval Status", "Approval Conditions");
+$Requested_Value = array("Investigating Implementation", "Approved with Conditions", "Approval is required by management before implementing solution.");
+$IsComboBox = array(true, true, false);
+$Button_Description = "Proto-typing";
+Quick_Input_Multiple($Input_Id, $Button_Description, $Requested_Value, $IsComboBox);
+?>
+
+
+<?php
+
+$Display_Array = null;
+$Display_Array['ID'] = $Item_ID;
+$Display_Array['Table_Major_Heading'] = "NOTE(S)";
+$Display_Array['Table_Minor_Heading'] = "...";
+$Display_Array['Display_Items'] = array("ID", "Details");
+$Display_Array['Column_Width'] = array("50px", "*");
+$Display_Array['Item_Links'] = "REC-DTL_Notes.php";
+$Display_Array['New_Link_Reference'] = "Control ID";
+
+$Display_Array['MySQL_Action'] = "SELECT * ";
+$Display_Array['MySQL_Table'] = "FROM `rec_notes` ";
+$Display_Array['MySQL_Filter'] = "WHERE `Control ID` = ".$Item_ID." AND (`Deleted Date` IS NULL OR `Deleted Date` = '".date("Y-m-d")."') ";
+$Display_Array['MySQL_Order'] = "";
+$Display_Array['MySQL_Limit'] = "";
+$Display_Array['MySQL_Offset'] = "";
+
+Dispaly_List_0001($Database_Connection, $Display_Array);
+
+?>
+
+
+<?php
+
+$Display_Array = null;
+$Display_Array['ID'] = $Item_ID;
+$Display_Array['Table_Major_Heading'] = "GAP(S)";
+$Display_Array['Table_Minor_Heading'] = "...";
+$Display_Array['Display_Items'] = array("ID",
+"(E):Gap ID:reg_gaps:Stakeholder",
+"(E):Gap ID:reg_gaps:Responsible Entity",
+"(E):Gap ID:reg_gaps:Gap Point"
+);
+$Display_Array['Column_Width'] = array("50px", "*");
+$Display_Array['Item_Links'] = "REC-DTL_Gaps-Controls.php";
+$Display_Array['New_Link_Reference'] = "Gap ID";
+
+$Display_Array['MySQL_Action'] = "SELECT * ";
+$Display_Array['MySQL_Table'] = "FROM `rec_gap-controls` ";
+$Display_Array['MySQL_Filter'] = "WHERE `Control ID` = ".$Item_ID." AND (`Deleted Date` IS NULL OR `Deleted Date` = '".date("Y-m-d")."') ";
+$Display_Array['MySQL_Order'] = "";
+$Display_Array['MySQL_Limit'] = "";
+$Display_Array['MySQL_Offset'] = "";
+
+Dispaly_List_0001($Database_Connection, $Display_Array);
+
+?>
+
+
+</div>
+</body>
+
+<?php include $_SERVER['DOCUMENT_ROOT'].'/Formats/Footer_Basic.php';?>
+
+</html> 
