@@ -29,6 +29,7 @@
 // 2020-10-06 	|| Phillip Kraguljac 		|| v1.1.
 // 2020-10-21 	|| Phillip Kraguljac 		|| v1.1.
 // 2020-10-23 	|| Phillip Kraguljac 		|| v1.2.
+// 2020-10-23 	|| Phillip Kraguljac 		|| v1.3.
 
 // /////////////////////////////////////////////////////////////////////// VERSION CONTROL
 ?>
@@ -125,8 +126,8 @@ $Display_Array['ID'] = $Item_ID;
 $Display_Array['IS_Report'] = false;
 $Display_Array['Table_Major_Heading'] = "[".($Heading_Index=$Heading_Index+1)."] CHANGE CONTROL(S)";
 $Display_Array['Table_Minor_Heading'] = "...";
-$Display_Array['Display_Items'] = array("ID", "Description", "Document");
-$Display_Array['Column_Width'] = array("50px", "*");
+$Display_Array['Display_Items'] = array("ID", "Description", "Timeline Impact", "Budget Impact", "Workplan Impact", "Approval");
+$Display_Array['Column_Width'] = array("50px", "*", "150px", "150px", "150px", "150px");
 $Display_Array['Item_Links'] = "REC-DTL_Change-Control.php";
 $Display_Array['New_Link_Reference'] = "Project ID";
 $Display_Array['MySQL_Action'] = "SELECT * ";

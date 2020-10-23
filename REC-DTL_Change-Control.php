@@ -26,6 +26,7 @@
 
 // DATE   		|| NAME 					|| MODIFICATION
 // 2020-10-06 	|| Phillip Kraguljac 		|| v1.1.
+// 2020-10-23 	|| Phillip Kraguljac 		|| v1.3.
 
 // /////////////////////////////////////////////////////////////////////// VERSION CONTROL
 ?>
@@ -55,6 +56,13 @@ $Display_Array['Table_Minor_Heading'] = "General Details";
 $Display_Array['Display_Items'] = array("ID",
 "Project ID",
 "Description",
+"Timeline Impact",
+"Budget Impact",
+"Workplan Impact",
+"Client Feedback",
+"Management Feedback",
+"Approval",
+"Document",
 "Modified Date",
 "Modified By"
 );

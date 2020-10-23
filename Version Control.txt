@@ -3,3 +3,4 @@
 Date Started	Date Finished	Notes
 2020-10-06	2020-10-23	v1.1
 2020-10-23	2020-10-23	v1.2	Project Task Report.
+2020-10-23	2020-10-23	v1.3	Change Control Improvement.
