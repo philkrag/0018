@@ -28,6 +28,7 @@
 // 2020-09-21 	|| Phillip Kraguljac 		|| v1.0.
 // 2020-10-06 	|| Phillip Kraguljac 		|| v1.1.
 // 2020-10-21 	|| Phillip Kraguljac 		|| v1.1.
+// 2020-10-23 	|| Phillip Kraguljac 		|| v1.2.
 
 // /////////////////////////////////////////////////////////////////////// VERSION CONTROL
 ?>
@@ -51,20 +52,21 @@
 
 <?php // UPPER PAGE OPTIONS
 
-$Data['Total_Items'] = 9;
-$Data['Item_ID'] = array($Item_ID, $Item_ID, $Item_ID, $Item_ID, $Item_ID, $Item_ID, $Item_ID, $Item_ID, $Item_ID);
+$Data['Total_Items'] = 10;
+$Data['Item_ID'] = array($Item_ID, $Item_ID, $Item_ID, $Item_ID, $Item_ID, $Item_ID, $Item_ID, $Item_ID, $Item_ID, $Item_ID);
 $Data['Page'] = array(
 "REP_Project",
 "REP_Project-Overview",
 "REP_Project-Scope-Proforma",
 "REP_Project-Authorisation",
 "REP_Project-Scope-Management",
+"REP_Project-Tasks",
 "REP_Project-Parts",
 "REP_Project-Risks",
 "REP_Project-Contingencies",
 "REP-Inspection-Method-Matrix"
 );
-$Data['Label'] = array("Report", "Overview", "Scope", "Authorisation", "Scope Mgt", "Parts", "Risks", "Contingencies", "Matrix");
+$Data['Label'] = array("Report", "Overview", "Scope", "Authorisation", "Scope Mgt", "WBS", "Parts", "Risks", "Contingencies", "Matrix");
 Upper_Options_0002($Data);
 
 ?>
