@@ -27,6 +27,7 @@
 // DATE   		|| NAME 					|| MODIFICATION
 // 2020-09-21 	|| Phillip Kraguljac 		|| v1.0.
 // 2020-10-07 	|| Phillip Kraguljac 		|| v1.1.
+// 2020-10-23 	|| Phillip Kraguljac 		|| v1.2.
 
 // /////////////////////////////////////////////////////////////////////// VERSION CONTROL
 ?>
@@ -60,6 +61,7 @@ $Display_Array['Display_Items'] = array("ID",
 "Task Status",
 "Identified Date",
 "Identified By",
+"Person Responsible",
 "Required Completion Date",
 "Completed Date"
 );
