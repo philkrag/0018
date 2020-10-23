@@ -22,16 +22,17 @@
 // /////////////////////////////////////////////////////////////////////// VERSION CONTROL
 
 // PAGE CREATED BY: Phillip Kraguljac
-// PAGE CREATED DATE: 2020-09-21
+// PAGE CREATED DATE: 2020-10-07
 
 // DATE   		|| NAME 					|| MODIFICATION
-// 2020-09-21 	|| Phillip Kraguljac 		|| v1.0.
 // 2020-10-07 	|| Phillip Kraguljac 		|| v1.1.
+// 2020-10-21 	|| Phillip Kraguljac 		|| v1.1.
 // 2020-10-23 	|| Phillip Kraguljac 		|| v1.2.
 
 // /////////////////////////////////////////////////////////////////////// VERSION CONTROL
 ?>
 
+<?php $Heading_Index = "20-1"; ?>
 
 <html>
 
@@ -41,7 +42,7 @@
 
 <?php include $_SERVER['DOCUMENT_ROOT'].'/Formats/Header_Basic.php';?>
 
-<title>Task Record</title>
+<title><?php echo "[".$Heading_Index."]"; ?> <?php echo date("Y-m-d"); ?> Project Task Report <?php echo "ID:".$_GET['ID']; ?></title>
 </head>
 <body>
 
@@ -52,24 +53,24 @@
 
 $Display_Array = null;
 $Display_Array['ID'] = $Item_ID;
-$Display_Array['Table_Major_Heading'] = "TASK";
-$Display_Array['Table_Minor_Heading'] = "General Details";
+$Display_Array['IS_Report'] = true;
+$Display_Array['New_Page_At_Print'] = false;
+$Display_Array['Table_Major_Heading'] = "PROJECT PART(S) REPORT";
+$Display_Array['Table_Minor_Heading'] = "Details";
 $Display_Array['Display_Items'] = array("ID",
-"Project ID",
-"Phase ID",
+"Started Date",
+"Project Owner",
 "Description",
-"Task Status",
-"Identified Date",
-"Identified By",
-"Person Responsible",
-"Required Completion Date",
+"Internal Priority",
+"Stage",
+"Status",
 "Completed Date"
 );
 $Display_Array['Column_Width'] = array("300px", "*" );
-$Display_Array['Item_Links'] = "";
+$Display_Array['Item_Links'] = "REC_Projects.php";
 
 $Display_Array['MySQL_Action'] = "SELECT * ";
-$Display_Array['MySQL_Table'] = "FROM `rec_tasks` ";
+$Display_Array['MySQL_Table'] = "FROM `reg_projects` ";
 $Display_Array['MySQL_Filter'] = "WHERE `ID` = ".$Display_Array['ID']." ";
 $Display_Array['MySQL_Order'] = "";
 $Display_Array['MySQL_Limit'] = "LIMIT 1";
@@ -84,44 +85,25 @@ Dispaly_Details_0001($Database_Connection, $Display_Array);
 
 $Display_Array = null;
 $Display_Array['ID'] = $Item_ID;
-$Display_Array['Table_Major_Heading'] = "NOTE(S)";
+$Display_Array['IS_Report'] = true;
+$Display_Array['New_Page_At_Print'] = false;
+$Display_Array['Table_Major_Heading'] = "TASK(S)";
 $Display_Array['Table_Minor_Heading'] = "...";
-$Display_Array['Display_Items'] = array("ID", "Details");
-$Display_Array['Column_Width'] = array("50px", "*");
-$Display_Array['Item_Links'] = "REC-DTL_Notes.php";
-$Display_Array['New_Link_Reference'] = "Task ID";
-
-$Display_Array['MySQL_Action'] = "SELECT * ";
-$Display_Array['MySQL_Table'] = "FROM `rec_notes` ";
-$Display_Array['MySQL_Filter'] = "WHERE `Task ID` = ".$Item_ID." AND (`Deleted Date` IS NULL OR `Deleted Date` = '".date("Y-m-d")."') ";
-$Display_Array['MySQL_Order'] = "";
-$Display_Array['MySQL_Limit'] = "";
-$Display_Array['MySQL_Offset'] = "";
-
-Dispaly_List_0001($Database_Connection, $Display_Array);
-
-?>
-
-
-<?php
-
-$Display_Array = null;
-$Display_Array['ID'] = $Item_ID;
-$Display_Array['Table_Major_Heading'] = "PART(S)";
-$Display_Array['Table_Minor_Heading'] = "...";
-$Display_Array['Display_Items'] = array("ID",
+$Display_Array['Display_Items'] = array(
+"ID",
+"(E):Phase ID:rec_phases:Description",
+"Task Status",
 "Description",
-"Supplier",
-"Supplier Part #",
-"Estimated Total Required Quantity",
-"Estimated Total Cost ($) exc GST");
-$Display_Array['Column_Width'] = array("50px", "*", "100px", "100px", "100px", "100px");
-$Display_Array['Item_Links'] = "REC-DTL_Parts.php";
-$Display_Array['New_Link_Reference'] = "Task ID";
+"Person Responsible",
+"Required Completion Date"
+);
+$Display_Array['Column_Width'] = array("50px", "200px", "100px", "*", "200px", "100px");
+$Display_Array['Item_Links'] = "";
+$Display_Array['New_Link_Reference'] = "";
 
 $Display_Array['MySQL_Action'] = "SELECT * ";
-$Display_Array['MySQL_Table'] = "FROM `rec_parts` ";
-$Display_Array['MySQL_Filter'] = "WHERE `Task ID` = ".$Item_ID." AND (`Deleted Date` IS NULL OR `Deleted Date` = '".date("Y-m-d")."') ";
+$Display_Array['MySQL_Table'] = "FROM `rec_tasks` ";
+$Display_Array['MySQL_Filter'] = "WHERE `Project ID` = ".$Item_ID." AND (`Deleted Date` IS NULL OR `Deleted Date` = '".date("Y-m-d")."') ";
 $Display_Array['MySQL_Order'] = "";
 $Display_Array['MySQL_Limit'] = "";
 $Display_Array['MySQL_Offset'] = "";
