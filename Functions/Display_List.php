@@ -25,6 +25,11 @@
 
 // DATE   		|| NAME 					|| MODIFICATION
 // 2020-09-21 	|| Phillip Kraguljac 		|| v1.0.
+// 2021-05-05 	|| Phillip Kraguljac 		|| v1.5.
+// 2021-05-31 	|| Phillip Kraguljac 		|| v1.5.
+// 2021-06-01 	|| Phillip Kraguljac 		|| v1.5.
+// 2021-08-23 	|| Phillip Kraguljac 		|| v1.5.
+// 2021-12-01 	|| Phillip Kraguljac 		|| v1.6.
 
 // /////////////////////////////////////////////////////////////////////// VERSION CONTROL
 ?>
@@ -43,12 +48,14 @@ if(!isset($Display_Array['New_Link_Reference'])){$Display_Array['New_Link_Refere
 if(!isset($Display_Array['Display_Items'])){$Display_Array['Display_Items']="";}
 if(!isset($Display_Array['Column_Width'])){$Display_Array['Column_Width']="";}
 if(!isset($Display_Array['Item_Links'])){$Display_Array['Item_Links']="";}
+if(!isset($Display_Array['Item_Link_Data'])){$Display_Array['Item_Link_Data']="";}
 if(!isset($Display_Array['MySQL_Action'])){$Display_Array['MySQL_Action']="";}
 if(!isset($Display_Array['MySQL_Table'])){$Display_Array['MySQL_Table']="";}
 if(!isset($Display_Array['MySQL_Filter'])){$Display_Array['MySQL_Filter']="";}
 if(!isset($Display_Array['MySQL_Order'])){$Display_Array['MySQL_Order']="";}
 if(!isset($Display_Array['MySQL_Limit'])){$Display_Array['MySQL_Limit']="";}
 if(!isset($Display_Array['MySQL_Offset'])){$Display_Array['MySQL_Offset']="";}
+if(!isset($Display_Array['Additional_Data'])){$Display_Array['Additional_Data']="";} // Temp
 
 $Report_CSS_Insert = "";if($Display_Array['IS_Report']==true){$Report_CSS_Insert = "_Report";}
 
@@ -58,7 +65,6 @@ echo "<div class=\"List_Div{$Report_CSS_Insert}\">";
 $sql = $Display_Array['MySQL_Action'].$Display_Array['MySQL_Table'].$Display_Array['MySQL_Filter'].$Display_Array['MySQL_Order'].$Display_Array['MySQL_Limit'].$Display_Array['MySQL_Offset'];
 $result = mysqli_query($Database_Connection, $sql);
 echo "<br>";
-
 
 // DISPLAY HEADERS
 $New_Page_Inset = ""; if($Display_Array['New_Page_At_Print']){$New_Page_Inset = "page-break-before: always";}else{};
@@ -73,6 +79,7 @@ echo "<input type=\"hidden\" name=\"ID\" value=\"".$Display_Array['ID']."\">";
 echo "<input type=\"hidden\" name=\"Previous_Page\" value=\"".$_SERVER['REQUEST_URI']."\">";
 echo "<input type=\"hidden\" name=\"New_Link_Reference\" value=\"".$Display_Array['New_Link_Reference']."\">";
 echo "<input type=\"hidden\" name=\"Linking_Value\" value=\"".$Display_Array['ID']."\">";
+Additional_Items_Formatting($Display_Array['Additional_Data']);
 echo "<input type=\"hidden\" name=\"Table_Major_Heading\" value=\"".str_replace(" ", "_",$Display_Array['Table_Major_Heading'])."\">";
 echo "<table style=\"width:100%\">";
 echo "<col width=\"80\">";
@@ -103,12 +110,22 @@ if($Prefix_Indicator="(E)" || $Prefix_Indicator="(D)"){$Prefix_Indicator = true;
 // CYCLE THROUGH POTENTIAL PREFIX OPTIONS
 if($Prefix_Indicator){
 switch ($Prefix_Value) {
+	
 case "(E)":
 $Refined_Data = explode(":", $Display_Array['Display_Items'][$x]);
 echo "<th class=\"List_Label_Cell{$Report_CSS_Insert}\">".$Refined_Data[3]."*</th>";break;
+
 case "(D)":
 $Refined_Data = explode(":", $Display_Array['Display_Items'][$x]);
 echo "<th class=\"List_Label_Cell{$Report_CSS_Insert}\">".$Refined_Data[4]."*</th>";break;	
+
+case "(M)":
+$Refined_Data = explode(":", $Display_Array['Display_Items'][$x]);
+echo "<th class=\"List_Label_Cell{$Report_CSS_Insert}\">Details*</th>";break;	
+
+case "(P)":
+$Refined_Data = explode(":", $Display_Array['Display_Items'][$x]);
+echo "<th class=\"List_Label_Cell{$Report_CSS_Insert}\">Photo</th>";break;	
 default:	
 echo "<th class=\"List_Label_Cell{$Report_CSS_Insert}\">".$Display_Array['Display_Items'][$x]."</th>";
 }}}
@@ -117,11 +134,14 @@ echo "</tr>";
 // DISPLAY ITEMS
 if (mysqli_num_rows($result) > 0) {
 while($row = mysqli_fetch_assoc($result)) {
-echo "<tr>";
+echo "<tr class=\"List_Label_Row{$Report_CSS_Insert}\">";
 
 echo "<th class=\"List_Open_Cell{$Report_CSS_Insert}\">";
 if(!$Display_Array['IS_Report']){
-echo "<a href=\"".$Display_Array['Item_Links']."?ID=".Basic_Filter_Input($row['ID'])."\">OPEN</a>";
+echo "<a href=\"".$Display_Array['Item_Links']."?ID=";
+echo Basic_Filter_Input($row['ID']);
+echo Basic_Filter_Input($Display_Array['Item_Link_Data']);
+echo "\">OPEN</a>";
 }
 echo "</th>";
 
@@ -151,6 +171,22 @@ $Input_Data_Value = Get_Item_Details_0001($Database_Connection, Basic_Filter_Inp
 if(Basic_Filter_Input($row['Deleted Date'])==date("Y-m-d")){$CSS_Format = "List_Content_Cell_Purple";}
 break; //Parent_ID, $Table, $Child_Parent_Column, $Extract_Column
 
+case "(M)":			
+$Input_Data_Value = "";
+$Refined_Data = explode(":", $Display_Array['Display_Items'][$b]);
+for ($c = 1; $c < count($Refined_Data); $c++) {
+$Heading_Inset = str_replace("Gap Point", "Hazard", Basic_Filter_Input($Refined_Data[$c]));
+$Input_Data_Value = $Input_Data_Value."<b>".$Heading_Inset.":</b> ".Basic_Filter_Input($row[$Refined_Data[$c]])."<br>";
+}
+break; //Parent_ID, $Extract_Column, $Extract_Column, $Extract_Column
+
+case "(P)":			
+$Refined_Data = explode(":", $Display_Array['Display_Items'][$b]);
+if(file_exists($_SERVER['DOCUMENT_ROOT'].'/'.$Refined_Data[1].'/'.$row['ID'].'.jpg')){
+$Input_Data_Value = "<img src=\"".Basic_Filter_Input($Refined_Data[1])."\\".Basic_Filter_Input($row['ID']).".jpg\" width=\"100px\"";
+}else{$Input_Data_Value = "No Photo";}
+break; //Parent_ID, $Table, $Child_Parent_Column, $Extract_Column
+
 default:
 if(isset($row[$Display_Array['Display_Items'][$b]])){
 if(Basic_Filter_Input($row[$Display_Array['Display_Items'][$b]])=="No Further Actions Required"){$CSS_Format = "List_Content_Cell_Green";}
@@ -170,6 +206,9 @@ if(strpos($Display_Array['Display_Items'][$b], 'Status') !== false && $Input_Dat
 if(strpos($Display_Array['Display_Items'][$b], 'Status') !== false && $Input_Data_Value=="Waiting for Management Approval"){$CSS_Format = "List_Content_Cell_Blue";}
 if(strpos($Display_Array['Display_Items'][$b], 'Status') !== false && $Input_Data_Value=="Waiting for Implementation"){$CSS_Format = "List_Content_Cell_Green_Stripes";}
 if(strpos($Display_Array['Display_Items'][$b], 'Status') !== false && $Input_Data_Value=="On Hold"){$CSS_Format = "List_Content_Cell_Blue";}
+if(strpos($Display_Array['Display_Items'][$b], 'Status') !== false && $Input_Data_Value=="Cancelled"){$CSS_Format = "List_Content_Cell_Dark_Grey";}
+if(strpos($Display_Array['Display_Items'][$b], 'Status') !== false && $Input_Data_Value=="Re-Occurring Fault"){$CSS_Format = "List_Content_Cell_Orange";}
+
 
 if(strpos($Display_Array['Display_Items'][$b], 'Proto-Type Status') !== false && $Input_Data_Value=="Developing"){$CSS_Format = "List_Content_Cell_Yellow";}
 if(strpos($Display_Array['Display_Items'][$b], 'Proto-Type Status') !== false && $Input_Data_Value=="Developed"){$CSS_Format = "List_Content_Cell_Blue";}
@@ -189,7 +228,7 @@ echo "</tr>";
 echo "</table>";
 
 // DATABASE ENQUIRY DETAILS
-if(!$Display_Array['IS_Report']){
+if(!$Display_Array['IS_Report'] && $_SESSION["User_Name"] == "Administrator"){
 echo "<table style=\"width:100%\">";
 echo "<tr><td class=\"List_SQL_Script_Cell{$Report_CSS_Insert}\">".$sql."</td></tr>";
 echo "</table>";
@@ -213,11 +252,37 @@ switch ($Cell_Value) {
 return $Return_CSS_Format;
 }
 
+?>
+
+<?php // ADDING ADDITIONAL DATA TO NEW ITEM
+// ARRAY([COLUMN 1]:[VALUE 1], [COLUMN 2]:[VALUE 2])
+
+function Additional_Items_Formatting($Additional_Data){
+
+if($Additional_Data!=null){
+// var_dump($Additional_Data);
+$Additional_Data_Array;
+$Additional_Data_Headings = "";
+$Additional_Data_Values = "";
+for ($a = 0; $a < count($Additional_Data); $a++) {
+$Additional_Data_Array = explode(":", $Additional_Data[$a]);
+if($a == 0){
+$Additional_Data_Headings = $Additional_Data_Array[0];
+$Additional_Data_Values = $Additional_Data_Array[1];
+}else{
+$Additional_Data_Headings = $Additional_Data_Headings.":".$Additional_Data_Array[0];
+$Additional_Data_Values = $Additional_Data_Values.":".$Additional_Data_Array[1];
+}
+}
+echo "<input type=\"hidden\" name=\"Additional_Data\" value=\"".$Additional_Data_Headings.";".$Additional_Data_Values."\">";
+}
+}
 
 ?>
 
 
 <?php function Get_Item_Details($Database_Connection, $Parent_ID, $Table, $Extract_Column){
+	
 $Return_Value = "";
 $Display_Array['MySQL_Action'] = "SELECT * ";
 $Display_Array['MySQL_Table'] = "FROM `{$Table}` ";

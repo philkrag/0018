@@ -26,6 +26,8 @@
 
 // DATE   		|| NAME 					|| MODIFICATION
 // 2020-09-21 	|| Phillip Kraguljac 		|| v1.0.
+// 2021-02-17 	|| Phillip Kraguljac 		|| v1.4.
+// 2021-03-31 	|| Phillip Kraguljac 		|| v1.5. 
 
 // /////////////////////////////////////////////////////////////////////// VERSION CONTROL
 ?>
@@ -41,7 +43,7 @@
 
 <title>Control Record</title>
 </head>
-<body>
+<body onload="<?php echo $Menu_Peference; ?>">
 
 <?php $Item_ID = Basic_Filter_Input($_GET['ID']); ?>
 
@@ -53,7 +55,9 @@ $Display_Array['ID'] = $Item_ID;
 $Display_Array['Table_Major_Heading'] = "CONTROL";
 $Display_Array['Table_Minor_Heading'] = "General Details";
 $Display_Array['Display_Items'] = array("ID",
-"Project ID",
+"(L):Project ID:REC-DTL_Projects",
+"",
+"View Group",
 "Change Description",
 "Associated Document",
 "Status",
@@ -61,6 +65,7 @@ $Display_Array['Display_Items'] = array("ID",
 "Proto-Type Status",
 "Management Priority",
 "Approval Conditions",
+"",
 "Modified Date",
 "Modified By"
 );

@@ -27,6 +27,7 @@
 // DATE   		|| NAME 					|| MODIFICATION
 // 2020-09-21 	|| Phillip Kraguljac 		|| v1.0.
 // 2020-10-21 	|| Phillip Kraguljac 		|| v1.1.
+// 2021-04-23 	|| Phillip Kraguljac 		|| v1.5.
 
 // /////////////////////////////////////////////////////////////////////// VERSION CONTROL
 ?>
@@ -43,10 +44,18 @@
 
 <title><?php echo "[".$Heading_Index."]"; ?> <?php echo date("Y-m-d"); ?> Inspection Matrix Report <?php echo "ID:".$_GET['ID']; ?></title>
 </head>
-<body>
+<body onload="">
 
 
 <?php if(isset($_GET['ID'])){$Item_ID = Basic_Filter_Input($_GET['ID']);}else{$Item_ID = null;} ?>
+
+
+<?php
+
+Report_Details_0001($Database_Connection, $Report_Array);
+
+?>
+
 
 <?php
 
@@ -82,6 +91,8 @@ Dispaly_List_0001($Database_Connection, $Display_Array);
 
 ?>
 
+<br>
+<div style="text-align: right;"><button onclick="window.print()">Print</button></div>
 
 </div>
 </body>

@@ -28,6 +28,7 @@
 // 2020-09-21 	|| Phillip Kraguljac 		|| v1.0.
 // 2020-10-07 	|| Phillip Kraguljac 		|| v1.1.
 // 2020-10-21 	|| Phillip Kraguljac 		|| v1.1.
+// 2021-04-23 	|| Phillip Kraguljac 		|| v1.5.
 
 // /////////////////////////////////////////////////////////////////////// VERSION CONTROL
 ?>
@@ -44,9 +45,28 @@
 
 <title><?php echo "[".$Heading_Index."]"; ?> <?php echo date("Y-m-d"); ?> Project Overview <?php echo "ID:".$_GET['ID']; ?></title>
 </head>
-<body>
+<body onload="">
 
-<?php if(isset($_GET['ID'])){$Item_ID = Basic_Filter_Input($_GET['ID']);}else{$Item_ID = null;} ?>
+<?php if(isset($_GET['Project_ID'])){$Item_ID = Basic_Filter_Input($_GET['Project_ID']);}else{$Item_ID = null;} ?>
+
+
+<?php // SEARCH WIDGET
+
+$Display_Array['Search_Items'] = array("Project_ID");
+$Search_Description = Hidden_Search_0001($Database_Connection, $Display_Array);
+
+?>
+
+
+<?php
+
+$Report_Array['Display_Week']="";
+$Report_Array['Display_Week_Start_Date']="";
+$Report_Array['Display_Week_Finish_Date']="";
+$Report_Array['Print_Date']="";
+Report_Details_0001($Database_Connection, $Report_Array);
+
+?>
 
 
 <?php
@@ -97,7 +117,7 @@ $Display_Array['New_Link_Reference'] = "";
 
 $Display_Array['MySQL_Action'] = "SELECT * ";
 $Display_Array['MySQL_Table'] = "FROM `rec_objectives` ";
-$Display_Array['MySQL_Filter'] = "WHERE `Project ID` = ".$Item_ID." AND (`Deleted Date` IS NULL OR `Deleted Date` = '".date("Y-m-d")."') ";
+$Display_Array['MySQL_Filter'] = "WHERE (`Deleted Date` IS NULL OR `Deleted Date` = '".date("Y-m-d")."') {$Search_Description} ";
 $Display_Array['MySQL_Order'] = "";
 $Display_Array['MySQL_Limit'] = "";
 $Display_Array['MySQL_Offset'] = "";
@@ -122,7 +142,7 @@ $Display_Array['New_Link_Reference'] = "";
 
 $Display_Array['MySQL_Action'] = "SELECT * ";
 $Display_Array['MySQL_Table'] = "FROM `rec_deliverables` ";
-$Display_Array['MySQL_Filter'] = "WHERE `Project ID` = ".$Item_ID." AND (`Deleted Date` IS NULL OR `Deleted Date` = '".date("Y-m-d")."') ";
+$Display_Array['MySQL_Filter'] = "WHERE (`Deleted Date` IS NULL OR `Deleted Date` = '".date("Y-m-d")."') {$Search_Description} ";
 $Display_Array['MySQL_Order'] = "";
 $Display_Array['MySQL_Limit'] = "";
 $Display_Array['MySQL_Offset'] = "";
@@ -147,7 +167,7 @@ $Display_Array['New_Link_Reference'] = "";
 
 $Display_Array['MySQL_Action'] = "SELECT * ";
 $Display_Array['MySQL_Table'] = "FROM `rec_obstacles` ";
-$Display_Array['MySQL_Filter'] = "WHERE `Project ID` = ".$Item_ID." AND (`Deleted Date` IS NULL OR `Deleted Date` = '".date("Y-m-d")."') ";
+$Display_Array['MySQL_Filter'] = "WHERE (`Deleted Date` IS NULL OR `Deleted Date` = '".date("Y-m-d")."') {$Search_Description} ";
 $Display_Array['MySQL_Order'] = "";
 $Display_Array['MySQL_Limit'] = "";
 $Display_Array['MySQL_Offset'] = "";
@@ -172,7 +192,7 @@ $Display_Array['New_Link_Reference'] = "";
 
 $Display_Array['MySQL_Action'] = "SELECT * ";
 $Display_Array['MySQL_Table'] = "FROM `rec_key-success-criteria` ";
-$Display_Array['MySQL_Filter'] = "WHERE `Project ID` = ".$Item_ID." AND (`Deleted Date` IS NULL OR `Deleted Date` = '".date("Y-m-d")."') ";
+$Display_Array['MySQL_Filter'] = "WHERE (`Deleted Date` IS NULL OR `Deleted Date` = '".date("Y-m-d")."') {$Search_Description} ";
 $Display_Array['MySQL_Order'] = "";
 $Display_Array['MySQL_Limit'] = "";
 $Display_Array['MySQL_Offset'] = "";
@@ -197,7 +217,7 @@ $Display_Array['New_Link_Reference'] = "";
 
 $Display_Array['MySQL_Action'] = "SELECT * ";
 $Display_Array['MySQL_Table'] = "FROM `rec_assumptions` ";
-$Display_Array['MySQL_Filter'] = "WHERE `Project ID` = ".$Item_ID." AND (`Deleted Date` IS NULL OR `Deleted Date` = '".date("Y-m-d")."') ";
+$Display_Array['MySQL_Filter'] = "WHERE (`Deleted Date` IS NULL OR `Deleted Date` = '".date("Y-m-d")."') {$Search_Description} ";
 $Display_Array['MySQL_Order'] = "";
 $Display_Array['MySQL_Limit'] = "";
 $Display_Array['MySQL_Offset'] = "";
@@ -221,7 +241,7 @@ $Display_Array['New_Link_Reference'] = "Project ID";
 
 $Display_Array['MySQL_Action'] = "SELECT * ";
 $Display_Array['MySQL_Table'] = "FROM `reg_risk-assessment` ";
-$Display_Array['MySQL_Filter'] = "WHERE `Project ID` = ".$Item_ID." AND (`Deleted Date` IS NULL OR `Deleted Date` = '".date("Y-m-d")."') ";
+$Display_Array['MySQL_Filter'] = "WHERE (`Deleted Date` IS NULL OR `Deleted Date` = '".date("Y-m-d")."') {$Search_Description} ";
 $Display_Array['MySQL_Order'] = "";
 $Display_Array['MySQL_Limit'] = "";
 $Display_Array['MySQL_Offset'] = "";
@@ -246,7 +266,7 @@ $Display_Array['New_Link_Reference'] = "";
 
 $Display_Array['MySQL_Action'] = "SELECT * ";
 $Display_Array['MySQL_Table'] = "FROM `rec_obstacles` ";
-$Display_Array['MySQL_Filter'] = "WHERE `Project ID` = ".$Item_ID." AND (`Deleted Date` IS NULL OR `Deleted Date` = '".date("Y-m-d")."') ";
+$Display_Array['MySQL_Filter'] = "WHERE (`Deleted Date` IS NULL OR `Deleted Date` = '".date("Y-m-d")."') {$Search_Description} ";
 $Display_Array['MySQL_Order'] = "";
 $Display_Array['MySQL_Limit'] = "";
 $Display_Array['MySQL_Offset'] = "";
@@ -255,6 +275,8 @@ Dispaly_List_0001($Database_Connection, $Display_Array);
 
 ?>
 
+<br>
+<div style="text-align: right;"><button onclick="window.print()">Print</button></div>
 
 </div>
 </body>

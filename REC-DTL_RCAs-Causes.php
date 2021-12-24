@@ -26,6 +26,7 @@
 
 // DATE   		|| NAME 					|| MODIFICATION
 // 2020-09-21 	|| Phillip Kraguljac 		|| v1.0.
+// 2021-03-31 	|| Phillip Kraguljac 		|| v1.5. 
 
 // /////////////////////////////////////////////////////////////////////// VERSION CONTROL
 ?>
@@ -41,7 +42,7 @@
 
 <title>Root Cause Analysis - Cause Record</title>
 </head>
-<body>
+<body onload="<?php echo $Menu_Peference; ?>">
 
 <?php if(isset($_GET['ID'])){$Item_ID = Basic_Filter_Input($_GET['ID']);}else{$Item_ID = null;} ?>
 
@@ -63,10 +64,13 @@ $Display_Array['IS_Report'] = false;
 $Display_Array['Table_Major_Heading'] = "RCA CAUSE";
 $Display_Array['Table_Minor_Heading'] = "General Details";
 $Display_Array['Display_Items'] = array("ID",
-"Symptom ID",
+"(L):RCA ID:REC-DTL_RCAs",
+"(L):Symptom ID:REC-DTL_RCAs-Symptoms",
+"",
 "Category",
 "Stakeholder",
 "Description",
+"",
 "Modified Date",
 "Modified By"
 );

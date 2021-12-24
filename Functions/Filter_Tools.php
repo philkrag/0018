@@ -30,9 +30,12 @@
 ?>
 
 
-<?php function Basic_Filter_Input($String_To_Be_Filtered){
+<?php
+
+function Basic_Filter_Input($String_To_Be_Filtered){
 $Filtered_Item = "";
 $Filtered_Item = filter_var($String_To_Be_Filtered, FILTER_SANITIZE_STRING); //FILTER_SANITIZE_SPECIAL_CHARS FILTER_SANITIZE_STRING
+//$Filtered_Item = $String_To_Be_Filtered; // Technical Support Purposes
 return $Filtered_Item ;
 }
 
@@ -42,5 +45,8 @@ $Filtered_Item = "";
 $Filtered_Item = filter_var_array($String_To_Be_Filtered, FILTER_SANITIZE_STRING);
 return $Filtered_Item ;
 }
+
+
+
 
 ?>

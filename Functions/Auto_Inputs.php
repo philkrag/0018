@@ -25,6 +25,8 @@
 
 // DATE   		|| NAME 					|| MODIFICATION
 // 2020-09-21 	|| Phillip Kraguljac 		|| v1.0.
+// 2021-05-06 	|| Phillip Kraguljac 		|| v1.5.
+// 2021-05-20 	|| Phillip Kraguljac 		|| v1.5.
 
 // /////////////////////////////////////////////////////////////////////// VERSION CONTROL
 ?>
@@ -45,19 +47,45 @@ echo " <button style=\"padding: 2px 2px 2px 2px;\" onclick=\"myFunction()\">{$Bu
 
 <?php function Quick_Input_Multiple($Input_Id, $Button_Description, $Requested_Value, $IsComboBox){
 
-echo "<script>";
-echo "function myFunction() {";
 for ($x = 0; $x < count($Input_Id); $x++){
-	if($IsComboBox[$x]){
-		echo "document.getElementById(\"{$Input_Id[$x]}\").selectedIndex = document.getElementById('".$Input_Id[$x].":".$Requested_Value[$x]."').index;";
-	}else{
-		echo "document.getElementById(\"{$Input_Id[$x]}\").value = \"{$Requested_Value[$x]}\";";
-	}	
-	}
+echo "<script>";
+echo "function myFunction_{$x}() {";
+echo "  document.getElementById(\"{$Input_Id[$x]}\").value = \"{$Requested_Value[$x]}\";";
 echo "}";
 echo "</script>";
-echo " <button style=\"padding: 2px 2px 2px 2px;\" onclick=\"myFunction()\">{$Button_Description}</button>";
+echo " <button style=\"padding: 2px 2px 2px 2px;\" onclick=\"myFunction_{$x}()\">{$Button_Description[$x]}</button>";
+}
+}
 
-} ?>
+?>
 
+
+<?php // function Quick_Input_Multiple_0001($Function_Id, $Input_Id, $Button_Description, $Requested_Value, $IsComboBox){
+
+// for ($x = 0; $x < count($Input_Id); $x++){
+// echo "<script>";
+// echo "function myFunction_{$Function_Id}_{$x}() {";
+// echo "  document.getElementById(\"{$Input_Id[$x]}\").value = \"{$Requested_Value[$x]}\";";
+// echo "}";
+// echo "</script>";
+// echo " <button style=\"padding: 2px 2px 2px 2px;\" onclick=\"myFunction_{$Function_Id}_{$x}()\">{$Button_Description[$x]}</button>";
+// }
+// }
+
+?>
+
+
+<?php function Quick_Input_Multiple_0001($Function_Id, $Input_Id, $Button_Description, $Requested_Value, $IsComboBox){
+
+for ($x = 0; $x < count($Input_Id); $x++){
+echo "<script>";
+echo "function myFunction_{$Function_Id}_{$x}() {";
+echo "  document.getElementById(\"{$Input_Id[$x]}\").value = \"{$Requested_Value[$x]}\" + \"\\n\" + document.getElementById(\"{$Input_Id[$x]}\").value";
+echo "}";
+echo "</script>";
+echo " <button style=\"padding: 2px 2px 2px 2px;\" onclick=\"myFunction_{$Function_Id}_{$x}()\">{$Button_Description[$x]}</button>";
+}
+}
+
+?>
 

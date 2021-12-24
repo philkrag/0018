@@ -27,6 +27,7 @@
 // DATE   		|| NAME 					|| MODIFICATION
 // 2020-09-21 	|| Phillip Kraguljac 		|| v1.0.
 // 2020-10-21 	|| Phillip Kraguljac 		|| v1.1.
+// 2021-04-23 	|| Phillip Kraguljac 		|| v1.5.
 
 // /////////////////////////////////////////////////////////////////////// VERSION CONTROL
 ?>
@@ -43,10 +44,16 @@
 
 <title><?php echo "[".$Heading_Index."]"; ?> <?php echo date("Y-m-d"); ?> Root Cause Analysis Report <?php echo "ID:".$_GET['ID']; ?></title>
 </head>
-<body>
+<body onload="">
 
 <?php if(isset($_GET['ID'])){$Item_ID = Basic_Filter_Input($_GET['ID']);}else{$Item_ID = null;} ?>
 
+
+<?php
+
+Report_Details_0001($Database_Connection, $Report_Array);
+
+?>
 
 <?php
 
@@ -78,13 +85,18 @@ $Display_Array['ID'] = $Item_ID;
 $Display_Array['IS_Report'] = true;
 $Display_Array['Table_Major_Heading'] = "SYMPTOM(S)";
 $Display_Array['Table_Minor_Heading'] = "...";
-$Display_Array['Display_Items'] = array("ID", "Description");
-$Display_Array['Column_Width'] = array("50px", "*");
-$Display_Array['Item_Links'] = "REC_RCAs-Symptoms.php";
+$Display_Array['Display_Items'] = array("ID",
+"(E):Symptom ID:rec_rcas-symptoms:Description",
+"Category",
+"Stakeholder",
+"Description"
+);
+$Display_Array['Column_Width'] = array("50px", "150px", "150px", "150px", "*");
+$Display_Array['Item_Links'] = "";
 $Display_Array['New_Link_Reference'] = "RCA ID";
 
 $Display_Array['MySQL_Action'] = "SELECT * ";
-$Display_Array['MySQL_Table'] = "FROM `rec_rcas-symptoms` ";
+$Display_Array['MySQL_Table'] = "FROM `rec_rcas-causes` ";
 $Display_Array['MySQL_Filter'] = "WHERE `RCA ID` = ".$Item_ID." AND (`Deleted Date` IS NULL OR `Deleted Date` = '".date("Y-m-d")."') ";
 $Display_Array['MySQL_Order'] = "";
 $Display_Array['MySQL_Limit'] = "";
@@ -94,6 +106,8 @@ Dispaly_List_0001($Database_Connection, $Display_Array);
 
 ?>
 
+<br>
+<div style="text-align: right;"><button onclick="window.print()">Print</button></div>
 
 </div>
 </body>

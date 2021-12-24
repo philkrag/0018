@@ -26,6 +26,7 @@
 
 // DATE   		|| NAME 					|| MODIFICATION
 // 2020-10-06 	|| Phillip Kraguljac 		|| v1.1.
+// 2021-03-31 	|| Phillip Kraguljac 		|| v1.5. 
 
 // /////////////////////////////////////////////////////////////////////// VERSION CONTROL
 ?>
@@ -41,7 +42,7 @@
 
 <title>Stakeholders</title>
 </head>
-<body>
+<body onload="<?php echo $Menu_Peference; ?>">
 
 <?php if(isset($_GET['ID'])){$Item_ID = Basic_Filter_Input($_GET['ID']);}else{$Item_ID = null;} ?>
 
@@ -53,9 +54,11 @@ $Display_Array['ID'] = $Item_ID;
 $Display_Array['Table_Major_Heading'] = "STAKEHOLDER";
 $Display_Array['Table_Minor_Heading'] = "General Details";
 $Display_Array['Display_Items'] = array("ID",
-"Project ID",
-"Contact ID",
+"(L):Project ID:REC-DTL_Projects",
+"(L):Contact ID:REC-DTL_Contacts",
+"",
 "Description",
+"",
 "Modified Date",
 "Modified By"
 );

@@ -30,6 +30,12 @@
 // 2020-10-21 	|| Phillip Kraguljac 		|| v1.1.
 // 2020-10-23 	|| Phillip Kraguljac 		|| v1.2.
 // 2020-10-23 	|| Phillip Kraguljac 		|| v1.3.
+// 2021-03-30 	|| Phillip Kraguljac 		|| v1.5.
+// 2021-04-24 	|| Phillip Kraguljac 		|| v1.5.
+// 2021-05-04 	|| Phillip Kraguljac 		|| v1.5.
+// 2021-05-07 	|| Phillip Kraguljac 		|| v1.5.
+// 2021-05-27 	|| Phillip Kraguljac 		|| v1.5.
+// 2021-10-11 	|| Phillip Kraguljac 		|| v1.6.
 
 // /////////////////////////////////////////////////////////////////////// VERSION CONTROL
 ?>
@@ -46,15 +52,16 @@
 
 <title>Project Record</title>
 </head>
-<body>
+<body onload="<?php echo $Menu_Peference; ?>">
 
 <?php if(isset($_GET['ID'])){$Item_ID = Basic_Filter_Input($_GET['ID']);}else{$Item_ID = null;} ?>
 
 
 <?php // UPPER PAGE OPTIONS
 
-$Data['Total_Items'] = 10;
-$Data['Item_ID'] = array($Item_ID, $Item_ID, $Item_ID, $Item_ID, $Item_ID, $Item_ID, $Item_ID, $Item_ID, $Item_ID, $Item_ID);
+$Data['Total_Items'] = 11;
+$Data['Item_ID'] = array($Item_ID, $Item_ID, $Item_ID, $Item_ID, $Item_ID, $Item_ID, $Item_ID, $Item_ID, $Item_ID, $Item_ID, $Item_ID);
+$Data['Item_ID_Prefix'] = "Project_ID";
 $Data['Page'] = array(
 "REP_Project",
 "REP_Project-Overview",
@@ -63,12 +70,25 @@ $Data['Page'] = array(
 "REP_Project-Scope-Management",
 "REP_Project-Tasks",
 "REP_Project-Parts",
+"REP_Inspection-Points",
 "REP_Project-Risks",
 "REP_Project-Contingencies",
 "REP-Inspection-Method-Matrix"
 );
-$Data['Label'] = array("Report", "Overview", "Scope", "Authorisation", "Scope Mgt", "WBS", "Parts", "Risks", "Contingencies", "Matrix");
-Upper_Options_0002($Data);
+$Data['Label'] = array(
+"Report",
+"Overview",
+"Scope",
+"Authorisation",
+"Scope Mgt",
+"WBS",
+"Parts",
+"Inspection Point",
+"Risks",
+"Contingencies",
+"Matrix"
+);
+Upper_Options_0003($Data);
 
 ?>
 
@@ -79,7 +99,7 @@ $Display_Array = null;
 $Display_Array['ID'] = $Item_ID;
 $Display_Array['IS_Report'] = false;
 $Display_Array['Table_Major_Heading'] = "[{$Heading_Index}] PROJECT";
-$Display_Array['Table_Minor_Heading'] = "Details";
+$Display_Array['Table_Minor_Heading'] = "General Details";
 $Display_Array['Display_Items'] = array("ID",
 "Project Owner",
 "Project Sponsor",
@@ -89,6 +109,7 @@ $Display_Array['Display_Items'] = array("ID",
 "Internal Priority",
 "Scope",
 "Status",
+"Type",
 "Stage",
 "Planned Start Date",
 "Planned Completed Date",
@@ -584,16 +605,17 @@ $Display_Array['Display_Items'] = array(
 "ID",
 "(E):Phase ID:rec_phases:Description",
 "Task Status",
+"Planned Work Date",
 "Description"
 );
-$Display_Array['Column_Width'] = array("50px", "150px", "150px", "*");
+$Display_Array['Column_Width'] = array("50px", "150px", "150px", "150px", "*");
 $Display_Array['Item_Links'] = "REC-DTL_Tasks.php";
 $Display_Array['New_Link_Reference'] = "Project ID";
 
 $Display_Array['MySQL_Action'] = "SELECT * ";
 $Display_Array['MySQL_Table'] = "FROM `rec_tasks` ";
 $Display_Array['MySQL_Filter'] = "WHERE `Project ID` = ".$Item_ID." AND (`Deleted Date` IS NULL OR `Deleted Date` = '".date("Y-m-d")."') ";
-$Display_Array['MySQL_Order'] = "";
+$Display_Array['MySQL_Order'] = "ORDER BY `Task Status` ASC, `Planned Work Date` DESC ";
 $Display_Array['MySQL_Limit'] = "";
 $Display_Array['MySQL_Offset'] = "";
 
@@ -630,19 +652,20 @@ Dispaly_Details_0001($Database_Connection, $Display_Array);
 
 ?>
 
+
 <?php
 
 $Display_Array = null;
 $Display_Array['ID'] = $Item_ID;
-$Display_Array['Table_Major_Heading'] = "";
-$Display_Array['Table_Minor_Heading'] = "Parts";
+$Display_Array['Table_Major_Heading'] = "Parts";
+$Display_Array['Table_Minor_Heading'] = "General";
 $Display_Array['Display_Items'] = array("ID", "Description", "Estimated Total Cost ($) exc GST");
 $Display_Array['Column_Width'] = array("80px", "*", "150px");
-$Display_Array['Item_Links'] = "REC-DTL_Tasks.php";
+$Display_Array['Item_Links'] = "REC-DTL_Parts-Project.php";
 $Display_Array['New_Link_Reference'] = "Project ID";
 
 $Display_Array['MySQL_Action'] = "SELECT * ";
-$Display_Array['MySQL_Table'] = "FROM `rec_parts` ";
+$Display_Array['MySQL_Table'] = "FROM `rec_parts-project` ";
 $Display_Array['MySQL_Filter'] = "WHERE `Project ID` = ".$Item_ID." AND (`Deleted Date` IS NULL OR `Deleted Date` = '".date("Y-m-d")."') ";
 $Display_Array['MySQL_Order'] = "";
 $Display_Array['MySQL_Limit'] = "";
@@ -651,6 +674,41 @@ $Display_Array['MySQL_Offset'] = "";
 Dispaly_List_0001($Database_Connection, $Display_Array);
 
 ?>
+
+
+<?php
+
+$Display_Array = null;
+$Display_Array['ID'] = $Item_ID;
+$Display_Array['Table_Major_Heading'] = "";
+$Display_Array['Table_Minor_Heading'] = "Controlled";
+$Display_Array['Display_Items'] = array( 
+"ID",
+"Manufacturer",
+"Manufacturer Part #",
+"Serial #",
+"Status",
+"Performance Tested",
+"Warranty Claim Status",
+"RMA #",
+"SO #",
+"(E):Storage ID:reg_storage:Location Name"
+);
+$Display_Array['Column_Width'] = array("80px", "*", "150px");
+$Display_Array['Item_Links'] = "REC-DTL_Parts-Project.php";
+$Display_Array['New_Link_Reference'] = "Project ID";
+
+$Display_Array['MySQL_Action'] = "SELECT * ";
+$Display_Array['MySQL_Table'] = "FROM `rec_parts-controlled` ";
+$Display_Array['MySQL_Filter'] = "WHERE `Project ID` = ".$Item_ID." AND (`Deleted Date` IS NULL OR `Deleted Date` = '".date("Y-m-d")."') ";
+$Display_Array['MySQL_Order'] = "";
+$Display_Array['MySQL_Limit'] = "";
+$Display_Array['MySQL_Offset'] = "";
+
+Dispaly_List_0001($Database_Connection, $Display_Array);
+
+?>
+
 
 </div>
 </body>

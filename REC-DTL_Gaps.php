@@ -26,6 +26,8 @@
 
 // DATE   		|| NAME 					|| MODIFICATION
 // 2020-09-21 	|| Phillip Kraguljac 		|| v1.0.
+// 2021-03-31 	|| Phillip Kraguljac 		|| v1.5.
+// 2021-06-01 	|| Phillip Kraguljac 		|| v1.5.
 
 // /////////////////////////////////////////////////////////////////////// VERSION CONTROL
 ?>
@@ -41,9 +43,22 @@
 
 <title>Gap Record</title>
 </head>
-<body>
+<body onload="<?php echo $Menu_Peference; ?>">
 
 <?php if(isset($_GET['ID'])){$Item_ID = Basic_Filter_Input($_GET['ID']);}else{$Item_ID = null;} ?>
+
+
+<?php // UPLOAD IMAGE
+
+$Display_Array['ID'] = $Item_ID;
+$Display_Array['File_Folder'] = "Gap_Photos";
+$Display_Array['Column_Width'] = array("300px", "*" );
+$Display_Array['IS_Report'] = false;
+$Display_Array['File_Type'] = "Photo";
+
+Upload_Dialog($Database_Connection, $Display_Array);
+
+?>
 
 
 <?php // UPPER PAGE OPTIONS
@@ -59,20 +74,22 @@ Upper_Options_0001($Data);
 
 $Display_Array = null;
 $Display_Array['ID'] = $Item_ID;
-$Display_Array['Table_Major_Heading'] = "GAP";
+$Display_Array['Table_Major_Heading'] = "GAP / HAZARD";
 $Display_Array['Table_Minor_Heading'] = "General Details";
 $Display_Array['Display_Items'] = array("ID",
-"Inspection Point ID",
-"Project ID",
+"(L):Inspection Point ID:REC-DTL_Inspection-Points",
+"(L):Project ID:REC-DTL_Projects",
+"",
 "Stakeholder",
 "Responsible Entity",
 "Threat / Opportunity",
 "Attention Required",
 "Gap Point",
+"",
 "Modified Date",
 "Modified By"
 );
-$Display_Array['Column_Width'] = array("300px", "*" );
+$Display_Array['Column_Width'] = array("300px", "*");
 $Display_Array['Item_Links'] = "";
 
 $Display_Array['MySQL_Action'] = "SELECT * ";

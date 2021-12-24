@@ -27,6 +27,7 @@
 // DATE   		|| NAME 					|| MODIFICATION
 // 2020-10-07 	|| Phillip Kraguljac 		|| v1.1.
 // 2020-10-21 	|| Phillip Kraguljac 		|| v1.1.
+// 2021-04-23 	|| Phillip Kraguljac 		|| v1.5.
 
 // /////////////////////////////////////////////////////////////////////// VERSION CONTROL
 ?>
@@ -43,9 +44,24 @@
 
 <title><?php echo "[".$Heading_Index."]"; ?> <?php echo date("Y-m-d"); ?> Project Risk Report <?php echo "ID:".$_GET['ID']; ?></title>
 </head>
-<body>
+<body onload="">
 
-<?php if(isset($_GET['ID'])){$Item_ID = Basic_Filter_Input($_GET['ID']);}else{$Item_ID = null;} ?>
+<?php if(isset($_GET['Project_ID'])){$Item_ID = Basic_Filter_Input($_GET['Project_ID']);}else{$Item_ID = null;} ?>
+
+
+<?php // SEARCH WIDGET
+
+$Display_Array['Search_Items'] = array("Project_ID");
+$Search_Description = Hidden_Search_0001($Database_Connection, $Display_Array);
+
+?>
+
+
+<?php
+
+Report_Details_0001($Database_Connection, $Report_Array);
+
+?>
 
 
 <?php
@@ -111,6 +127,8 @@ Dispaly_List_0001($Database_Connection, $Display_Array);
 
 ?>
 
+<br>
+<div style="text-align: right;"><button onclick="window.print()">Print</button></div>
 
 </div>
 </body>

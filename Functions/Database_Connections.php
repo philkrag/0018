@@ -34,7 +34,7 @@
 
 $servername = "localhost";
 $username = "root";
-$password = "";
+$password = "FormOpen321*";
 $Database_Name = "main_database";
 
 $Database_Connection = mysqli_connect($servername, $username, $password, $Database_Name);

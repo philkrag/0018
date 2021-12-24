@@ -26,6 +26,10 @@
 
 // DATE   		|| NAME 					|| MODIFICATION
 // 2020-09-21 	|| Phillip Kraguljac 		|| v1.0.
+// 2020-11-25 	|| Phillip Kraguljac 		|| v1.4.
+// 2020-12-16 	|| Phillip Kraguljac 		|| v1.4.
+// 2020-05-07 	|| Phillip Kraguljac 		|| v1.5.
+// 2020-05-27 	|| Phillip Kraguljac 		|| v1.5.
 
 // /////////////////////////////////////////////////////////////////////// VERSION CONTROL
 ?>
@@ -41,17 +45,25 @@
 
 <title>Project Records</title>
 </head>
-<body>
+<body onload="<?php echo $Menu_Peference; ?>">
 
 <?php if(isset($_GET['ID'])){$Item_ID = Basic_Filter_Input($_GET['ID']);}else{$Item_ID = null;} ?>
 
 
+<?php // SEARCH WIDGET
+
+$Display_Array['Search_Items'] = array("ID", "Description", "Stage", "Status");
+$Search_Description = Search_0001($Database_Connection, $Display_Array);
+
+?>
+
+
 <?php // UPPER PAGE OPTIONS
 
-$Data['Total_Items'] = 3;
-$Data['Item_ID'] = array($Item_ID, $Item_ID, $Item_ID);
-$Data['Page'] = array("REP_Projects", "REC-LST_Projects-OnHold", "REC-LST_Projects-Completed");
-$Data['Label'] = array("Report", "On Hold", "Completed");
+$Data['Total_Items'] = 5;
+$Data['Item_ID'] = array($Item_ID, $Item_ID, $Item_ID, $Item_ID, $Item_ID);
+$Data['Page'] = array("REP_Projects", "REC-LST_Projects", "REC-LST_Projects-OnHold", "REC-LST_Projects-Completed", "REC-LST_Projects-Cancelled");
+$Data['Label'] = array("Report", "Current", "On Hold", "Completed", "Cancelled");
 Upper_Options_0002($Data);
 
 ?>
@@ -64,15 +76,15 @@ $Display_Array['ID'] = null;
 $Display_Array['IS_Report'] = false;
 $Display_Array['Table_Major_Heading'] = "PROJECTS";
 $Display_Array['Table_Minor_Heading'] = "Currently Being Undertaken";
-$Display_Array['Display_Items'] = array("ID", "Description", "Internal Priority", "Stage", "Status");
-$Display_Array['Column_Width'] = array("50px", "*", "150px", "150px", "150px");
+$Display_Array['Display_Items'] = array("ID", "Type", "Description", "Internal Priority", "Stage", "Status");
+$Display_Array['Column_Width'] = array("50px", "100px", "*",  "150px", "150px", "150px");
 $Display_Array['Item_Links'] = "REC-DTL_Projects.php";
 $Display_Array['New_Link_Reference'] = "Description";
 
 $Display_Array['MySQL_Action'] = "SELECT * ";
 $Display_Array['MySQL_Table'] = "FROM reg_projects ";
-$Display_Array['MySQL_Filter'] = "WHERE  `Status` IS NULL OR (`Status` != 'Completed' AND `Status` != 'Cancelled' AND `Status` != 'On Hold') AND (`Deleted Date` IS NULL OR `Deleted Date` = '".date("Y-m-d")."') ";
-$Display_Array['MySQL_Order'] = "ORDER BY `Status` ASC";
+$Display_Array['MySQL_Filter'] = "WHERE `Status` IS NULL OR (`Status` != 'Completed' AND `Status` != 'Cancelled' AND `Status` != 'On Hold') AND (`Deleted Date` IS NULL OR `Deleted Date` = '".date("Y-m-d")."') {$Search_Description} ";
+$Display_Array['MySQL_Order'] = "ORDER BY FIELD(`Internal Priority`, 'IMMEDIATE', 'HIGH', 'MODERATE', 'LOW', 'NIL', '', 'WAITING APPROVAL'), `Type` ASC ";
 $Display_Array['MySQL_Limit'] = "";
 $Display_Array['MySQL_Offset'] = "";
 

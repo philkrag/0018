@@ -27,6 +27,7 @@
 // DATE   		|| NAME 					|| MODIFICATION
 // 2020-09-21 	|| Phillip Kraguljac 		|| v1.0.
 // 2020-10-07 	|| Phillip Kraguljac 		|| v1.1.
+// 2021-03-31 	|| Phillip Kraguljac 		|| v1.5. 
 
 // /////////////////////////////////////////////////////////////////////// VERSION CONTROL
 ?>
@@ -42,7 +43,7 @@
 
 <title>Root Cause Analysis - Symptoms</title>
 </head>
-<body>
+<body onload="<?php echo $Menu_Peference; ?>">
 
 <?php if(isset($_GET['ID'])){$Item_ID = Basic_Filter_Input($_GET['ID']);}else{$Item_ID = null;} ?>
 
@@ -65,7 +66,9 @@ $Display_Array['Table_Major_Heading'] = "RCA SYMPTOM";
 $Display_Array['Table_Minor_Heading'] = "General Details";
 $Display_Array['Display_Items'] = array("ID",
 "RCA ID",
+"",
 "Description",
+"",
 "Modified Date",
 "Modified By"
 );
@@ -86,6 +89,8 @@ Dispaly_Details_0001($Database_Connection, $Display_Array);
 
 <?php
 
+$RCA_ID = Retrieve_Database_Entry_0001($Database_Connection, "rec_rcas-symptoms", $Item_ID, "RCA ID");
+
 $Display_Array = null;
 $Display_Array['ID'] = $Item_ID;
 $Display_Array['IS_Report'] = false;
@@ -95,6 +100,9 @@ $Display_Array['Display_Items'] = array("ID", "Category", "Stakeholder", "Descri
 $Display_Array['Column_Width'] = array("50px", "150px", "150px", "*");
 $Display_Array['Item_Links'] = "REC-DTL_RCAs-Causes.php";
 $Display_Array['New_Link_Reference'] = "Symptom ID";
+$Display_Array['Additional_Data'] = array(
+"RCA ID:{$RCA_ID}"
+);
 
 $Display_Array['MySQL_Action'] = "SELECT * ";
 $Display_Array['MySQL_Table'] = "FROM `rec_rcas-causes` ";

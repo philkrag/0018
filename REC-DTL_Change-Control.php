@@ -27,6 +27,7 @@
 // DATE   		|| NAME 					|| MODIFICATION
 // 2020-10-06 	|| Phillip Kraguljac 		|| v1.1.
 // 2020-10-23 	|| Phillip Kraguljac 		|| v1.3.
+// 2021-03-31 	|| Phillip Kraguljac 		|| v1.5. 
 
 // /////////////////////////////////////////////////////////////////////// VERSION CONTROL
 ?>
@@ -42,7 +43,7 @@
 
 <title>Change Control Record</title>
 </head>
-<body>
+<body onload="<?php echo $Menu_Peference; ?>">
 
 <?php if(isset($_GET['ID'])){$Item_ID = Basic_Filter_Input($_GET['ID']);}else{$Item_ID = null;} ?>
 
@@ -54,7 +55,8 @@ $Display_Array['ID'] = $Item_ID;
 $Display_Array['Table_Major_Heading'] = "CHANGE CONTROL";
 $Display_Array['Table_Minor_Heading'] = "General Details";
 $Display_Array['Display_Items'] = array("ID",
-"Project ID",
+"(L):Project ID:REC-DTL_Projects",
+"",
 "Description",
 "Timeline Impact",
 "Budget Impact",
@@ -63,6 +65,7 @@ $Display_Array['Display_Items'] = array("ID",
 "Management Feedback",
 "Approval",
 "Document",
+"",
 "Modified Date",
 "Modified By"
 );

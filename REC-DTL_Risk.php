@@ -27,6 +27,8 @@
 // DATE   		|| NAME 					|| MODIFICATION
 // 2020-09-21 	|| Phillip Kraguljac 		|| v1.0.
 // 2020-10-07 	|| Phillip Kraguljac 		|| v1.1.
+// 2021-03-26 	|| Phillip Kraguljac 		|| v1.5.
+// 2021-03-31 	|| Phillip Kraguljac 		|| v1.5. 
 
 // /////////////////////////////////////////////////////////////////////// VERSION CONTROL
 ?>
@@ -42,9 +44,21 @@
 
 <title>Risk Record</title>
 </head>
-<body>
+<body onload="<?php echo $Menu_Peference; ?>">
 
 <?php if(isset($_GET['ID'])){$Item_ID = Basic_Filter_Input($_GET['ID']);}else{$Item_ID = null;} ?>
+
+
+<?php // UPPER PAGE OPTIONS
+
+$Data['Total_Items'] = 2;
+$Data['Item_ID'] = array(null, null);
+$Data['Page'] = array("FRM_Risk-Assessment", "Help");
+$Data['Bookmark'] = array(null,"Conducting_Root_Causes_Analysis");
+$Data['Label'] = array("Form", "Help");
+Upper_Options_0002($Data);
+
+?>
 
 
 <?php
@@ -54,9 +68,11 @@ $Display_Array['ID'] = $Item_ID;
 $Display_Array['Table_Major_Heading'] = "RISK";
 $Display_Array['Table_Minor_Heading'] = "General Details";
 $Display_Array['Display_Items'] = array("ID",
-"Gap ID",
-"Contingency ID",
-"Project ID",
+"(L):Gap ID:REC-DTL_Gaps",
+"(L):Contingency ID:REC-DTL_Contingencies",
+"(L):Project ID:REC-DTL_Projects",
+"(L):Equipment ID:REC-DTL_Equipment",
+"",
 "Risk Group",
 "Completed Date",
 "Completed By",
@@ -72,6 +88,7 @@ $Display_Array['Display_Items'] = array("ID",
 "Exposure of Occurrence",
 "Health Risk",
 "Commercial Risk",
+"",
 "Modified Date",
 "Modified By"
 );
@@ -124,7 +141,7 @@ Dispaly_List_0001($Database_Connection, $Display_Array);
 $Display_Array = null;
 $Display_Array['ID'] = $Item_ID;
 $Display_Array['Table_Major_Heading'] = "IDENTIFIER(S)";
-$Display_Array['Table_Minor_Heading'] = "...";
+$Display_Array['Table_Minor_Heading'] = "Used for grouping issues.";
 $Display_Array['Display_Items'] = array("ID", "Risk Assessment ID");
 $Display_Array['Column_Width'] = array("80px", "*");
 $Display_Array['Item_Links'] = ".php";

@@ -114,7 +114,7 @@ for ($x = 0; $x < count($Temp_Stat_Array)/2; $x++) { $Colour_Data = $Colour_Data
 ?>
 
 <?php $New_Page_Inset = ""; if($Display_Array['New_Page_At_Print']){$New_Page_Inset = "page-break-before: always";}; ?>
-<canvas id="<?php echo $Display_Array['Table_Major_Heading']; ?>" width="100%" height="100%" style="padding: 0px 0px 0px 0px; max-width:450px; max-height:450px; <?php echo $New_Page_Inset; ?>"></canvas>
+<canvas id="<?php echo $Display_Array['Table_Major_Heading']; ?>" width="100%" height="100%" style="padding: 0px 0px 0px 0px; max-width:350px; max-height:350px; <?php echo $New_Page_Inset; ?>"></canvas>
 
 <script>
 var ctx = document.getElementById('<?php echo $Display_Array['Table_Major_Heading']; ?>');
@@ -240,54 +240,56 @@ for ($x = 0; $x < count($Temp_Stat_Array)/2; $x++) { $Value_Data = $Value_Data.$
 // echo $Value_Data."<br>";
 
 $Colour_Data = "";
-for ($x = 0; $x < count($Temp_Stat_Array)/2; $x++) { $Colour_Data = $Colour_Data."'".$Preset_Colours[$x]."'"; if($x != count($Temp_Stat_Array)/2-1){$Colour_Data =  $Colour_Data.", "; }}
+for ($x = 0; $x < count($Temp_Stat_Array)/2; $x++) { $Colour_Data = $Colour_Data."'".$Preset_Colours[0]."'"; if($x != count($Temp_Stat_Array)/2-1){$Colour_Data =  $Colour_Data.", "; }}
 // echo $Colour_Data."<br>";
 
 ?>
 
 <?php if($Display_Array['New_Page_At_Print']){$New_Page_Inset = "page-break-before: always";}; ?>
-<canvas id="<?php echo $Display_Array['Table_Major_Heading']; ?>" width="100%" height="100%" style="padding: 0px 0px 0px 0px; max-width:450px; max-height:450px; <?php echo $New_Page_Inset; ?>"></canvas>
+<canvas id="<?php echo $Display_Array['Table_Major_Heading']; ?>" width="100%" height="100%" style="padding: 0px 0px 0px 0px; max-width:350px; max-height:350px; <?php echo $New_Page_Inset; ?>"></canvas>
 
 <script>
 var ctx = document.getElementById('<?php echo $Display_Array['Table_Major_Heading']; ?>');
 var myChart = new Chart(ctx, {
     type: 'bar',
-    data: {
-        labels: [
+	data: {
+		labels: [
 		
 		<?php echo $Label_Data; ?>
 		],
-        datasets: [{
-            label: '',
-            data: [
+		datasets: [{
+			label: '',
+		data: [
 			<?php echo $Value_Data; ?>
-			],
-			
+			],			
 			backgroundColor: [
 			<?php echo $Colour_Data; ?>
-			],
-			
-            borderColor: [
+			],			
+			borderColor: [
 			<?php echo $Colour_Data; ?>
-            ],
-            borderWidth: 1,
-			
-        }]
-    },
-    options: {
+			],
+			borderWidth: 1,			
+		}]
+	},
+	options: {
 		title: {
-            display: true,
-			position: '<?php echo $Display_Array['Chart_Alignment']; ?>',
-			
+			display: true,
+			position: '<?php echo $Display_Array['Chart_Alignment']; ?>',			
 			padding: '5',
-            text: '<?php echo $Display_Array['Table_Major_Heading']; ?>'
-        },
+			text: '<?php echo $Display_Array['Table_Major_Heading']; ?>'
+		},
 		legend: {
-            display: false,            
-        },
-		
-        
-    }
+			display: false,            
+		},	
+		scales: {
+			yAxes: [{
+				display: true,
+				ticks: {
+					beginAtZero: true,
+				}		
+			}],
+		},
+	},
 });
 </script>
 
@@ -322,6 +324,7 @@ if(!isset($Display_Array['MySQL_Filter']))($Display_Array['MySQL_Filter']="");
 if(!isset($Display_Array['MySQL_Order']))($Display_Array['MySQL_Order']="");
 if(!isset($Display_Array['MySQL_Limit']))($Display_Array['MySQL_Limit']="");
 if(!isset($Display_Array['MySQL_Offset']))($Display_Array['MySQL_Offset']="");
+
 
 $MySQL_Command_Script = "";
 $MySQL_Command_Script =
@@ -380,7 +383,7 @@ for ($x = 0; $x < count($Temp_Stat_Array)/2; $x++) { $Colour_Data = $Colour_Data
 ?>
 
 <?php if($Display_Array['New_Page_At_Print']){$New_Page_Inset = "page-break-before: always";}; ?>
-<canvas id="<?php echo $Display_Array['Table_Major_Heading']; ?>" width="100%" height="100%" style="padding: 0px 0px 0px 0px; max-width:450px; max-height:450px; <?php echo $New_Page_Inset; ?>"></canvas>
+<canvas id="<?php echo $Display_Array['Table_Major_Heading']; ?>" width="100%" height="100%" style="padding: 0px 0px 0px 0px; max-width:350px; max-height:350px; <?php echo $New_Page_Inset; ?>"></canvas>
 
 <script>
 var ctx = document.getElementById('<?php echo $Display_Array['Table_Major_Heading']; ?>');

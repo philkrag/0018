@@ -50,7 +50,10 @@ echo "</table>";
 ?>
 
 
-<?php function Upper_Options_0001($Data) {
+<?php
+
+function Upper_Options_0001($Data) {
+
 echo "<br>";
 echo "<table style=\"width:100%\">";
 echo "<col width=\"80\">";
@@ -60,8 +63,18 @@ echo "<td></td>";
 echo "</table>";
 }
 
+?>
+
+
+<?php
 
 function Upper_Options_0002($Data) {
+
+// $Data['Total_Items'] = 0;
+// $Data['Item_ID'] = array();
+// $Data['Page'] = array();
+// $Data['Bookmark'] = array();
+// $Data['Label'] = array();
 
 echo "<br>";
 echo "<table style=\"width:100%\">";
@@ -70,7 +83,39 @@ for ($x = 0; $x < $Data['Total_Items']; $x++) {echo "<col width=\"80\">";}
 echo "<col width=\"*\">";
 
 for ($x = 0; $x < $Data['Total_Items']; $x++) {
-echo "<td><form action=\"{$Data['Page'][$x]}.php?ID={$Data['Item_ID'][$x]}\"  method=\"post\"><input class=\"New_Button_Format\" type=\"submit\"  name=\"Submission_Button\" value=\"{$Data['Label'][$x]}\"></form></td>";
+if(isset($Data['Bookmark'])){if($Data['Bookmark'][$x]!=null){$Bookmark_Inset = "#".$Data['Bookmark'][$x];}else{$Bookmark_Inset = "";}}else{$Bookmark_Inset = "";}
+
+echo "<td><form action=\"{$Data['Page'][$x]}.php?ID={$Data['Item_ID'][$x]}{$Bookmark_Inset}\"  method=\"post\"><input class=\"New_Button_Format\" type=\"submit\"  name=\"Submission_Button\" value=\"{$Data['Label'][$x]}\"></form></td>";
+}
+
+echo "<td></td>";
+echo "</table>";
+
+}
+?>
+
+
+<?php
+
+function Upper_Options_0003($Data) {
+
+// $Data['Total_Items'] = 0;
+// $Data['Item_ID'] = array();
+// $Data['Item_ID_Prefix'] = "";
+// $Data['Page'] = array();
+// $Data['Bookmark'] = array();
+// $Data['Label'] = array();
+
+echo "<br>";
+echo "<table style=\"width:100%\">";
+
+for ($x = 0; $x < $Data['Total_Items']; $x++) {echo "<col width=\"80\">";}
+echo "<col width=\"*\">";
+
+for ($x = 0; $x < $Data['Total_Items']; $x++) {
+if(isset($Data['Bookmark'])){if($Data['Bookmark'][$x]!=null){$Bookmark_Inset = "#".$Data['Bookmark'][$x];}else{$Bookmark_Inset = "";}}else{$Bookmark_Inset = "";}
+
+echo "<td><form action=\"{$Data['Page'][$x]}.php?{$Data['Item_ID_Prefix']}={$Data['Item_ID'][$x]}{$Bookmark_Inset}\"  method=\"post\"><input class=\"New_Button_Format\" type=\"submit\"  name=\"Submission_Button\" value=\"{$Data['Label'][$x]}\"></form></td>";
 }
 
 echo "<td></td>";

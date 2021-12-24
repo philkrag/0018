@@ -1,16 +1,17 @@
 
-
-
+/* vertical-align: text-top; */
 
 body  {   
-font-family: "Segoe UI", "Segoe UI Web (West European)", "Segoe UI", -apple-system, BlinkMacSystemFont, "Roboto", "Helvetica Neue", sans-serif;
+/*font-family: "Segoe UI", "Segoe UI Web (West European)", "Segoe UI", -apple-system, BlinkMacSystemFont, "Roboto", "Helvetica Neue", sans-serif;*/
+font-family: Arial, Helvetica, sans-serif;
 font-size: 12px;
 }
 
 
 h1. {   
 color: rgb(0,0,0);
-font-family: "Segoe UI", "Segoe UI Web (West European)", "Segoe UI", -apple-system, BlinkMacSystemFont, "Roboto", "Helvetica Neue", sans-serif;
+/*font-family: "Segoe UI", "Segoe UI Web (West European)", "Segoe UI", -apple-system, BlinkMacSystemFont, "Roboto", "Helvetica Neue", sans-serif;*/
+font-family: Arial, Helvetica, sans-serif;
 font-size: 32px;
 font-weight: 600;
 }
@@ -30,7 +31,8 @@ font-size: 16px;
 
 h1._Report {   
 color: rgb(0,0,0);
-font-family: "Segoe UI", "Segoe UI Web (West European)", "Segoe UI", -apple-system, BlinkMacSystemFont, "Roboto", "Helvetica Neue", sans-serif;
+/*font-family: "Segoe UI", "Segoe UI Web (West European)", "Segoe UI", -apple-system, BlinkMacSystemFont, "Roboto", "Helvetica Neue", sans-serif;*/
+font-family: Arial, Helvetica, sans-serif;
 font-size: 32px;
 font-weight: 600;
 }
@@ -48,11 +50,7 @@ font-size: 16px;
 }
 
 
-
-
-
-
-
+/* MAIN MENU ITEMS */
 .Menu_Icon_Format{
 	
 	font-size:30px;
@@ -64,10 +62,7 @@ font-size: 16px;
 }
 
 
-
-
-
-
+/* DETAIL SECTION ITEMS */
 .Details_Div {
 background-color: rgb(250,250,250);
 }
@@ -76,13 +71,9 @@ background-color: rgb(250,250,250);
 background-color: rgb(255, 255, 255);
 }
 
-
-
 .Details_Table_Report{	
 	background-color: rgb(0, 0, 0);	
 }
-
-
 
 .Details_Label_Cell {
 color: rgb(80,80,80);
@@ -118,8 +109,7 @@ text-align: left;
 } 
 
 .Details_Value_Cell{
-
-
+	
 }
 
 .Details_Value_Cell_Report{
@@ -130,11 +120,35 @@ text-align: left;
 }
 
 
+/* SEARCH SECTION ITEMS */
+.Search_Column_Heading {
+color: rgb(255,255,255);
+font-weight: bold;
+text-align: left;
+padding: 5px 5px 5px 5px;
+background-color: rgb(49, 88, 147);
+} 
+
+.Search_Label_Cell {
+color: rgb(80,80,80);
+font-weight: bold;
+text-align: left;
+padding: 5px 5px 5px 5px;
+background-color: rgb(240,240,240);
+vertical-align:top;
+} 
+
+.Search_Label_Cell_Highlight {
+color: rgb(80,80,80);
+font-weight: bold;
+text-align: left;
+padding: 5px 5px 5px 5px;
+background-color: rgb(255,255,200);
+vertical-align:top;
+} 
 
 
-
-
-
+/* LISTING SECTION ITEMS */
 .List_Div {
 background-color: rgb(250,250,250);
 }
@@ -143,14 +157,16 @@ background-color: rgb(250,250,250);
 background-color: rgb(255, 255, 255);
 }
 
-
 .List_Table {
 
 }
 
+table.List_Table tr:hover td{
+background-color: rgb(255,255,255, 1.0);
+}
 
 .List_Table_Report {
-	background-color: rgb(0,0,0);
+background-color: rgb(0,0,0);
 }
 
 .List_Div_Report {
@@ -173,17 +189,16 @@ padding: 5px 5px 5px 5px;
 background-color: rgb(240,240,240);
 }
 
-
 .List_Content_Cell {
 color: rgb(80,80,80);
-vertical-align: text-top;
+vertical-align: top;
 padding: 5px 5px 5px 5px;
 background-color: rgb(245,245,245);
 } 
 
 .List_Content_Cell_Report {
 color: rgb(0,0,0);
-vertical-align: text-top;
+vertical-align: top;
 padding: 5px 5px 5px 5px;
 background-color: rgb(255,255,255);
 } 
@@ -192,114 +207,118 @@ background-color: rgb(255,255,255);
 color: rgb(80,80,80);
 background-color: rgba(160,240,110,1.0);
 padding: 5px 5px 5px 5px;
-vertical-align: text-top;
+vertical-align: top;
 }
 
 .List_Content_Cell_Green_Report {
 color: rgb(0,0,0);
 background-color: rgba(160,240,110,1.0);
 padding: 5px 5px 5px 5px;
-vertical-align: text-top;
+vertical-align: top;
 }
-
 
 .List_Content_Cell_Green_Stripes {
 background: linear-gradient(45deg, rgba(255,255,255,1.0),  rgba(160,240,110,1.0) 100px);
 color: rgb(80,80,80);
 padding: 5px 5px 5px 5px;
-vertical-align: text-top;
+vertical-align: top;
 }
 
 .List_Content_Cell_Green_Stripes_Report {
 background: linear-gradient(45deg, rgba(255,255,255,1.0),  rgba(160,240,110,1.0) 100px);
 color: rgb(80,80,80);
 padding: 5px 5px 5px 5px;
-vertical-align: text-top;
+vertical-align: top;
 }
 
 .List_Content_Cell_Yellow {
 background-color: rgba(255,240,110, 1.0);
 color: rgb(80,80,80);
 padding: 5px 5px 5px 5px;
-vertical-align: text-top;
+vertical-align: top;
 }
 
 .List_Content_Cell_Yellow_Report {
 background-color: rgba(255,240,110, 1.0);
 color: rgb(0,0,0);
 padding: 5px 5px 5px 5px;
-vertical-align: text-top;
+vertical-align: top;
 }
-
 
 .List_Content_Cell_Orange {
 background-color: rgba(255, 210, 110, 1.0);
 color: rgb(80,80,80);
 padding: 5px 5px 5px 5px;
-vertical-align: text-top;
+vertical-align: top;
 }
 
 .List_Content_Cell_Orange_Report {
 background-color: rgba(255, 210, 110, 1.0);
 color: rgb(0,0,0);
 padding: 5px 5px 5px 5px;
-vertical-align: text-top;
+vertical-align: top;
 }
 
 .List_Content_Cell_Red {
 background-color: rgba(255, 120, 110, 1.0);
 color: rgb(80,80,80);
 padding: 5px 5px 5px 5px;
-vertical-align: text-top;
+vertical-align: top;
 }
 
 .List_Content_Cell_Red_Report {
 background-color: rgba(255, 120, 110, 1.0);
 color: rgb(255,255,255);
 padding: 5px 5px 5px 5px;
-vertical-align: text-top;
+vertical-align: top;
 }
 
 .List_Content_Cell_Blue {
 background-color: rgba(110, 190, 255, 1.0);
 color: rgb(80,80,80);
 padding: 5px 5px 5px 5px;
-vertical-align: text-top;
+vertical-align: top;
 }
 
 .List_Content_Cell_Blue_Report {
 background-color: rgba(110, 190, 255, 1.0);
 color: rgb(0,0,0);
 padding: 5px 5px 5px 5px;
-vertical-align: text-top;
+vertical-align: top;
 }
 
 .List_Content_Cell_Purple {
 background-color: rgb(200,110,255);
 color: rgb(80,80,80);
 padding: 5px 5px 5px 5px;
-vertical-align: text-top;
+vertical-align: top;
+}
+
+.List_Content_Cell_Dark_Grey {
+background-color: rgb(220,220, 220);
+color: rgb(80,80,80);
+padding: 5px 5px 5px 5px;
+vertical-align: top;
 }
 
 .List_Content_Cell_Purple_Report {
 background-color: rgb(200,110,255);
 color: rgb(0,0,0);
 padding: 5px 5px 5px 5px;
-vertical-align: text-top;
+vertical-align: top;
 }
-
 
 .List_Open_Cell {
 color: rgb(80,80,80);
 font-weight: bold;
-vertical-align: text-top;
+vertical-align: top;
 background-color: rgb(240,240,240);
 } 
 
 .List_Open_Cell_Report {
 color: rgb(0,0,0);
 font-weight: bold;
-vertical-align: text-top;
+vertical-align: top;
 background-color: rgb(255,255,255);
 } 
 
@@ -310,10 +329,7 @@ background-color: rgb(255,255,200);
 } 
 
 
-
-
-
-
+/* REPORT SECTION ITEMS */
 
 .Report_Basic_Cell { /*temp guess*/
 
@@ -322,9 +338,7 @@ color: rgb(0,0,0);
 padding: 10px 0px 10px 10px;
 text-align:left;
 vertical-align:top;
-
-} 
-
+}
 
 .Report_Sub_Heading_Cell {/*temp guess*/
 background-color: rgb(255,255,255);
@@ -333,52 +347,40 @@ font-style: italic;
 padding: 10px 10px 10px 0px;
 text-align:right;
 vertical-align:top;
-} 
+}
 
 
-
-
-
-
-
-
-
-
+/* INPUT SECTION ITEMS */
 .Input_Medium_Text_Format {
-  width: 100%;
+  width: 99%;
   height: 200px;
   font-family: Arial, Helvetica, sans-serif;  
 } 
 
 .Input_Text_Format {
-  width: 100%;
+  width: 98.9%;
 } 
 
 .Input_Combobox_Format {
-  width: 100%;
+  width: 99.5%;
 } 
 
 .Input_Number_Format {
-  width: 100%;
+  width: 98.9%;
 } 
 
 .Input_Date_Format {
-  width: 100%;
+  width: 99%;
 } 
 
-
-
 .Submission_Button_Format {
-  width: 100%;
+  width: 99%;
 } 
 
 
 .New_Button_Format{
   width: 100%;
-} 
-
-
-
+}
 
 
 /* MENU */
@@ -392,7 +394,7 @@ vertical-align:top;
   left: 0;
   background-color: rgb(49, 88, 147);
   overflow-x: hidden;
-  transition: 0.5s;
+  transition: 0.0s;
   padding-top: 60px;
 }
 
@@ -402,7 +404,7 @@ vertical-align:top;
   font-size: 20px;
   color: rgb(255, 255, 255);
   display: block;
-  transition: 0.3s;
+  transition: 0.0s;
 }
 
 .sidenav a:hover {

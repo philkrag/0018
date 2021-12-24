@@ -26,6 +26,7 @@
 
 // DATE   		|| NAME 					|| MODIFICATION
 // 2020-09-21 	|| Phillip Kraguljac 		|| v1.0.
+// 2020-02-17 	|| Phillip Kraguljac 		|| v1.4.
 
 // /////////////////////////////////////////////////////////////////////// VERSION CONTROL
 ?>
@@ -41,9 +42,17 @@
 
 <title>Control Record</title>
 </head>
-<body>
+<body onload="<?php echo $Menu_Peference; ?>">
 
 <?php if(isset($_GET['ID'])){$Item_ID = Basic_Filter_Input($_GET['ID']);}else{$Item_ID = null;} ?>
+
+
+<?php // SEARCH WIDGET
+
+$Display_Array['Search_Items'] = array("ID", "Associated Document", "Change Description", "Status");
+$Search_Description = Search_0001($Database_Connection, $Display_Array);
+
+?>
 
 
 <?php // UPPER PAGE OPTIONS
@@ -68,7 +77,7 @@ $Display_Array['New_Link_Reference'] = "Project ID";
 
 $Display_Array['MySQL_Action'] = "SELECT * ";
 $Display_Array['MySQL_Table'] = "FROM `rec_controls` ";
-$Display_Array['MySQL_Filter'] = "WHERE (`Deleted Date` IS NULL OR `Deleted Date` = '".date("Y-m-d")."') ";
+$Display_Array['MySQL_Filter'] = "WHERE (`Deleted Date` IS NULL OR `Deleted Date` = '".date("Y-m-d")."') {$Search_Description} ";
 $Display_Array['MySQL_Order'] = "ORDER BY `Associated Document` ASC ";
 $Display_Array['MySQL_Limit'] = "";
 $Display_Array['MySQL_Offset'] = "";

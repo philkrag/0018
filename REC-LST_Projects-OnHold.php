@@ -41,17 +41,25 @@
 
 <title>Project Records</title>
 </head>
-<body>
+<body onload="<?php echo $Menu_Peference; ?>">
 
 <?php if(isset($_GET['ID'])){$Item_ID = Basic_Filter_Input($_GET['ID']);}else{$Item_ID = null;} ?>
 
 
+<?php // SEARCH WIDGET
+
+$Display_Array['Search_Items'] = array("ID", "Description", "Stage", "Status");
+$Search_Description = Search_0001($Database_Connection, $Display_Array);
+
+?>
+
+
 <?php // UPPER PAGE OPTIONS
 
-$Data['Total_Items'] = 0;
-$Data['Item_ID'] = array($Item_ID, $Item_ID);
-$Data['Page'] = array("REP_Projects");
-$Data['Label'] = array("Report");
+$Data['Total_Items'] = 5;
+$Data['Item_ID'] = array($Item_ID, $Item_ID, $Item_ID, $Item_ID, $Item_ID);
+$Data['Page'] = array("REP_Projects", "REC-LST_Projects", "REC-LST_Projects-OnHold", "REC-LST_Projects-Completed", "REC-LST_Projects-Cancelled");
+$Data['Label'] = array("Report", "Current", "On Hold", "Completed", "Cancelled");
 Upper_Options_0002($Data);
 
 ?>
@@ -71,7 +79,7 @@ $Display_Array['New_Link_Reference'] = "Description";
 
 $Display_Array['MySQL_Action'] = "SELECT * ";
 $Display_Array['MySQL_Table'] = "FROM reg_projects ";
-$Display_Array['MySQL_Filter'] = "WHERE `Status` = 'On Hold' AND (`Deleted Date` IS NULL OR `Deleted Date` = '".date("Y-m-d")."') ";
+$Display_Array['MySQL_Filter'] = "WHERE `Status` = 'On Hold' AND (`Deleted Date` IS NULL OR `Deleted Date` = '".date("Y-m-d")."') {$Search_Description} ";
 $Display_Array['MySQL_Order'] = "ORDER BY `Status` ASC";
 $Display_Array['MySQL_Limit'] = "";
 $Display_Array['MySQL_Offset'] = "";

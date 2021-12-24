@@ -31,6 +31,9 @@
 
 
 <?php
+
+//echo "Password: ".password_hash("", PASSWORD_DEFAULT);
+
 session_start();
 include $_SERVER['DOCUMENT_ROOT'].'/Functions/Database_Connections.php';
 
@@ -68,6 +71,13 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
                             $_SESSION["Logged_In"] = true;
                             $_SESSION["ID"] = $id;
                             $_SESSION["User_Name"] = $User_Name;
+							
+							$sql = "SELECT * FROM `users` WHERE `User Name` = '".$User_Name."'";
+							$result = mysqli_query($Database_Connection, $sql);
+							while($row = mysqli_fetch_assoc($result)) {
+                            $_SESSION["Access_Tags"] = $row['Access Tags'];
+							}
+							
                             header("location: index.php");
                         } else{
                             $password_err = "The password you entered was not valid.";

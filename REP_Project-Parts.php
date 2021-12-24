@@ -27,6 +27,7 @@
 // DATE   		|| NAME 					|| MODIFICATION
 // 2020-10-06 	|| Phillip Kraguljac 		|| v1.1.
 // 2020-10-21 	|| Phillip Kraguljac 		|| v1.1.
+// 2021-04-23 	|| Phillip Kraguljac 		|| v1.5.
 
 // /////////////////////////////////////////////////////////////////////// VERSION CONTROL
 ?>
@@ -43,9 +44,25 @@
 
 <title><?php echo "[".$Heading_Index."]"; ?> <?php echo date("Y-m-d"); ?> Project Parts Report <?php echo "ID:".$_GET['ID']; ?></title>
 </head>
-<body>
+<body onload="">
 
-<?php if(isset($_GET['ID'])){$Item_ID = Basic_Filter_Input($_GET['ID']);}else{$Item_ID = null;} ?>
+<?php if(isset($_GET['Project_ID'])){$Item_ID = Basic_Filter_Input($_GET['Project_ID']);}else{$Item_ID = null;} ?>
+
+
+<?php // SEARCH WIDGET
+
+$Display_Array['Search_Items'] = array("Project_ID");
+$Search_Description = Hidden_Search_0001($Database_Connection, $Display_Array);
+
+?>
+
+
+<?php
+
+$Report_Array['Default'] = false;
+Report_Details_0001($Database_Connection, $Report_Array);
+
+?>
 
 
 <?php
@@ -116,20 +133,22 @@ $Display_Array['Table_Major_Heading'] = "PART(S)";
 $Display_Array['Table_Minor_Heading'] = "...";
 $Display_Array['Display_Items'] = array("ID",
 "Description",
-"OEM",
-"OEM Part #",
+"Manufacturer",
+"Manufacturer Part #",
 "Supplier",
 "Supplier Part #",
-"Estimated Total Required Quantity",
-"Estimated Total Cost ($) exc GST"
+"Unit Price (exc GST)",
+"Unit of Measure",
+"Quantity Required",
+"Status"
 );
-$Display_Array['Column_Width'] = array("50px",  "*", "200px", "200px", "200px", "200px", "100px", "100px");
+$Display_Array['Column_Width'] = array("50px",  "*", "150px", "150px", "150px", "150px", "150px");
 $Display_Array['Item_Links'] = "";
 $Display_Array['New_Link_Reference'] = "";
 
 $Display_Array['MySQL_Action'] = "SELECT * ";
-$Display_Array['MySQL_Table'] = "FROM `rec_parts` ";
-$Display_Array['MySQL_Filter'] = "WHERE `Project ID` = ".$Item_ID." AND (`Deleted Date` IS NULL OR `Deleted Date` = '".date("Y-m-d")."') ";
+$Display_Array['MySQL_Table'] = "FROM `rec_parts-order` ";
+$Display_Array['MySQL_Filter'] = "WHERE `Project ID` = '".$Item_ID."' AND (`Deleted Date` IS NULL OR `Deleted Date` = '".date("Y-m-d")."') {$Search_Description} ";
 $Display_Array['MySQL_Order'] = "";
 $Display_Array['MySQL_Limit'] = "";
 $Display_Array['MySQL_Offset'] = "";
@@ -138,6 +157,8 @@ Dispaly_List_0001($Database_Connection, $Display_Array);
 
 ?>
 
+<br>
+<div style="text-align: right;"><button onclick="window.print()">Print</button></div>
 
 </div>
 </body>

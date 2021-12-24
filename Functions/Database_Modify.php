@@ -25,6 +25,10 @@
 
 // DATE   		|| NAME 					|| MODIFICATION
 // 2020-09-21 	|| Phillip Kraguljac 		|| v1.0.
+// 2020-04-13 	|| Phillip Kraguljac 		|| v1.5.
+// 2021-04-15	|| Phillip Kraguljac 		|| v1.5.
+// 2021-04-19	|| Phillip Kraguljac 		|| v1.5.
+// 2021-09-06	|| Phillip Kraguljac 		|| v1.6.
 
 // /////////////////////////////////////////////////////////////////////// VERSION CONTROL
 ?>
@@ -35,18 +39,93 @@
 
 <?php
 
+
+
 $Method = ""; if(isset($_POST['Method'])){$Method=$_POST['Method'];}
 $Submission_Button = ""; if(isset($_POST['Submission_Button'])){$Submission_Button=$_POST['Submission_Button'];}
-
-
-
-$Data['New_Link_Reference'] = ""; if(isset($_POST['New_Link_Reference'])){$Data['New_Link_Reference']=$_POST['New_Link_Reference'];}
-$Data['Linking_Value'] = ""; if(isset($_POST['Linking_Value'])){$Data['Linking_Value']=$_POST['Linking_Value'];}
+//$Data['New_Link_Reference'] = ""; if(isset($_POST['New_Link_Reference'])){$Data['New_Link_Reference']=$_POST['New_Link_Reference'];}
+//$Data['Linking_Value'] = ""; if(isset($_POST['Linking_Value'])){$Data['Linking_Value']=$_POST['Linking_Value'];}
+echo "<br>".$Submission_Button."<";
 
 if($Submission_Button=="Save"){Save_To_Database($Database_Connection);}
-if($Submission_Button=="New"){New_To_Database($Database_Connection, $Data);}
+//if($Submission_Button=="New"){New_To_Database($Database_Connection, $Data);}
+if($Submission_Button=="New"){New_To_Database($Database_Connection);}
 if($Submission_Button=="Delete"){Delete_From_Database($Database_Connection);}
+if($Submission_Button=="Upload"){Upload_Document($Database_Connection);}
+//if($Submission_Button=="Upload_Photo"){Upload_Document($Database_Connection);}
 
+?>
+
+<?php
+
+function Upload_Document($Database_Connection){
+
+$Report_CSS_Insert= false;
+
+if(!isset($_POST['ID']))($_POST['ID']="");
+if(!isset($_POST['File_Folder']))($_POST['File_Folder']="");
+
+switch ($_POST['File_Folder']) {
+  case "Equipment_Photos": $File_Name = $_POST['ID'].".jpg"; break;
+  case "Equipment_Type_Photos": $File_Name = $_POST['ID'].".jpg"; break;
+  case "Gap_Photos": $File_Name = $_POST['ID'].".jpg"; break;
+  case "Quotes": $File_Name = $_POST['ID'].".pdf"; break;  
+  case "Purchase_Requests": $File_Name = $_POST['ID'].".pdf"; break;  
+  case "Purchase_Orders": $File_Name = $_POST['ID'].".pdf"; break;
+  case "Part_Controlled_Photos": $File_Name = $_POST['ID'].".jpg"; break;  
+  case "Tasks_Documents": $File_Name = $_POST['ID'].".pdf"; break;
+  case "Tasks_Photos": $File_Name = $_POST['ID'].".jpg"; break;
+  case "Storage_Photos": $File_Name = $_POST['ID'].".jpg"; break;  
+  case "Library": $File_Name = $_POST['ID'].".pdf"; break;  
+  default:
+    echo "<td class=\"Details_Label_Cell{$Report_CSS_Insert}\">Upload PDF Copy</td>";
+}
+
+//$Folder_Directory = '..\\'.$_POST['File_Folder']; // NOTE: Sometime triggers premission errors.
+$Folder_Directory = $_SERVER['DOCUMENT_ROOT'].'/'.$_POST['File_Folder']; // NOTE: Sometime triggers premission errors.
+echo $Folder_Directory."<br>";
+
+$uploadFileCheckSuitable = true;
+
+echo "<br>Check if folder exists: ";
+if(is_dir($Folder_Directory)!=false){echo "[OK] Folder Exists [".$Folder_Directory."].";}else{echo "[X] Folder Does Not Exist [".$Folder_Directory."]."; $uploadFileCheckSuitable = false;}
+
+echo "<br>Check if already uploaded: ";
+//if(file_exists($Folder_Directory."\\".$File_Name)!=false){echo "[X] File Exists [".$File_Name."]."; $uploadFileCheckSuitable = false; }else{echo "[OK] File Does Not Exist [".$Folder_Directory."\\".$File_Name."]."; }
+if(file_exists($Folder_Directory."/".$File_Name)!=false){echo "[X] File Exists [".$File_Name."]."; $uploadFileCheckSuitable = false; }else{echo "[OK] File Does Not Exist [".$Folder_Directory."/".$File_Name."]."; }
+
+echo "<br>Check if file supplied: ";
+if(!file_exists($_FILES['File_To_Upload']['tmp_name']) || !is_uploaded_file($_FILES['File_To_Upload']['tmp_name'])) {echo "[X] File Not Supplied."; $uploadFileCheckSuitable = false; }else{ echo "[OK] File Supplied."; }
+
+if($uploadFileCheckSuitable==true){	
+$File_Extension = pathinfo($_FILES['File_To_Upload']['name'], PATHINFO_EXTENSION);
+echo "<br>Check if file extension: ";
+
+switch ($_POST['File_Folder']) {
+  case "Equipment_Photos": if($File_Extension=="jpg" || $File_Extension=="JPG"){echo "[OK] File Extension Correct [".$File_Extension."].";}else{echo "[X] File Extension Incorrect [".$File_Extension."]."; $uploadFileCheckSuitable = false;} break;
+  case "Gap_Photos": if($File_Extension=="jpg" || $File_Extension=="JPG"){echo "[OK] File Extension Correct [".$File_Extension."].";}else{echo "[X] File Extension Incorrect [".$File_Extension."]."; $uploadFileCheckSuitable = false;} break;  
+  case "Tasks_Photos": if($File_Extension=="jpg" || $File_Extension=="JPG"){echo "[OK] File Extension Correct [".$File_Extension."].";}else{echo "[X] File Extension Incorrect [".$File_Extension."]."; $uploadFileCheckSuitable = false;} break;
+  case "Tasks_Photos": if($File_Extension=="jpg" || $File_Extension=="JPG"){echo "[OK] File Extension Correct [".$File_Extension."].";}else{echo "[X] File Extension Incorrect [".$File_Extension."]."; $uploadFileCheckSuitable = false;} break;
+  case "Library": if($File_Extension=="pdf"){echo "[OK] File Extension Correct [".$File_Extension."].";}else{echo "[X] File Extension Incorrect [".$File_Extension."]."; $uploadFileCheckSuitable = false;} break;  
+  default:
+    echo "<td class=\"Details_Label_Cell{$Report_CSS_Insert}\">Upload PDF Copy</td>";
+}
+
+}
+
+if($uploadFileCheckSuitable==true){
+	echo "<br>File being uploaded: ";
+	//move_uploaded_file($_FILES['File_To_Upload']['tmp_name'], $Folder_Directory."\\".$File_Name);	
+	move_uploaded_file($_FILES['File_To_Upload']['tmp_name'], $Folder_Directory."/".$File_Name);	
+	//if(file_exists($Folder_Directory."\\".$File_Name)!=false){echo "[OK] File Loaded [".$File_Name."].";}else{echo "[X] File Failed To Load [".$Folder_Directory."\\".$File_Name."]."; }
+	if(file_exists($Folder_Directory."/".$File_Name)!=false){echo "[OK] File Loaded [".$File_Name."].";}else{echo "[X] File Failed To Load [".$Folder_Directory."/".$File_Name."]."; }
+	}else{
+	echo "<br>[X] File Was Not Uploaded.";
+}
+
+header('Location: '.$_POST['Previous_Page']);
+
+}
 ?>
 
 
@@ -101,12 +180,40 @@ header('Location: '.$_POST['Previous_Page']);
 
 <?php
 
-function New_To_Database($Database_Connection, $Data){
+//function New_To_Database($Database_Connection, $Data){
+function New_To_Database($Database_Connection){
+
+
+
+$Data['New_Link_Reference'] = ""; if(isset($_POST['New_Link_Reference'])){$Data['New_Link_Reference']=$_POST['New_Link_Reference'];}
+$Data['Linking_Value'] = ""; if(isset($_POST['Linking_Value'])){$Data['Linking_Value']=$_POST['Linking_Value'];}
+$Data['Additional_Data'] = ""; if(isset($_POST['Additional_Data'])){$Data['Additional_Data']=$_POST['Additional_Data'];}
+
+
+echo "<br>";
+echo "<br>";
+echo "Test";
+
+echo "<br>";
+echo "<br>";
+echo "Sent=>".$Data['Additional_Data']."<br>";
+
+if($Data['Additional_Data']!=""){
+$Additional_Data = explode(";", $Data['Additional_Data']);
+$Additional_Data_Heading_Insert = ",`".str_replace(":","`,`", $Additional_Data[0])."`";
+$Additional_Data_Values_Insert = ",'".str_replace(":","','", $Additional_Data[1])."'";
+}else{
+$Additional_Data_Heading_Insert = "";
+$Additional_Data_Values_Insert = "";
+}
+
+
+
 
 $Input_Array['MySQL_Action'] = "INSERT INTO ";
 $Input_Array['MySQL_Table'] = $_POST['Table']." ";
 //$Input_Array['MySQL_Set'] = "SET ";
-$Input_Array['MySQL_Set'] = "(`".$Data['New_Link_Reference']."`) VALUES ('".$Data['Linking_Value']."') ";
+$Input_Array['MySQL_Set'] = "(`".$Data['New_Link_Reference']."`".$Additional_Data_Heading_Insert.") VALUES ('".$Data['Linking_Value']."'".$Additional_Data_Values_Insert.") ";
 $Input_Array['MySQL_Filter'] = "";
 $Input_Array['MySQL_Order'] = "";
 $Input_Array['MySQL_Limit'] = "";
@@ -121,7 +228,9 @@ $Input_Array['MySQL_Order'].
 $Input_Array['MySQL_Limit'].
 $Input_Array['MySQL_Offset'];
 
-//echo $MySQL_Command_Script;
+echo "<br>";
+echo "<br>";
+echo $MySQL_Command_Script;
 
 if ($Database_Connection->query($MySQL_Command_Script) === TRUE) {
 echo "<br>Record updated successfully";
@@ -163,7 +272,7 @@ $Comma_Insert = "";
 
 foreach ($_POST as $key => $value) {
 
-if($key!="ID" && $key!="Table_Major_Heading" && $key!="Previous_Page" && $key!="Submission_Button" && $key!="Table" && $key!="Last_Modified_Date"&& $key!="Last_Modified_by_User" && $key!="Last_Modified_Time" && $key!="Deleted_Date"){
+if($key!="ID" && $key!="Table_Major_Heading" && $key!="Previous_Page" && $key!="Submission_Button" && $key!="Table" && $key!="Last_Modified_Date"&& $key!="Last_Modified_by_User" && $key!="Last_Modified_Time" && $key!="Deleted_Date" && $key!="File_Folder"){
 
 if($value!=""){$Value_Inset = "='".Basic_Filter_Input(str_replace("_", " ", $value))."'";}
 else{$Value_Inset = "=NULL";}
@@ -187,12 +296,7 @@ $Input_Array['MySQL_Set'] = $Input_Array['MySQL_Set'].", `Modified Date`='".date
 if($key=="Modified_By"){
 $Input_Array['MySQL_Set'] = $Input_Array['MySQL_Set'].", `Modified By`='".$_SESSION['User_Name']."'";
 }
-
-
-
-
 }
-
 
 
 $Input_Array['MySQL_Set'] = $Input_Array['MySQL_Set']." ";
@@ -208,7 +312,7 @@ $Input_Array['MySQL_Offset'];
 
 //var_dump($_POST);
 
-//echo "<br>".$MySQL_Command_Script; //TECHNICAL SUPPORT PURPOSES
+echo "<br>".$MySQL_Command_Script; //TECHNICAL SUPPORT PURPOSES
 echo "<br>Basic Data Upload: ";
 
 if ($Database_Connection->query($MySQL_Command_Script) === TRUE) {
@@ -216,16 +320,6 @@ echo "<b>Successful</b>";
 } else {
 echo "<b>Error</b> " . $Database_Connection->error;
 }
-
-
-
-
-
-
-
-
-
-
 
 
 if(isset($_POST['Impact_of_Compliance'])) {
@@ -354,43 +448,8 @@ if ($Database_Connection->query($MySQL_Command_Script) === TRUE) {
 echo "<b>Successful</b>";
 } else {
 echo "<b>Error</b> " . $Database_Connection->error;
+}	
 }
-	
-}
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 echo "<br>";
 echo "<br>";

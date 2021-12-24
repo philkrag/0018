@@ -27,6 +27,9 @@
 // DATE   		|| NAME 					|| MODIFICATION
 // 2020-09-21 	|| Phillip Kraguljac 		|| v1.0.
 // 2020-10-07 	|| Phillip Kraguljac 		|| v1.1.
+// 2021-03-26 	|| Phillip Kraguljac 		|| v1.5.
+// 2021-03-31 	|| Phillip Kraguljac 		|| v1.5. 
+// 2021-05-01 	|| Phillip Kraguljac 		|| v1.5. 
 
 // /////////////////////////////////////////////////////////////////////// VERSION CONTROL
 ?>
@@ -42,16 +45,19 @@
 
 <title>Root Cause Analysis Record</title>
 </head>
-<body>
+<body onload="<?php echo $Menu_Peference; ?>">
 
 <?php if(isset($_GET['ID'])){$Item_ID = Basic_Filter_Input($_GET['ID']);}else{$Item_ID = null;} ?>
 
 
 <?php // UPPER PAGE OPTIONS
 
-$Data['Item_ID'] = $Item_ID;
-$Data['Page'] = "REP_RCAs";
-Upper_Options_0001($Data);
+$Data['Total_Items'] = 2;
+$Data['Item_ID'] = array($Item_ID, null);
+$Data['Page'] = array("REP_RCAs", "Help");
+$Data['Bookmark'] = array(null,"Conducting_Root_Causes_Analysis");
+$Data['Label'] = array("Report", "Help");
+Upper_Options_0002($Data);
 
 ?>
 
@@ -64,8 +70,11 @@ $Display_Array['IS_Report'] = false;
 $Display_Array['Table_Major_Heading'] = "ROOT CAUSE ANALYSIS (RCA)";
 $Display_Array['Table_Minor_Heading'] = "General Details";
 $Display_Array['Display_Items'] = array("ID",
-"Project ID",
+"(L):Project ID:REC-DTL_Projects",
+"(L):Equipment ID:REC-DTL_Equipments",
+"",
 "Issue Definition",
+"",
 "Modified Date",
 "Modified By"
 );
