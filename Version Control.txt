@@ -3,4 +3,7 @@
 Date Started	Date Finished	Notes
 2020-10-06	2020-10-23	v1.1
 2020-10-23	2020-10-23	v1.2	Project Task Report.
-2020-10-23	2020-10-23	v1.3	Change Control Improvement.
+2020-10-23	2020-10-23	v1.3	Change control improvement, 
+2020-10-23	2021-03-24	v1.4	Formatting changes, Modifications to RCA.
+2021-03-24	2020-09-06	v1.5	Document Dataset, Equipment Page Created, DB Structure Adjusted. 
+2021-09-06	2021-12-24	v1.6	Access Control Added, Product Management Added, Controller Dialog Added, Controller Status Function Added.
