@@ -1619,8 +1619,8 @@ CREATE TABLE IF NOT EXISTS `users` (
 --
 
 INSERT INTO `users` (`ID`, `User Name`, `Password`, `Access Tags`) VALUES
-(1, 'Administrator', '$2y$10$fVw18lTuuUlw7SOzcKGnx.f7PCebmiFV4Nn7OBLvziXHGInHu0FAG', 'All;'),
-(2, 'Phillip Kraguljac', '$2y$10$fVw18lTuuUlw7SOzcKGnx.f7PCebmiFV4Nn7OBLvziXHGInHu0FAG', 'Equipment Management;');
+(1, 'Administrator', '$2y$10$LC8QmZAQHrvnuhT3VoEbbeJdbxV9kCBxrQTWzhStPNnKSi3JWl5Ji', 'All;'),
+(2, 'User', '$2y$10$LC8QmZAQHrvnuhT3VoEbbeJdbxV9kCBxrQTWzhStPNnKSi3JWl5Ji', 'Equipment Management;');
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
