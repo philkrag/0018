@@ -25,7 +25,8 @@
 // PAGE CREATED DATE: 2020-09-21
 
 // DATE   		|| NAME 					|| MODIFICATION
-// 2021-04-24 	|| Phillip Kraguljac 		|| v1.5. (created)
+// 2021-04-24 	|| Phillip Kraguljac 		|| v1.5 (created)
+// 2022-06-03 	|| Phillip Kraguljac 		|| v1.8
 
 // /////////////////////////////////////////////////////////////////////// VERSION CONTROL
 ?>
@@ -93,7 +94,8 @@ $Central_Values['Inspection Point'] = $row['Inspection Point'];
 $Central_Values['Method of Measure'] = $row['Method of Measure'];
 $Central_Values['Date Status'] = $row['Date Status'];
 $Central_Values['Measurement Status'] = $row['Measurement Status'];
-$Central_Values['Last Inspection Completed'] = $row['Last Inspection Completed'];
+//$Central_Values['Last Inspection Completed'] = $row['Last Inspection Completed'];
+$Central_Values['Last Measured Date'] = $row['Last Measured Date'];
 $Central_Values['Modified Date'] = $row['Modified Date'];
 $Central_Values['Modified By'] = $row['Modified By'];
 
@@ -166,10 +168,13 @@ $Display_Array['MySQL_Order'] = "ORDER BY `Measured Date` DESC ";
 $Display_Array['MySQL_Limit'] = "LIMIT 1 ";
 $Display_Array['MySQL_Offset'] = "";
 
+$Process_Commenced = False;  // MAY NEED TO REMOVE - QUICK FIX
+
 $sql = $Display_Array['MySQL_Action'].$Display_Array['MySQL_Table'].$Display_Array['MySQL_Filter'].$Display_Array['MySQL_Order'].$Display_Array['MySQL_Limit'].$Display_Array['MySQL_Offset'];
 $result = mysqli_query($Database_Connection, $sql);
 while($row = mysqli_fetch_assoc($result)) {
-	
+
+$Process_Commenced = True;
 $Inspected_Values['ID'] = $row['ID'];
 $Inspected_Values['Measured Amount'] = $row['Measured Amount'];
 $Inspected_Values['Unit of Measure'] = $row['Unit of Measure'];
@@ -177,7 +182,9 @@ $Inspected_Values['Measured Date'] = $row['Measured Date'];
 $Inspected_Values['Measure By'] = $row['Measure By'];
 }
 	
-return $Inspected_Values;
+	if($Process_Commenced == True){
+		return $Inspected_Values;
+	}
 }
 
 ?>
@@ -210,7 +217,9 @@ while($row = mysqli_fetch_assoc($result)) {
 
 
 if($row['Inspection Interval (Days)'] != null && $row['Inspection Interval (Days)'] != ""){
+if($Inspected_Values != null){ // MAY NEED TO REMOVE - QUICK FIX
 $Date_Due = date("Y-m-d", strtotime($Inspected_Values['Measured Date']. " +".$row['Inspection Interval (Days)']." day"));
+}
 }else{ $Date_Due = ""; }
 
 // echo "<br>....Inspection Monitoring...[{$row['Inspection Monitoring']}]";
@@ -244,9 +253,12 @@ return $Return_Values;
 
 function Update_Measurement_Stats($Database_Connection, $ID, $Inspected_Values){
 
+if($Inspected_Values != null){ // MAY NEED TO REMOVE - QUICK FIX
 if($Inspected_Values['Measured Amount'] != ""){$Last_Measured_Amount_Inset = ", `Last Measured Amount` = '".$Inspected_Values['Measured Amount']."'"; }else{ $Last_Measured_Amount_Inset = ""; }
 if($Inspected_Values['Unit of Measure'] != ""){$Last_Unit_of_Measure_Inset = ", `Last Unit of Measure` = '".$Inspected_Values['Unit of Measure']."'"; }else{ $Last_Unit_of_Measure_Inset = ""; }
 if($Inspected_Values['Measured Date'] != ""){$Last_Measured_Date_Inset = ", `Last Measured Date` = '".$Inspected_Values['Measured Date']."'"; }else{ $Last_Measured_Date_Inset = ""; }
+if(isset($Inspected_Values['Date Status'])){  }else{ $Inspected_Values['Date Status'] = ""; } // MAY NEED TO REMOVE - QUICK FIX
+if(isset($Inspected_Values['Measurement Status'])){  }else{ $Inspected_Values['Measurement Status'] = ""; } // MAY NEED TO REMOVE - QUICK FIX
 
 $Input_Array['MySQL_Action'] = "UPDATE ";
 $Input_Array['MySQL_Table'] = "`reg_monitoring-points` ";
@@ -278,6 +290,7 @@ if ($Database_Connection->query($MySQL_Command_Script) === TRUE) {
 //echo "[FAILED]<br>";
 }
 }
+}
 
 ?>
 
@@ -285,6 +298,8 @@ if ($Database_Connection->query($MySQL_Command_Script) === TRUE) {
 <?php
 
 function Update_Review_Stats($Database_Connection, $ID, $Specification_Values){
+
+$Process_Feedback = "[OK]";
 
 $Input_Array['MySQL_Action'] = "UPDATE ";
 $Input_Array['MySQL_Table'] = "`reg_monitoring-points` ";
@@ -308,7 +323,7 @@ $Input_Array['MySQL_Offset'];
 
 //echo "<br>".$MySQL_Command_Script; //TECHNICAL SUPPORT PURPOSES
 if ($Database_Connection->query($MySQL_Command_Script) === TRUE) {
-echo "[OK]<br>";
+echo $Process_Feedback."<br>";
 } else {
 echo "[FAILED]<br>";
 }

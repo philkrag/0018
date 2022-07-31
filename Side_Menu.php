@@ -24,40 +24,39 @@
 // PAGE CREATED DATE: 2020-09-21
 
 // DATE   		|| NAME 					|| MODIFICATION
-// 2020-09-21 	|| Phillip Kraguljac 		|| v1.0.
-// 2020-10-06 	|| Phillip Kraguljac 		|| v1.1.
-// 2020-11-25 	|| Phillip Kraguljac 		|| v1.4.
-// 2021-03-24 	|| Phillip Kraguljac 		|| v1.5.
-// 2021-04-11 	|| Phillip Kraguljac 		|| v1.5.
-// 2021-04-15 	|| Phillip Kraguljac 		|| v1.5.
-// 2021-04-24 	|| Phillip Kraguljac 		|| v1.5.
-// 2021-09-08 	|| Phillip Kraguljac 		|| v1.6.
-// 2021-12-01 	|| Phillip Kraguljac 		|| v1.6.
+// 2020-09-21 	|| Phillip Kraguljac 		|| v1.0
+// 2020-10-06 	|| Phillip Kraguljac 		|| v1.1
+// 2020-11-25 	|| Phillip Kraguljac 		|| v1.4
+// 2021-03-24 	|| Phillip Kraguljac 		|| v1.5
+// 2021-04-11 	|| Phillip Kraguljac 		|| v1.5
+// 2021-04-15 	|| Phillip Kraguljac 		|| v1.5
+// 2021-04-24 	|| Phillip Kraguljac 		|| v1.5
+// 2021-09-08 	|| Phillip Kraguljac 		|| v1.6
+// 2021-12-01 	|| Phillip Kraguljac 		|| v1.6
+// 2022-02-04 	|| Phillip Kraguljac 		|| v1.7
+// 2022-06-03 	|| Phillip Kraguljac 		|| v1.8
+// 2022-07-27 	|| Phillip Kraguljac 		|| v1.8
 
 // /////////////////////////////////////////////////////////////////////// VERSION CONTROL
 ?>
 
 
-
 <div id="mySidenav" class="sidenav">
 
-<table style="width:100%; height:100%">
+<table style="width:100%; height:100%;">
 <tr><td style="vertical-align:top;">
 
 <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
-<a href="MAP-Master.php">Map(s)</a>
-<?php if(Allow_Access_0001($Database_Connection, "Equipment Management;")){ ?><a href="REC-LST_Documents.php">Document(s)</a><?php }; ?>
-<?php if(Allow_Access_0001($Database_Connection, "Product Management;")){ ?><a href="REC-LST_Equipment_Types.php">Equipment Type(s)</a><?php }; ?>
-<?php if(Allow_Access_0001($Database_Connection, "Equipment Management;")){ ?><a href="REC-LST_Equipment.php">Equipment</a><?php }; ?>
-<?php if(Allow_Access_0001($Database_Connection, "Equipment Management; Project Management;")){ ?><a href="REC-LST_Tasks.php">Task(s)</a><?php }; ?>
-<?php if(Allow_Access_0001($Database_Connection, "Equipment Management;")){ ?><a href="OPT-Parts.php">Part(s)</a><?php }; ?>
-<?php if(Allow_Access_0001($Database_Connection, "Equipment Management;")){ ?><a href="REC-LST_Parts-Order.php">Order(s)</a><?php }; ?>
-<?php if(Allow_Access_0001($Database_Connection, "Store Management;")){ ?><a href="REC-LST_Storage.php">Storage</a><?php }; ?>
-<?php if(Allow_Access_0001($Database_Connection, "Project Management;")){ ?><a href="REC-LST_Projects.php">Project(s)</a><?php }; ?>
-<?php if(Allow_Access_0001($Database_Connection, "Equipment Management;")){ ?><a href="REC-LST_Controls.php">Control(s)</a><?php }; ?>
-<?php if(Allow_Access_0001($Database_Connection, "Project Management;")){ ?><a href="REC-LST_Contacts.php">Contact(s)</a><?php }; ?>
-<?php if(Allow_Access_0001($Database_Connection, "All")){ ?><a href="OPT-Activities.php">Activities</a><?php }; ?>
-<a href="REC_Calendar.php?Year=<?php echo date("Y"); ?>&Month=<?php echo date("m"); ?>">Calendar</a>
+<?php if(Allow_Access_0001($Database_Connection, "Equipment Management;Documentation;")){ ?><a href="OPT_Site-Management.php">Site<br>Management</a><?php }; ?>
+<?php if(Allow_Access_0001($Database_Connection, "Equipment Management;Documentation;")){ ?><a href="OPT_Document-Management.php">Document<br>Management</a><?php }; ?>
+<?php if(Allow_Access_0001($Database_Connection, "Product Management;")){ ?><a href="OPT_Product-Management.php">Product<br>Management</a><?php }; ?>
+<?php if(Allow_Access_0001($Database_Connection, "Project Management;")){ ?><a href="OPT_Project-Management.php">Project<br>Management</a><?php }; ?>
+<?php if(Allow_Access_0001($Database_Connection, "Equipment Management;")){ ?><a href="OPT_Equipment-Management.php">Equipment<br>Management</a><?php }; ?>
+<?php if(Allow_Access_0001($Database_Connection, "Equipment Management;")){ ?><a href="OPT_Engineering-Management.php">Engineering<br>Management</a><?php }; ?>
+<?php if(Allow_Access_0001($Database_Connection, "Equipment Management;Project Management;")){ ?><a href="OPT_Stores-Management.php">Stores<br>Management</a><?php }; ?>
+<?php if(Allow_Access_0001($Database_Connection, "Equipment Management;Project Management;Product Management;")){ ?><a href="OPT_Risk-Management.php">Risk<br>Management</a><?php }; ?>
+<?php if(Allow_Access_0001($Database_Connection, "All;")){ ?><a href="OPT_Activities.php">Site<br>Maintenance</a><?php }; ?>
+<?php if(Allow_Access_0001($Database_Connection, "All;")){ ?><a href="REC_Calendar.php?Year=<?php echo date("Y"); ?>&Month=<?php echo date("m"); ?>">Calendar</a><?php }; ?>
 
 <!--<a href="">Moodle</a>-->
 <!--<a href="Development_Page.php">Dev</a>-->
@@ -68,7 +67,8 @@
 </td></tr>
 <tr><td style="vertical-align:bottom; padding-bottom:60px;">
 
-<table style="padding:0px 30px 0px 30px; background-color:rgb(49, 88, 147); border: 1px solid white;; width:100%;">
+<!--<table style="padding:0px 30px 0px 30px; background-color:rgb(49, 88, 147); border: 1px solid white;; width:100%;">-->
+<table class="Side_Menu_Login_Section">
 <tr style="color:rgb(255, 255, 255);"><td><b>Logged In User:</b></td></tr>
 <tr><td style="color:rgb(255, 255, 255);"><?php echo htmlspecialchars($_SESSION['User_Name']); ?></td></tr>
 <tr style="color:rgb(255, 255, 255);"><td><b>Access Enabled:</b></td></tr>

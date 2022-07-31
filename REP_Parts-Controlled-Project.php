@@ -25,7 +25,9 @@
 // PAGE CREATED DATE: 2020-09-21
 
 // DATE   		|| NAME 					|| MODIFICATION
-// 2021-10-11 	|| Phillip Kraguljac 		|| v1.6. (created)
+// 2021-10-11 	|| Phillip Kraguljac 		|| v1.6 (created)
+// 2022-01-12 	|| Phillip Kraguljac 		|| v1.7
+// 2022-06-03 	|| Phillip Kraguljac 		|| v1.8
 
 // /////////////////////////////////////////////////////////////////////// VERSION CONTROL
 ?>
@@ -41,9 +43,9 @@
 
 <title>Part (Controlled) Record</title>
 </head>
-<body onload="<?php echo $Menu_Peference; ?>">
+<body onload="">
 
-<?php $Item_ID = Basic_Filter_Input($_GET['ID']); ?>
+<?php if(isset($_GET['ID'])){$Item_ID = Basic_Filter_Input($_GET['ID']);}else{$Item_ID = null;} ?>
 
 
 <?php
@@ -52,6 +54,7 @@ $Report_Array['Display_Week']="";
 $Report_Array['Display_Week_Start_Date']="";
 $Report_Array['Display_Week_Finish_Date']="";
 $Report_Array['Print_Date']="";
+
 Report_Details_0001($Database_Connection, $Report_Array);
 
 ?>
@@ -93,7 +96,7 @@ Dispaly_List_0001($Database_Connection, $Display_Array);
 
 
 <br>
-<div style="text-align: right;"><button onclick="window.print()">Print</button></div>
+<!-- <div style="text-align: right;"><button onclick="window.print()">Print</button></div> -->
 
 
 </div>

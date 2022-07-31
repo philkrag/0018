@@ -25,7 +25,9 @@
 // PAGE CREATED DATE: 2020-09-21
 
 // DATE   		|| NAME 					|| MODIFICATION
-// 2021-09-21 	|| Phillip Kraguljac 		|| v1.6. (created)
+// 2021-09-21 	|| Phillip Kraguljac 		|| v1.6 (created)
+// 2022-06-02 	|| Phillip Kraguljac 		|| v1.8
+// 2022-06-03 	|| Phillip Kraguljac 		|| v1.8
 
 // /////////////////////////////////////////////////////////////////////// VERSION CONTROL
 ?>
@@ -48,7 +50,7 @@
 
 <?php // SEARCH WIDGET
 
-$Display_Array['Search_Items'] = array("ID", "Status", "Warranty Claim Status");
+$Display_Array['Search_Items'] = array("ID", "Status", "Manufacturer", "Manufacturer Part #", "Warranty Claim Status");
 $Search_Description = Search_0001($Database_Connection, $Display_Array);
 
 ?>
@@ -56,15 +58,14 @@ $Search_Description = Search_0001($Database_Connection, $Display_Array);
 
 <?php // UPPER PAGE OPTIONS
 
+$Data['Options_Description'] = "Reports";
 $Data['Total_Items'] = 3;
 $Data['Item_ID'] = array($Item_ID, $Item_ID, $Item_ID, $Item_ID, $Item_ID);
 $Data['Page'] = array("REP_Parts-Controlled-Quick", "REP_Parts-Controlled-Warranty", "REP_Parts-Controlled-Project");
 $Data['Label'] = array("Quick Report", "Warranty Report", "Project Report");
-Upper_Options_0002($Data);
+Upper_Options_0003($Data);
 
 ?>
-
-
 
 
 <?php
@@ -84,9 +85,9 @@ $Display_Array['Display_Items'] = array(
 "Warranty Claim Status",
 "RMA #",
 "SO #",
-"(E):Storage ID:reg_storage:Location Name"
+"(E):Storage ID:reg_storage:Storage Name"
 );
-$Display_Array['Column_Width'] = array("50px", "300px", "300px", "*", "150px", "150px", "150px", "150px", "150px", "150px");
+$Display_Array['Column_Width'] = array("50px", "150px", "300px", "*", "150px", "150px", "150px", "150px", "150px", "150px");
 $Display_Array['Item_Links'] = "REC-DTL_Parts-Controlled.php";
 $Display_Array['New_Link_Reference'] = "Manufacturer";
 

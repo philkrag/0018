@@ -25,19 +25,22 @@
 // PAGE CREATED DATE: 2020-09-21
 
 // DATE   		|| NAME 					|| MODIFICATION
-// 2020-09-21 	|| Phillip Kraguljac 		|| v1.0.
-// 2020-10-07 	|| Phillip Kraguljac 		|| v1.1.
-// 2020-10-23 	|| Phillip Kraguljac 		|| v1.2.
-// 2021-03-25 	|| Phillip Kraguljac 		|| v1.5.
-// 2021-03-31 	|| Phillip Kraguljac 		|| v1.5. 
-// 2021-04-29 	|| Phillip Kraguljac 		|| v1.5. 
-// 2021-05-07 	|| Phillip Kraguljac 		|| v1.5.
-// 2021-05-21 	|| Phillip Kraguljac 		|| v1.5.
-// 2021-05-31 	|| Phillip Kraguljac 		|| v1.5.
-// 2021-08-23 	|| Phillip Kraguljac 		|| v1.5.
-// 2021-09-08 	|| Phillip Kraguljac 		|| v1.6.
-// 2021-09-10 	|| Phillip Kraguljac 		|| v1.6.
-// 2021-09-20 	|| Phillip Kraguljac 		|| v1.6.
+// 2020-09-21 	|| Phillip Kraguljac 		|| v1.0
+// 2020-10-07 	|| Phillip Kraguljac 		|| v1.1
+// 2020-10-23 	|| Phillip Kraguljac 		|| v1.2
+// 2021-03-25 	|| Phillip Kraguljac 		|| v1.5
+// 2021-03-31 	|| Phillip Kraguljac 		|| v1.5 
+// 2021-04-29 	|| Phillip Kraguljac 		|| v1.5 
+// 2021-05-07 	|| Phillip Kraguljac 		|| v1.5
+// 2021-05-21 	|| Phillip Kraguljac 		|| v1.5
+// 2021-05-31 	|| Phillip Kraguljac 		|| v1.5
+// 2021-08-23 	|| Phillip Kraguljac 		|| v1.5
+// 2021-09-08 	|| Phillip Kraguljac 		|| v1.6
+// 2021-09-10 	|| Phillip Kraguljac 		|| v1.6
+// 2021-09-20 	|| Phillip Kraguljac 		|| v1.6
+// 2022-02-11 	|| Phillip Kraguljac 		|| v1.7
+// 2022-05-19 	|| Phillip Kraguljac 		|| v1.7
+// 2022-06-03 	|| Phillip Kraguljac 		|| v1.8
 
 // /////////////////////////////////////////////////////////////////////// VERSION CONTROL
 ?>
@@ -58,16 +61,11 @@
 <?php if(isset($_GET['ID'])){$Item_ID = Basic_Filter_Input($_GET['ID']);}else{$Item_ID = null;} ?>
 
 
-<?php // UPPER PAGE OPTIONS
+<?php // QR QUICK LINK
 
-$Data['Total_Items'] = 2;
-$Data['Item_ID'] = array($Item_ID, $Item_ID);
-$Data['Page'] = array(
-"REP_Task_Internal",
-"REP_Task_Parts"
-);
-$Data['Label'] = array("Internal Report", "Part(s) Report");
-Upper_Options_0002($Data);
+$Display_Array['ID'] = $Item_ID;
+
+Display_Quick_Reference($Database_Connection, $Display_Array);
 
 ?>
 
@@ -98,6 +96,19 @@ Upload_Dialog($Database_Connection, $Display_Array);
 ?>
 
 
+<?php // UPPER PAGE OPTIONS
+
+$Data['Options_Description'] = "Reports";
+$Data['Total_Items'] = 2;
+$Data['Item_Prefix'] = array("ID", "ID");
+$Data['Item_Suffix'] = array($Item_ID, $Item_ID);
+$Data['Page'] = array("REP_Task-Internal", "REP_Task-Parts");
+$Data['Label'] = array("Internal", "Part(s)");
+Upper_Options_0003($Data);
+
+?>
+
+
 <?php
 
 $Display_Array = null;
@@ -105,21 +116,14 @@ $Display_Array['ID'] = $Item_ID;
 $Display_Array['Table_Major_Heading'] = "TASK";
 $Display_Array['Table_Minor_Heading'] = "General Details";
 $Display_Array['Display_Items'] = array("ID",
-"(L):Equipment ID:REC-DTL_Equipment",
-"(L):Specification ID:REC-DTL_Specifications",
-"(L):Project ID:REC-DTL_Projects",
-"(L):Service ID:REC-DTL_Services",
-"(L):Phase ID:REC-DTL_Phases",
-"(L):Part Controlled ID:REC-DTL_Parts-Controlled",
-"",
 "Description",
 "Task Status",
 "Commerical Priority",
 "Health & Safety Priority",
 "Task Type",
-"(L):Client ID:REC-DTL_Contacts",
+"(L):Client ID:REC-DTL_Contacts:REC-LST_Contacts",
 "Identified Date",
-"(L):Technician ID:REC-DTL_Contacts",
+"(L):Technician ID:REC-DTL_Contacts:REC-LST_Contacts",
 "Required Completion Date",
 "Planned Completion Date",
 "Planned Work Date",
@@ -128,6 +132,37 @@ $Display_Array['Display_Items'] = array("ID",
 //"Deleted Date",
 "Modified Date",
 "Modified By"
+);
+$Display_Array['Column_Width'] = array("300px", "*" );
+$Display_Array['Item_Links'] = "";
+
+$Display_Array['MySQL_Action'] = "SELECT * ";
+$Display_Array['MySQL_Table'] = "FROM `rec_tasks` ";
+$Display_Array['MySQL_Filter'] = "WHERE `ID` = ".$Display_Array['ID']." ";
+$Display_Array['MySQL_Order'] = "";
+$Display_Array['MySQL_Limit'] = "LIMIT 1";
+$Display_Array['MySQL_Offset'] = "";
+
+Dispaly_Details_0001($Database_Connection, $Display_Array);
+
+?>
+
+
+<?php
+
+$Display_Array = null;
+$Display_Array['ID'] = $Item_ID;
+$Display_Array['Table_Major_Heading'] = "";
+$Display_Array['Table_Minor_Heading'] = "Associated Links";
+$Display_Array['Display_Items'] = array(
+"(L):Equipment ID:REC-DTL_Equipment:REC-LST_Equipment",
+"(L):Specification ID:REC-DTL_Specifications",
+"(L):Project ID:REC-DTL_Projects:REC-LST_Projects",
+"(L):Service ID:REC-DTL_Services",
+"(L):Phase ID:REC-DTL_Phases",
+"(L):Part Controlled ID:REC-DTL_Parts-Controlled",
+"(L):Work Instruction ID:REP_Work-Instructions"
+//"(L):Work Instruction ID:REC-DTL_Work-Instructions"
 );
 $Display_Array['Column_Width'] = array("300px", "*" );
 $Display_Array['Item_Links'] = "";
@@ -198,8 +233,8 @@ $Display_Array = null;
 $Display_Array['ID'] = $Item_ID;
 $Display_Array['Table_Major_Heading'] = "NOTE(S)";
 $Display_Array['Table_Minor_Heading'] = "...";
-$Display_Array['Display_Items'] = array("ID", "Details", "Identified Date");
-$Display_Array['Column_Width'] = array("50px", "*", "150px");
+$Display_Array['Display_Items'] = array("ID", "(P):Note_Photos", "Details", "Identified Date");
+$Display_Array['Column_Width'] = array("50px", "100px", "*", "150px");
 $Display_Array['Item_Links'] = "REC-DTL_Notes.php";
 $Display_Array['New_Link_Reference'] = "Task ID";
 

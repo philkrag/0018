@@ -25,7 +25,10 @@
 // PAGE CREATED DATE: 2020-09-21
 
 // DATE   		|| NAME 					|| MODIFICATION
-// 2021-03-26 	|| Phillip Kraguljac 		|| v1.5. (created)
+// 2021-03-26 	|| Phillip Kraguljac 		|| v1.5 (created)
+// 2021-09-06	|| Phillip Kraguljac 		|| v1.6 
+// 2021-12-29 	|| Phillip Kraguljac 		|| v1.7 
+// 2022-06-03 	|| Phillip Kraguljac 		|| v1.8 
 
 // /////////////////////////////////////////////////////////////////////// VERSION CONTROL
 ?>
@@ -63,7 +66,7 @@ $Report_CSS_Insert = "";
 <br>
 <div class="List_Div"><br>
 <h2 class="Heading_2" id="Conducting_Root_Causes_Analysis" style="">Version Control</h2>
-<p>Currently Installed Version: 1.5</p>
+<p>Currently Installed Version: 1.8</p>
 <br></div>
 
 <br><br><br>

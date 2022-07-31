@@ -25,7 +25,8 @@
 // PAGE CREATED DATE: 2020-09-21
 
 // DATE   		|| NAME 					|| MODIFICATION
-// 2021-09-07 	|| Phillip Kraguljac 		|| v1.6. (created)
+// 2021-09-07 	|| Phillip Kraguljac 		|| v1.6 (created)
+// 2022-07-31 	|| Phillip Kraguljac 		|| v1.8
 
 // /////////////////////////////////////////////////////////////////////// VERSION CONTROL
 ?>
@@ -42,7 +43,7 @@
 </head>
 <body onload="">
 
-<?php //echo password_hash( "", PASSWORD_DEFAULT); ?>
+<?php // echo password_hash( "Password123*", PASSWORD_DEFAULT); ?>
 
 
 

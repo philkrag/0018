@@ -117,6 +117,7 @@ $Search_Description = ""; // test
 
 for ($x = 0; $x < count($Display_Array['Search_Items']); $x++) {
 $Formatted_Search_Item = str_replace(" ", "_", Basic_Filter_Input($Display_Array['Search_Items'][$x]));
+
 if(isset($_GET[$Formatted_Search_Item])){	
 if($_GET[$Formatted_Search_Item]!=""&&$_GET[$Formatted_Search_Item]!=null){
 $Original_Search_Item = str_replace("_", " ", Basic_Filter_Input($Display_Array['Search_Items'][$x]));
@@ -124,7 +125,7 @@ $Search_Description = $Search_Description." AND `".$Original_Search_Item."` = '"
 }
 }else{}
 }
-
+//echo $Search_Description."<br>";
 return $Search_Description;
 
 }

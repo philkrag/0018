@@ -24,7 +24,8 @@
 // PAGE CREATED DATE: 2020-09-21
 
 // DATE   		|| NAME 					|| MODIFICATION
-// 2020-09-21 	|| Phillip Kraguljac 		|| v1.0.
+// 2020-09-21 	|| Phillip Kraguljac 		|| v1.0
+// 2021-07-27 	|| Phillip Kraguljac 		|| v1.8
 
 // /////////////////////////////////////////////////////////////////////// VERSION CONTROL
 ?>
@@ -37,12 +38,20 @@ include $_SERVER['DOCUMENT_ROOT'].'/Functions/Filter_Tools.php';
 
 ?>
 
+
+<style type="text/css">
+body  {font-family: Arial, Helvetica, sans-serif; font-size: 12px; }
+.Input_Text_Format { width: 98.9%; } 
+.Submission_Button_Format { width: 99%; } 
+</style>
+
+
 <?php
 $User_Name = $Password = $Confirm_Password = "";
 $username_err = $password_err = $confirm_password_err = "";
 $key_err = "";
 if($_SERVER["REQUEST_METHOD"] == "POST"){
-if($_POST["Key"]!="DIT" || $_POST["Key"]!="ABC987")){		
+if($_POST["Key"]!="DIT" && $_POST["Key"]!="ABC987"){		
 $key_err = "A key is needed to create a profile.";		
 }	
 $Inspected_Items = array("<script>");
@@ -117,7 +126,7 @@ mysqli_close($Database_Connection);
 <head>
 <meta charset="UTF-8">
 <title>Sign-up</title>	
-<link rel="stylesheet" type="text/css" href="Site_Style.css">
+<!--<link rel="stylesheet" type="text/css" href="Site_Style.css">-->
 </head>
 
 <div style="background-color: rgb(255,255,255); min-height:30px; text-align:center;">
@@ -126,7 +135,7 @@ mysqli_close($Database_Connection);
 <col width="*">
 <col width="30px">
 <tr>
-<td><img src="Images/DPTI_Logo.png" alt="" width="60px"></td>
+<td><!--<img src="Images/Logo.png" alt="" width="60px">--></td>
 <td style="text-align:left;padding-left:10px;"><h1>Project Management Portal</h1></td>
 <td></td>
 </tr>

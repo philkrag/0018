@@ -25,9 +25,10 @@
 // PAGE CREATED DATE: 2020-09-21
 
 // DATE   		|| NAME 					|| MODIFICATION
-// 2020-12-17 	|| Phillip Kraguljac 		|| v1.4. (Created)
-// 2021-03-31 	|| Phillip Kraguljac 		|| v1.5.
-// 2021-04-24 	|| Phillip Kraguljac 		|| v1.5.
+// 2020-12-17 	|| Phillip Kraguljac 		|| v1.4 (Created)
+// 2021-03-31 	|| Phillip Kraguljac 		|| v1.5
+// 2021-04-24 	|| Phillip Kraguljac 		|| v1.5
+// 2022-06-29 	|| Phillip Kraguljac 		|| v1.8
 
 // /////////////////////////////////////////////////////////////////////// VERSION CONTROL
 ?>
@@ -49,10 +50,19 @@
 <?php if(isset($_GET['ID'])){$Item_ID = Basic_Filter_Input($_GET['ID']);}else{$Item_ID = null;} ?>
 
 
+<?php // QR QUICK LINK
+
+$Display_Array['ID'] = $Item_ID;
+
+Display_Quick_Reference($Database_Connection, $Display_Array);
+
+?>
+
+
 <?php
 
 $Display_Array['ID'] = $Item_ID;
-$Display_Array['File_Folder'] = "Quotes";
+$Display_Array['File_Folder'] = "Purchase_Quotes";
 $Display_Array['Column_Width'] = array("300px", "*" );
 $Display_Array['IS_Report'] = false;
 $Display_Array['File_Type'] = "Document";
