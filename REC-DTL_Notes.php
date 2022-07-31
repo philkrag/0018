@@ -25,13 +25,15 @@
 // PAGE CREATED DATE: 2020-09-21
 
 // DATE   		|| NAME 					|| MODIFICATION
-// 2020-09-21 	|| Phillip Kraguljac 		|| v1.0.
-// 2020-10-06 	|| Phillip Kraguljac 		|| v1.1.
-// 2021-03-31 	|| Phillip Kraguljac 		|| v1.5. 
-// 2021-05-06 	|| Phillip Kraguljac 		|| v1.5. 
-// 2021-05-07 	|| Phillip Kraguljac 		|| v1.5. 
-// 2021-05-13 	|| Phillip Kraguljac 		|| v1.5.
-// 2021-05-31 	|| Phillip Kraguljac 		|| v1.5.
+// 2020-09-21 	|| Phillip Kraguljac 		|| v1.0
+// 2020-10-06 	|| Phillip Kraguljac 		|| v1.1
+// 2021-03-31 	|| Phillip Kraguljac 		|| v1.5 
+// 2021-05-06 	|| Phillip Kraguljac 		|| v1.5 
+// 2021-05-07 	|| Phillip Kraguljac 		|| v1.5 
+// 2021-05-13 	|| Phillip Kraguljac 		|| v1.5
+// 2021-05-31 	|| Phillip Kraguljac 		|| v1.5
+// 2022-02-10 	|| Phillip Kraguljac 		|| v1.7
+// 2022-06-23 	|| Phillip Kraguljac 		|| v1.8
 
 // /////////////////////////////////////////////////////////////////////// VERSION CONTROL
 ?>
@@ -52,6 +54,28 @@
 <?php if(isset($_GET['ID'])){$Item_ID = Basic_Filter_Input($_GET['ID']);}else{$Item_ID = null;} ?>
 
 
+<?php // QR QUICK LINK
+
+$Display_Array['ID'] = $Item_ID;
+
+Display_Quick_Reference($Database_Connection, $Display_Array);
+
+?>
+
+
+<?php // UPLOAD IMAGE
+
+$Display_Array['ID'] = $Item_ID;
+$Display_Array['File_Folder'] = "Note_Photos";
+$Display_Array['Column_Width'] = array("300px", "*" );
+$Display_Array['IS_Report'] = false;
+$Display_Array['File_Type'] = "Photo";
+
+Upload_Dialog($Database_Connection, $Display_Array);
+
+?>
+
+
 <?php
 
 $Display_Array = null;
@@ -65,6 +89,7 @@ $Display_Array['Display_Items'] = array("ID",
 "(L):Inspection Point ID:REC-DTL_Inspection-Points",
 "(L):Part ID:REC-DTL_Parts-Project",
 "(L):Control ID:REC-DTL_Controls",
+"(L):Equipment ID:REC-DTL_Equipment",
 "",
 "Details",
 "Identified Date",
@@ -90,9 +115,29 @@ Dispaly_Details_0001($Database_Connection, $Display_Array);
 
 <?php
 
-echo "Quick Inputs [INSPECTIONS] =>";
+echo "Quick Inputs [ADMIN] =>";
 
 $Function_Id = "001";
+$Input_Id = array("Details");
+$Button_Description = array(
+"Transfer Project"
+);
+$Requested_Value = array(
+"Project Transfer from [ID] to [ID]; "
+);
+$IsComboBox = false;
+Quick_Input_Multiple_0001($Function_Id, $Input_Id, $Button_Description, $Requested_Value, $IsComboBox);
+
+echo "<br><br>";
+
+?>
+
+
+<?php
+
+echo "Quick Inputs [INSPECTIONS] =>";
+
+$Function_Id = "002";
 $Input_Id = array("Details");
 $Button_Description = array(
 "Questions (Interview)"
@@ -112,7 +157,7 @@ echo "<br><br>";
 
 echo "Quick Inputs [BMS MAINTENANCE] =>";
 
-$Function_Id = "002";
+$Function_Id = "003";
 $Input_Id = array("Details", "Details", "Details", "Details", "Details");
 $Button_Description = array(
 "QFM Reference",
@@ -141,7 +186,7 @@ echo "<br><br>";
 
 echo "Quick Inputs [BMS INSPECTION] =>";
 
-$Function_Id = "003";
+$Function_Id = "004";
 $Input_Id = array("Details");
 $Button_Description = array(
 "Internal Parameter OK"
@@ -161,7 +206,7 @@ echo "<br><br>";
 
 echo "Quick Inputs [TECHNICAL SUPPORT] =>";
 
-$Function_Id = "004";
+$Function_Id = "005";
 $Input_Id = array("Details");
 $Button_Description = array(
 "Initial Questions"

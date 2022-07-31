@@ -25,11 +25,13 @@
 // PAGE CREATED DATE: 2020-09-21
 
 // DATE   		|| NAME 					|| MODIFICATION
-// 2020-09-21 	|| Phillip Kraguljac 		|| v1.0.
-// 2020-11-25 	|| Phillip Kraguljac 		|| v1.4.
-// 2020-12-16 	|| Phillip Kraguljac 		|| v1.4.
-// 2020-05-07 	|| Phillip Kraguljac 		|| v1.5.
-// 2020-05-27 	|| Phillip Kraguljac 		|| v1.5.
+// 2020-09-21 	|| Phillip Kraguljac 		|| v1.0
+// 2020-11-25 	|| Phillip Kraguljac 		|| v1.4
+// 2020-12-16 	|| Phillip Kraguljac 		|| v1.4
+// 2020-05-07 	|| Phillip Kraguljac 		|| v1.5
+// 2020-05-27 	|| Phillip Kraguljac 		|| v1.5
+// 2022-06-03 	|| Phillip Kraguljac 		|| v1.8
+// 2022-07-06 	|| Phillip Kraguljac 		|| v1.8
 
 // /////////////////////////////////////////////////////////////////////// VERSION CONTROL
 ?>
@@ -60,11 +62,26 @@ $Search_Description = Search_0001($Database_Connection, $Display_Array);
 
 <?php // UPPER PAGE OPTIONS
 
-$Data['Total_Items'] = 5;
-$Data['Item_ID'] = array($Item_ID, $Item_ID, $Item_ID, $Item_ID, $Item_ID);
-$Data['Page'] = array("REP_Projects", "REC-LST_Projects", "REC-LST_Projects-OnHold", "REC-LST_Projects-Completed", "REC-LST_Projects-Cancelled");
-$Data['Label'] = array("Report", "Current", "On Hold", "Completed", "Cancelled");
-Upper_Options_0002($Data);
+$Data['Options_Description'] = "Reports";
+$Data['Total_Items'] = 1;
+$Data['Item_Prefix'] = array("");
+$Data['Item_Suffix'] = array("");
+$Data['Page'] = array("REP_Projects");
+$Data['Label'] = array("Current");
+Upper_Options_0003($Data);
+
+?>
+
+
+<?php // UPPER PAGE OPTIONS
+
+$Data['Options_Description'] = "Alternative Views";
+$Data['Total_Items'] = 4;
+$Data['Item_Prefix'] = array("", "", "", "");
+$Data['Item_Suffix'] = array("", "", "", "");
+$Data['Page'] = array("REC-LST_Projects", "REC-LST_Projects-OnHold", "REC-LST_Projects-Completed", "REC-LST_Projects-Cancelled");
+$Data['Label'] = array("Current", "On Hold", "Completed", "Cancelled");
+Upper_Options_0003($Data);
 
 ?>
 
@@ -76,8 +93,15 @@ $Display_Array['ID'] = null;
 $Display_Array['IS_Report'] = false;
 $Display_Array['Table_Major_Heading'] = "PROJECTS";
 $Display_Array['Table_Minor_Heading'] = "Currently Being Undertaken";
-$Display_Array['Display_Items'] = array("ID", "Type", "Description", "Internal Priority", "Stage", "Status");
-$Display_Array['Column_Width'] = array("50px", "100px", "*",  "150px", "150px", "150px");
+$Display_Array['Display_Items'] = array(
+"ID",
+"(P):Project_Photos",
+"Type",
+"Description",
+"Internal Priority",
+"Stage",
+"Status");
+$Display_Array['Column_Width'] = array("50px", "150px", "100px", "*",  "150px", "150px", "150px");
 $Display_Array['Item_Links'] = "REC-DTL_Projects.php";
 $Display_Array['New_Link_Reference'] = "Description";
 

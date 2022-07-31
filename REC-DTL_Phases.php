@@ -25,8 +25,10 @@
 // PAGE CREATED DATE: 2020-10-06
 
 // DATE   		|| NAME 					|| MODIFICATION
-// 2020-10-06 	|| Phillip Kraguljac 		|| v1.1.
-// 2021-03-31 	|| Phillip Kraguljac 		|| v1.5. 
+// 2020-10-06 	|| Phillip Kraguljac 		|| v1.1
+// 2021-03-31 	|| Phillip Kraguljac 		|| v1.5 
+// 2022-03-11 	|| Phillip Kraguljac 		|| v1.7 
+// 2022-07-14 	|| Phillip Kraguljac 		|| v1.7 
 
 // /////////////////////////////////////////////////////////////////////// VERSION CONTROL
 ?>
@@ -40,11 +42,33 @@
 
 <?php include $_SERVER['DOCUMENT_ROOT'].'/Formats/Header_Basic.php';?>
 
-<title>Risk Record</title>
+<title>Phase Record</title>
 </head>
 <body onload="<?php echo $Menu_Peference; ?>">
 
 <?php if(isset($_GET['ID'])){$Item_ID = Basic_Filter_Input($_GET['ID']);}else{$Item_ID = null;} ?>
+
+
+<?php // QR QUICK LINK
+
+$Display_Array['ID'] = $Item_ID;
+
+Display_Quick_Reference($Database_Connection, $Display_Array);
+
+?>
+
+
+<?php // UPPER PAGE OPTIONS
+
+$Data['Options_Description'] = "Reports";
+$Data['Total_Items'] = 1;
+$Data['Item_Prefix'] = array("Phase_ID");
+$Data['Item_Suffix'] = array($Item_ID);
+$Data['Page'] = array("REP_Phase");
+$Data['Label'] = array("General");
+Upper_Options_0003($Data);
+
+?>
 
 
 <?php
@@ -75,6 +99,36 @@ $Display_Array['MySQL_Limit'] = "LIMIT 1";
 $Display_Array['MySQL_Offset'] = "";
 
 Dispaly_Details_0001($Database_Connection, $Display_Array);
+
+?>
+
+
+<?php
+
+$Display_Array = null;
+$Display_Array['ID'] = $Item_ID;
+$Display_Array['Table_Major_Heading'] = "TASK(S)";
+$Display_Array['Table_Minor_Heading'] = "...";
+$Display_Array['Display_Items'] = array(
+"ID",
+"(E):Phase ID:rec_phases:Description",
+"(P):Tasks_Photos",
+"Task Status",
+"Planned Work Date",
+"Description"
+);
+$Display_Array['Column_Width'] = array("50px", "200px", "100px", "150px", "150px", "*");
+$Display_Array['Item_Links'] = "REC-DTL_Tasks.php";
+$Display_Array['New_Link_Reference'] = "Phase ID";
+
+$Display_Array['MySQL_Action'] = "SELECT * ";
+$Display_Array['MySQL_Table'] = "FROM `rec_tasks` ";
+$Display_Array['MySQL_Filter'] = "WHERE `Phase ID` = ".$Item_ID." AND (`Deleted Date` IS NULL OR `Deleted Date` = '".date("Y-m-d")."') ";
+$Display_Array['MySQL_Order'] = "ORDER BY `Task Status` ASC, `Planned Work Date` DESC ";
+$Display_Array['MySQL_Limit'] = "";
+$Display_Array['MySQL_Offset'] = "";
+
+Dispaly_List_0001($Database_Connection, $Display_Array);
 
 ?>
 

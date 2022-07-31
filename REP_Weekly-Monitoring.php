@@ -26,6 +26,7 @@
 
 // DATE   		|| NAME 					|| MODIFICATION
 // 2021-05-31 	|| Phillip Kraguljac 		|| v1.5 (created)
+// 2022-01-12 	|| Phillip Kraguljac 		|| v1.7
 
 // /////////////////////////////////////////////////////////////////////// VERSION CONTROL
 ?>
@@ -74,6 +75,8 @@ $Date_3 = Date("Y-m-d", strtotime($Current_Year."W".$Week_3));
 $Report_Array['Display_Week'] = $Week_1;
 $Report_Array['Display_Week_Start_Date'] = $Date_1;
 $Report_Array['Display_Week_Finish_Date'] = $Date_2;
+$Report_Array['Print_Date']="";
+
 Report_Details_0001($Database_Connection, $Report_Array);
 
 ?>
@@ -155,7 +158,7 @@ Report_Details_0002($Database_Connection, $Report_Array)
 
 
 <br>
-<div style="text-align: right;"><button onclick="window.print()">Print</button></div>
+<!-- <div style="text-align: right;"><button onclick="window.print()">Print</button></div> -->
 
 </div>
 </body>

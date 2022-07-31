@@ -24,17 +24,24 @@
 // PAGE CREATED DATE: 2020-09-21
 
 // DATE   		|| NAME 					|| MODIFICATION
-// 2020-09-21 	|| Phillip Kraguljac 		|| v1.0.
-// 2020-04-13 	|| Phillip Kraguljac 		|| v1.5.
-// 2021-04-15	|| Phillip Kraguljac 		|| v1.5.
-// 2021-04-19	|| Phillip Kraguljac 		|| v1.5.
-// 2021-09-06	|| Phillip Kraguljac 		|| v1.6.
+// 2020-09-21 	|| Phillip Kraguljac 		|| v1.0
+// 2020-04-13 	|| Phillip Kraguljac 		|| v1.5
+// 2021-04-15	|| Phillip Kraguljac 		|| v1.5
+// 2021-04-19	|| Phillip Kraguljac 		|| v1.5
+// 2021-09-06	|| Phillip Kraguljac 		|| v1.6
+// 2021-12-29	|| Phillip Kraguljac 		|| v1.7
+// 2022-01-19	|| Phillip Kraguljac 		|| v1.7
+// 2022-02-07	|| Phillip Kraguljac 		|| v1.7
+// 2022-06-16	|| Phillip Kraguljac 		|| v1.8
+// 2022-06-29 	|| Phillip Kraguljac 		|| v1.8
+// 2022-07-06 	|| Phillip Kraguljac 		|| v1.8
+// 2022-07-28 	|| Phillip Kraguljac 		|| v1.8
 
 // /////////////////////////////////////////////////////////////////////// VERSION CONTROL
 ?>
 
 
-<?php include $_SERVER['DOCUMENT_ROOT'].'/Formats/Header_Basic.php';?>
+<?php include $_SERVER['DOCUMENT_ROOT'].'../Formats/Header_Basic.php';?>
 
 
 <?php
@@ -69,14 +76,20 @@ switch ($_POST['File_Folder']) {
   case "Equipment_Photos": $File_Name = $_POST['ID'].".jpg"; break;
   case "Equipment_Type_Photos": $File_Name = $_POST['ID'].".jpg"; break;
   case "Gap_Photos": $File_Name = $_POST['ID'].".jpg"; break;
-  case "Quotes": $File_Name = $_POST['ID'].".pdf"; break;  
+  case "Instruction_Step_Photos": $File_Name = $_POST['ID'].".jpg"; break;  
+  case "Library_Documents": $File_Name = $_POST['ID'].".pdf"; break;  
+  case "Map_Photos": $File_Name = $_POST['ID'].".jpg"; break;
+  case "Note_Photos": $File_Name = $_POST['ID'].".jpg"; break;
+  case "Part_Controlled_Photos": $File_Name = $_POST['ID'].".jpg"; break;
+  case "Project_Photos": $File_Name = $_POST['ID'].".jpg"; break;
+  case "Purchase_Quotes": $File_Name = $_POST['ID'].".pdf"; break;  
   case "Purchase_Requests": $File_Name = $_POST['ID'].".pdf"; break;  
-  case "Purchase_Orders": $File_Name = $_POST['ID'].".pdf"; break;
-  case "Part_Controlled_Photos": $File_Name = $_POST['ID'].".jpg"; break;  
+  case "Purchase_Orders": $File_Name = $_POST['ID'].".pdf"; break;  
+  case "Storage_Photos": $File_Name = $_POST['ID'].".jpg"; break;    
   case "Tasks_Documents": $File_Name = $_POST['ID'].".pdf"; break;
   case "Tasks_Photos": $File_Name = $_POST['ID'].".jpg"; break;
-  case "Storage_Photos": $File_Name = $_POST['ID'].".jpg"; break;  
-  case "Library": $File_Name = $_POST['ID'].".pdf"; break;  
+  case "Tool_Photos": $File_Name = $_POST['ID'].".jpg"; break; 
+  
   default:
     echo "<td class=\"Details_Label_Cell{$Report_CSS_Insert}\">Upload PDF Copy</td>";
 }
@@ -165,6 +178,29 @@ echo "<br>Record updated successfully";
 echo "<br>Error updating record: " . $Database_Connection->error;
 }
 
+
+
+// //////////////////////////////////// VERSION CONTROL UPDATE SECTION
+$Remove_Chars = array("`", " ");
+$Table_Being_Modified = str_replace($Remove_Chars, '', $_POST['Table']);
+
+echo "<br>";
+
+if($Table_Being_Modified == "rec_instruction-steps"){	
+$SQL_Column = "`Work Instruction ID`, `Change Description (Short)`, `Change Description`, `Modified Date`, `Modified By`";
+$SQL_Value = "'".Basic_Filter_Input($_POST['Work_Instructions_ID'])."', 'Step Deleted', '[Auto Update] Step ID#: ".Basic_Filter_Input($_POST['ID'])." Deleted by ".Basic_Filter_Input($_SESSION['User_Name'])."', '".date("Y-m-d")."', '".Basic_Filter_Input($_SESSION['User_Name'])."'";	
+Update_Version($Database_Connection, "rec_version-control", $SQL_Column, $SQL_Value);
+}
+
+if($Table_Being_Modified == "rec_instruction-documents"){	
+$SQL_Column = "`Work Instruction ID`, `Change Description (Short)`, `Change Description`, `Modified Date`, `Modified By`";
+$SQL_Value = "'".Basic_Filter_Input($_POST['Work_Instructions_ID'])."', 'Document Deleted', '[Auto Update] Document ID#: ".Basic_Filter_Input($_POST['ID'])." Deleted by ".Basic_Filter_Input($_SESSION['User_Name'])."', '".date("Y-m-d")."', '".Basic_Filter_Input($_SESSION['User_Name'])."'";	
+Update_Version($Database_Connection, "rec_version-control", $SQL_Column, $SQL_Value);
+}
+
+
+
+
 echo "<br>";
 echo "<br>";
 echo "<form action=\"".$_POST['Previous_Page']."\"  method=\"post\">";
@@ -238,6 +274,32 @@ echo "<br>Record updated successfully";
 echo "<br>Error updating record: " . $Database_Connection->error;
 }
 
+
+
+
+// //////////////////////////////////// VERSION CONTROL UPDATE SECTION
+$Remove_Chars = array("`", " ");
+$Table_Being_Modified = str_replace($Remove_Chars, '', $_POST['Table']);
+
+echo "<br>";
+echo "Table: ".$Table_Being_Modified."<br>";
+
+if($Table_Being_Modified == "rec_instruction-steps"){	
+$SQL_Column = "`Work Instruction ID`, `Change Description (Short)`, `Change Description`, `Modified Date`, `Modified By`";
+$SQL_Value = "'".Basic_Filter_Input($Data['Linking_Value'])."', 'Step Added', '[Auto Update] Step Added by ".Basic_Filter_Input($_SESSION['User_Name'])."', '".date("Y-m-d")."', '".Basic_Filter_Input($_SESSION['User_Name'])."'";	
+Update_Version($Database_Connection, "rec_version-control", $SQL_Column, $SQL_Value);
+}
+
+if($Table_Being_Modified == "rec_instruction-documents"){	
+$SQL_Column = "`Work Instruction ID`, `Change Description (Short)`, `Change Description`, `Modified Date`, `Modified By`";
+$SQL_Value = "'".Basic_Filter_Input($Data['Linking_Value'])."', 'Document Added', '[Auto Update] Document Added by ".Basic_Filter_Input($_SESSION['User_Name'])."', '".date("Y-m-d")."', '".Basic_Filter_Input($_SESSION['User_Name'])."'";	
+Update_Version($Database_Connection, "rec_version-control", $SQL_Column, $SQL_Value);
+}
+
+
+
+
+
 echo "<br>";
 echo "<br>";
 echo "<form action=\"".$_POST['Previous_Page']."\"  method=\"post\">";
@@ -247,7 +309,8 @@ echo "</form>";
 
 $Return_Address = $_POST['Previous_Page']."#".$_POST['Table_Major_Heading'];
 //echo "Return Address: ".$Return_Address;
-header('Location: '.$Return_Address);
+//header('Location: '.$Return_Address);
+echo "<script> window.location.replace(\"".$Return_Address."\"); </script>";
 
 }
 
@@ -451,6 +514,36 @@ echo "<b>Error</b> " . $Database_Connection->error;
 }	
 }
 
+
+
+// //////////////////////////////////// VERSION CONTROL UPDATE SECTION
+$Remove_Chars = array("`", " ");
+$Table_Being_Modified = str_replace($Remove_Chars, '', $_POST['Table']);
+
+echo "<br>";
+
+if($Table_Being_Modified == "rec_instruction-steps"){	
+$SQL_Column = "`Work Instruction ID`, `Change Description (Short)`, `Change Description`, `Modified Date`, `Modified By`";
+$SQL_Value = "'".Basic_Filter_Input($_POST['Work_Instructions_ID'])."', 'Step Modified', '[Auto Update] Step ID#: ".Basic_Filter_Input($_POST['ID'])." Modified by ".Basic_Filter_Input($_SESSION['User_Name'])."', '".date("Y-m-d")."', '".Basic_Filter_Input($_SESSION['User_Name'])."'";	
+Update_Version($Database_Connection, "rec_version-control", $SQL_Column, $SQL_Value);
+}
+
+if($Table_Being_Modified == "rec_instruction-documents"){	
+$SQL_Column = "`Work Instruction ID`, `Change Description (Short)`, `Change Description`, `Modified Date`, `Modified By`";
+$SQL_Value = "'".Basic_Filter_Input($_POST['Work_Instructions_ID'])."', 'Document Modified', '[Auto Update] Document ID#: ".Basic_Filter_Input($_POST['ID'])." Modified by ".Basic_Filter_Input($_SESSION['User_Name'])."', '".date("Y-m-d")."', '".Basic_Filter_Input($_SESSION['User_Name'])."'";	
+Update_Version($Database_Connection, "rec_version-control", $SQL_Column, $SQL_Value);
+}
+
+if($Table_Being_Modified == "reg_work-instructions"){	
+$SQL_Column = "`Work Instruction ID`, `Change Description (Short)`, `Change Description`, `Modified Date`, `Modified By`";
+$SQL_Value = "'".Basic_Filter_Input($_POST['ID'])."', 'Details Modified', '[Auto Update] Main Description Modified by ".Basic_Filter_Input($_SESSION['User_Name'])."', '".date("Y-m-d")."', '".Basic_Filter_Input($_SESSION['User_Name'])."'";	
+Update_Version($Database_Connection, "rec_version-control", $SQL_Column, $SQL_Value);
+}
+
+
+
+
+
 echo "<br>";
 echo "<br>";
 echo "<form action=\"".$_POST['Previous_Page']."\"  method=\"post\">";
@@ -459,11 +552,46 @@ echo "</form>";
 
 $Return_Address = $_POST['Previous_Page']."#".$_POST['Table_Major_Heading'];
 //echo "Return Address: ".$Return_Address;
-header('Location: '.$_POST['Previous_Page']);
-
+//header('Location: '.$_POST['Previous_Page']);
+echo "<script> window.location.replace(\"".$Return_Address."\"); </script>";
 
 
 
 }
 
 ?>
+
+
+
+
+<?php // INSERT ROW ITEM
+
+function Update_Version($Database_Connection, $Table, $SQL_Column, $SQL_Value){
+
+$MySQL_Command_Script = "";
+
+$SQL_Prefix = "INSERT INTO `{$Table}` (";
+//$SQL_Column = "";
+$SQL_Join = ") VALUES (";
+//$SQL_Value = "";
+$SQL_Suffix = ");";
+
+$MySQL_Command_Script = $SQL_Prefix.$SQL_Column.$SQL_Join.$SQL_Value.$SQL_Suffix;
+echo "SQL(3) => ".$MySQL_Command_Script."<br>";
+
+if($MySQL_Command_Script!=null){
+if ($Database_Connection->query($MySQL_Command_Script) === TRUE) {
+echo "<BR>INSERT => ".$MySQL_Command_Script." ";
+echo "Successful";
+} else {
+echo "<BR>INSERT => ".$MySQL_Command_Script." ";
+echo "Error " . $Database_Connection->error;
+}
+}
+
+}
+
+?>
+
+
+

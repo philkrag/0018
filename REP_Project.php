@@ -25,10 +25,12 @@
 // PAGE CREATED DATE: 2020-09-21
 
 // DATE   		|| NAME 					|| MODIFICATION
-// 2020-09-21 	|| Phillip Kraguljac 		|| v1.0.
-// 2020-10-07 	|| Phillip Kraguljac 		|| v1.1.
-// 2020-10-21 	|| Phillip Kraguljac 		|| v1.1.
-// 2021-04-23 	|| Phillip Kraguljac 		|| v1.5.
+// 2020-09-21 	|| Phillip Kraguljac 		|| v1.0
+// 2020-10-07 	|| Phillip Kraguljac 		|| v1.1
+// 2020-10-21 	|| Phillip Kraguljac 		|| v1.1
+// 2021-04-23 	|| Phillip Kraguljac 		|| v1.5
+// 2022-01-12 	|| Phillip Kraguljac 		|| v1.7
+// 2022-07-13 	|| Phillip Kraguljac 		|| v1.8
 
 // /////////////////////////////////////////////////////////////////////// VERSION CONTROL
 ?>
@@ -43,7 +45,8 @@
 
 <?php include $_SERVER['DOCUMENT_ROOT'].'/Formats/Header_Basic.php';?>
 
-<title><?php echo "[".$Heading_Index."]"; ?> <?php echo date("Y-m-d"); ?> Project Report <?php echo "ID:".$_GET['ID']; ?></title>
+<title><?php echo "[".$_GET['Project_ID']."]"; ?> Project Report <?php echo date("Y-m-d"); ?></title>
+
 </head>
 <body onload="">
 
@@ -64,7 +67,22 @@ $Report_Array['Display_Week']="";
 $Report_Array['Display_Week_Start_Date']="";
 $Report_Array['Display_Week_Finish_Date']="";
 $Report_Array['Print_Date']="";
+
 Report_Details_0001($Database_Connection, $Report_Array);
+
+?>
+
+
+<?php // UPLOAD IMAGE
+
+$Display_Array['ID'] = $Item_ID;
+$Display_Array['IS_Report'] = true;
+$Display_Array['File_Folder'] = "Project_Photos";
+$Display_Array['Column_Width'] = array("300px", "*" );
+$Display_Array['IS_Report'] = false;
+$Display_Array['File_Type'] = "Photo";
+
+Upload_Dialog($Database_Connection, $Display_Array);
 
 ?>
 
@@ -98,6 +116,31 @@ $Display_Array['MySQL_Limit'] = "LIMIT 1";
 $Display_Array['MySQL_Offset'] = "";
 
 Dispaly_Details_0001($Database_Connection, $Display_Array);
+
+?>
+
+
+<?php
+
+$Display_Array = null;
+$Display_Array['ID'] = $Item_ID;
+$Display_Array['IS_Report'] = true;
+$Display_Array['New_Page_At_Print'] = false;
+$Display_Array['Table_Major_Heading'] = "PHASE(S)";
+$Display_Array['Table_Minor_Heading'] = "...";
+$Display_Array['Display_Items'] = array("ID", "Step", "Description","Status");
+$Display_Array['Column_Width'] = array("50px", "150px", "*", "150px");
+$Display_Array['Item_Links'] = "";
+$Display_Array['New_Link_Reference'] = "";
+
+$Display_Array['MySQL_Action'] = "SELECT * ";
+$Display_Array['MySQL_Table'] = "FROM `rec_phases` ";
+$Display_Array['MySQL_Filter'] = "WHERE (`Deleted Date` IS NULL OR `Deleted Date` = '".date("Y-m-d")."') {$Search_Description} ";
+$Display_Array['MySQL_Order'] = "ORDER BY `Step` ASC";
+$Display_Array['MySQL_Limit'] = "";
+$Display_Array['MySQL_Offset'] = "";
+
+Dispaly_List_0001($Database_Connection, $Display_Array);
 
 ?>
 
@@ -167,7 +210,7 @@ $Display_Array['New_Link_Reference'] = "Project ID";
 
 $Display_Array['MySQL_Action'] = "SELECT * ";
 $Display_Array['MySQL_Table'] = "FROM `rec_inspection-points` ";
-$Display_Array['MySQL_Filter'] = "WHERE AND (`Deleted Date` IS NULL OR `Deleted Date` = '".date("Y-m-d")."') {$Search_Description} ";
+$Display_Array['MySQL_Filter'] = "WHERE (`Deleted Date` IS NULL OR `Deleted Date` = '".date("Y-m-d")."') {$Search_Description} ";
 $Display_Array['MySQL_Order'] = "";
 $Display_Array['MySQL_Limit'] = "";
 $Display_Array['MySQL_Offset'] = "";
@@ -246,11 +289,12 @@ $Display_Array['Table_Major_Heading'] = "TASK(S)";
 $Display_Array['Table_Minor_Heading'] = "...";
 $Display_Array['Display_Items'] = array(
 "ID",
+"(P):Tasks_Photos:100px",
 "(E):Phase ID:rec_phases:Description",
 "Task Status",
 "Description"
 );
-$Display_Array['Column_Width'] = array("50px", "150px", "150px", "*");
+$Display_Array['Column_Width'] = array("50px", "100px", "150px", "150px", "*");
 $Display_Array['Item_Links'] = "REC_Tasks.php";
 $Display_Array['New_Link_Reference'] = "Project ID";
 
@@ -265,8 +309,9 @@ Dispaly_List_0001($Database_Connection, $Display_Array);
 
 ?>
 
+
 <br>
-<div style="text-align: right;"><button onclick="window.print()">Print</button></div>
+<!-- <div style="text-align: right;"><button onclick="window.print()">Print</button></div> -->
 
 </div>
 </body>

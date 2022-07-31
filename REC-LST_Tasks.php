@@ -49,7 +49,7 @@
 
 <?php // SEARCH WIDGET
 
-$Display_Array['Search_Items'] = array("ID", "Description", "Task Type", "Task Status", "Technician ID", "Identified Date");
+$Display_Array['Search_Items'] = array("ID", "Description", "Task Type", "Task Status", "Technician ID", "Equipment ID", "Identified Date");
 $Search_Description = Search_0001($Database_Connection, $Display_Array);
 
 ?>
@@ -99,7 +99,7 @@ $Display_Array['New_Link_Reference'] = "Description";
 $Display_Array['MySQL_Action'] = "SELECT * ";
 $Display_Array['MySQL_Table'] = "FROM `rec_tasks` ";
 $Display_Array['MySQL_Filter'] = "WHERE (`Deleted Date` IS NULL OR `Deleted Date` = '".date("Y-m-d")."') {$Search_Description} ";
-$Display_Array['MySQL_Order'] = " ORDER BY FIELD(`Task Status`, 'Started', 'Waiting Labour', 'Waiting Information', 'Completed') ASC ";
+$Display_Array['MySQL_Order'] = " ORDER BY FIELD(`Task Status`, 'Started', 'Monitoring', 'Waiting Labour', 'Waiting Information', 'On Hold', 'Completed', 'Cancelled') ASC ";
 $Display_Array['MySQL_Limit'] = "";
 $Display_Array['MySQL_Offset'] = "";
 

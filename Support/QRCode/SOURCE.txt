@@ -1,0 +1,4 @@
+http://phpqrcode.sourceforge.net/index.php#demo
+
+FOUND ALSO:
+https://www.php.net/manual/en/image.installation.php

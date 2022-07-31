@@ -25,10 +25,13 @@
 // PAGE CREATED DATE: 2021-04-15
 
 // DATE   		|| NAME 					|| MODIFICATION
-// 2021-04-15 	|| Phillip Kraguljac 		|| v1.5.
-// 2021-04-23 	|| Phillip Kraguljac 		|| v1.5.
-// 2021-05-03 	|| Phillip Kraguljac 		|| v1.5.
-// 2021-05-14 	|| Phillip Kraguljac 		|| v1.5.
+// 2021-04-15 	|| Phillip Kraguljac 		|| v1.5
+// 2021-04-23 	|| Phillip Kraguljac 		|| v1.5
+// 2021-05-03 	|| Phillip Kraguljac 		|| v1.5
+// 2021-05-14 	|| Phillip Kraguljac 		|| v1.5
+// 2022-01-12 	|| Phillip Kraguljac 		|| v1.7
+// 2022-02-10 	|| Phillip Kraguljac 		|| v1.7
+// 2022-02-18 	|| Phillip Kraguljac 		|| v1.7
 
 // /////////////////////////////////////////////////////////////////////// VERSION CONTROL
 ?>
@@ -59,7 +62,8 @@ if(isset($_GET['Week'])){$Week = Basic_Filter_Input($_GET['Week']);}else{$Week =
 
 $Current_Year =  Date("Y", strtotime("now"));
 
-$Week_1 = $Week;
+//$Week_1 = $Week;
+$Week_1 = str_pad((intval($Week)),2,"0", STR_PAD_LEFT);
 $Week_2 = str_pad((intval($Week)+1),2,"0", STR_PAD_LEFT);
 $Week_3 = str_pad((intval($Week)+2),2,"0", STR_PAD_LEFT);
 
@@ -75,6 +79,8 @@ $Date_3 = Date("Y-m-d", strtotime($Current_Year."W".$Week_3));
 $Report_Array['Display_Week'] = $Week_1;
 $Report_Array['Display_Week_Start_Date'] = $Date_1;
 $Report_Array['Display_Week_Finish_Date'] = $Date_2;
+$Report_Array['Print_Date']="";
+
 Report_Details_0001($Database_Connection, $Report_Array);
 
 ?>
@@ -90,10 +96,11 @@ $Display_Array['Table_Minor_Heading'] = "Completed within the week.";
 $Display_Array['Display_Items'] = array(
 "ID",
 "Description",
-"Person Responsible",
+"(E):Technician ID:reg_contacts:First Name",
+"(E):Technician ID:reg_contacts:Last Name",
 "Actual Completed Date"
 );
-$Display_Array['Column_Width'] = array("50px", "*", "150px", "150px");
+$Display_Array['Column_Width'] = array("50px", "*", "150px", "150px", "150px");
 $Display_Array['Item_Links'] = "REC-DTL_Tasks.php";
 $Display_Array['New_Link_Reference'] = "Project ID";
 
@@ -119,10 +126,11 @@ $Display_Array['Table_Minor_Heading'] = "Indentified within the week.";
 $Display_Array['Display_Items'] = array(
 "ID",
 "Description",
-"Person Responsible",
+"(E):Technician ID:reg_contacts:First Name",
+"(E):Technician ID:reg_contacts:Last Name",
 "Identified Date"
 );
-$Display_Array['Column_Width'] = array("50px", "*", "150px", "150px");
+$Display_Array['Column_Width'] = array("50px", "*", "150px", "150px", "150px");
 $Display_Array['Item_Links'] = "REC-DTL_Tasks.php";
 $Display_Array['New_Link_Reference'] = "Project ID";
 
@@ -178,7 +186,7 @@ Report_Details_0002($Database_Connection, $Report_Array)
 
 
 <br>
-<div style="text-align: right;"><button onclick="window.print()">Print</button></div>
+<!-- <div style="text-align: right;"><button onclick="window.print()">Print</button></div> -->
 
 </div>
 </body>

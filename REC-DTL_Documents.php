@@ -25,14 +25,17 @@
 // PAGE CREATED DATE: 2020-09-21
 
 // DATE   		|| NAME 					|| MODIFICATION
-// 2020-12-17 	|| Phillip Kraguljac 		|| v1.4. (Created)
-// 2021-03-24 	|| Phillip Kraguljac 		|| v1.5.
-// 2021-03-31 	|| Phillip Kraguljac 		|| v1.5. 
-// 2021-04-11 	|| Phillip Kraguljac 		|| v1.5. 
-// 2021-04-24 	|| Phillip Kraguljac 		|| v1.5.
-// 2021-04-28 	|| Phillip Kraguljac 		|| v1.5.
-// 2021-05-20 	|| Phillip Kraguljac 		|| v1.5.
-// 2021-09-06 	|| Phillip Kraguljac 		|| v1.6.
+// 2020-12-17 	|| Phillip Kraguljac 		|| v1.4 (Created)
+// 2021-03-24 	|| Phillip Kraguljac 		|| v1.5
+// 2021-03-31 	|| Phillip Kraguljac 		|| v1.5 
+// 2021-04-11 	|| Phillip Kraguljac 		|| v1.5 
+// 2021-04-24 	|| Phillip Kraguljac 		|| v1.5
+// 2021-04-28 	|| Phillip Kraguljac 		|| v1.5
+// 2021-05-20 	|| Phillip Kraguljac 		|| v1.5
+// 2021-09-06 	|| Phillip Kraguljac 		|| v1.6
+// 2022-01-12 	|| Phillip Kraguljac 		|| v1.7
+// 2022-02-01 	|| Phillip Kraguljac 		|| v1.7
+// 2022-06-29 	|| Phillip Kraguljac 		|| v1.8
 
 // /////////////////////////////////////////////////////////////////////// VERSION CONTROL
 ?>
@@ -54,12 +57,21 @@
 <?php if(isset($_GET['ID'])){$Item_ID = Basic_Filter_Input($_GET['ID']);}else{$Item_ID = null;} ?>
 
 
+<?php // QR QUICK LINK
+
+$Display_Array['ID'] = $Item_ID;
+
+Display_Quick_Reference($Database_Connection, $Display_Array);
+
+?>
+
+
 <?php // UPLOAD PDF
 
 $Release_ID = Retrieve_Database_Last_Entry_0001($Database_Connection, "rec_documents-release", $Item_ID, "Published Date", "ID");
 
 $Display_Array['ID'] = $Release_ID;
-$Display_Array['File_Folder'] = "Library";
+$Display_Array['File_Folder'] = "Library_Documents";
 $Display_Array['Column_Width'] = array("300px", "*" );
 $Display_Array['IS_Report'] = false;
 $Display_Array['IS_Shortcut'] = true;
@@ -80,7 +92,8 @@ $Display_Array['Table_Minor_Heading'] = "General Details";
 $Display_Array['Display_Items'] = array("ID",
 "",
 "Document Title",
-"Document Title (Short)",
+"Type",
+"Discipline",
 "Site Relevant",
 "Publisher",
 "",
@@ -116,7 +129,7 @@ $Display_Array['New_Link_Reference'] = "Document ID";
 $Display_Array['MySQL_Action'] = "SELECT * ";
 $Display_Array['MySQL_Table'] = "FROM `rec_documents-release` ";
 $Display_Array['MySQL_Filter'] = "WHERE `Document ID` = '".$Item_ID."' AND (`Deleted Date` IS NULL OR `Deleted Date` = '".date("Y-m-d")."') ";
-$Display_Array['MySQL_Order'] = "";
+$Display_Array['MySQL_Order'] = "ORDER BY `Published Date` DESC";
 $Display_Array['MySQL_Limit'] = "";
 $Display_Array['MySQL_Offset'] = "";
 

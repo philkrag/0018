@@ -25,8 +25,10 @@
 // PAGE CREATED DATE: 2021-04-24
 
 // DATE   		|| NAME 					|| MODIFICATION
-// 2021-04-24 	|| Phillip Kraguljac 		|| v1.5.
-// 2021-04-28 	|| Phillip Kraguljac 		|| v1.5.
+// 2021-04-24 	|| Phillip Kraguljac 		|| v1.5
+// 2021-04-28 	|| Phillip Kraguljac 		|| v1.5
+// 2022-01-12 	|| Phillip Kraguljac 		|| v1.7
+// 2022-07-29 	|| Phillip Kraguljac 		|| v1.8
 
 // /////////////////////////////////////////////////////////////////////// VERSION CONTROL
 ?>
@@ -41,7 +43,8 @@
 
 <?php include $_SERVER['DOCUMENT_ROOT'].'/Formats/Header_Basic.php';?>
 
-<title><?php echo "[".$Heading_Index."]"; ?> <?php echo date("Y-m-d"); ?> Equipment Inspection Point Report <?php echo "ID:".$_GET['ID']; ?></title>
+<title><?php echo "[".$_GET['Equipment_ID']."]"; ?> Equipment Serviciability Report <?php echo date("Y-m-d"); ?></title>
+
 </head>
 <body onload="">
 
@@ -58,6 +61,11 @@ $Search_Description = Hidden_Search_0001($Database_Connection, $Display_Array);
 
 <?php
 
+$Report_Array['Display_Week']="";
+$Report_Array['Display_Week_Start_Date']="";
+$Report_Array['Display_Week_Finish_Date']="";
+$Report_Array['Print_Date']="";
+
 Report_Details_0001($Database_Connection, $Report_Array);
 
 ?>
@@ -71,9 +79,10 @@ $Display_Array['IS_Report'] = true;
 $Display_Array['Table_Major_Heading'] = "EQUIPMENT";
 $Display_Array['Table_Minor_Heading'] = "Details";
 $Display_Array['Display_Items'] = array("ID",
-"Equipment",
+"Equipment Name",
 "Part",
 "Component",
+"Equipment Name",
 "Comments"
 );
 $Display_Array['Column_Width'] = array("300px", "*" );
@@ -125,7 +134,7 @@ Report_Details_0002($Database_Connection, $Report_Array)
 
 
 <br>
-<div style="text-align: right;"><button onclick="window.print()">Print</button></div>
+<!-- <div style="text-align: right;"><button onclick="window.print()">Print</button></div> -->
 
 </div>
 </body>

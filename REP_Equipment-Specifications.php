@@ -25,7 +25,12 @@
 // PAGE CREATED DATE: 2021-04-24
 
 // DATE   		|| NAME 					|| MODIFICATION
-// 2021-05-18 	|| Phillip Kraguljac 		|| v1.5.(created)
+// 2020-10-07 	|| Phillip Kraguljac 		|| v1.1
+// 2020-10-21 	|| Phillip Kraguljac 		|| v1.1
+// 2021-03-26 	|| Phillip Kraguljac 		|| v1.5
+// 2021-04-23 	|| Phillip Kraguljac 		|| v1.5
+// 2022-01-12 	|| Phillip Kraguljac 		|| v1.7
+// 2022-06-03 	|| Phillip Kraguljac 		|| v1.8
 
 // /////////////////////////////////////////////////////////////////////// VERSION CONTROL
 ?>
@@ -49,6 +54,11 @@
 
 <?php
 
+$Report_Array['Display_Week']="";
+$Report_Array['Display_Week_Start_Date']="";
+$Report_Array['Display_Week_Finish_Date']="";
+$Report_Array['Print_Date']="";
+
 Report_Details_0001($Database_Connection, $Report_Array);
 
 ?>
@@ -59,14 +69,14 @@ Report_Details_0001($Database_Connection, $Report_Array);
 $Display_Array = null;
 $Display_Array['ID'] = $Item_ID;
 $Display_Array['IS_Report'] = true;
-$Display_Array['Table_Major_Heading'] = "SPECIFICATION LIST";
+$Display_Array['Table_Major_Heading'] = "";
 $Display_Array['Table_Minor_Heading'] = "Details";
-$Display_Array['Display_Items'] = array("ID",
-"Principal System",
-"Equipment",
-"Part ID",
-"Component ID",
-"Comments"
+$Display_Array['Display_Items'] = array(
+"ID",
+"Equipment Name",
+"Part",
+"Component",
+"Serial Number"
 );
 $Display_Array['Column_Width'] = array("300px", "*" );
 $Display_Array['Item_Links'] = "";
@@ -106,7 +116,7 @@ $Display_Array['New_Link_Reference'] = "";
 
 $Display_Array['MySQL_Action'] = "SELECT * ";
 $Display_Array['MySQL_Table'] = "FROM `rec_specifications` ";
-$Display_Array['MySQL_Filter'] = "WHERE `Monitoring Point ID` IS NOT NULL AND (`Deleted Date` IS NULL OR `Deleted Date` = '".date("Y-m-d")."') ";
+$Display_Array['MySQL_Filter'] = "WHERE `Equipment ID` = 12 AND (`Deleted Date` IS NULL OR `Deleted Date` = '".date("Y-m-d")."') ";
 $Display_Array['MySQL_Order'] = "ORDER BY `Monitoring Point ID` ASC ";
 $Display_Array['MySQL_Limit'] = "";
 $Display_Array['MySQL_Offset'] = "";
@@ -126,7 +136,7 @@ Report_Details_0002($Database_Connection, $Report_Array)
 
 
 <br>
-<div style="text-align: right;"><button onclick="window.print()">Print</button></div>
+<!-- <div style="text-align: right;"><button onclick="window.print()">Print</button></div> -->
 
 </div>
 </body>

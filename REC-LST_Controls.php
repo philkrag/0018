@@ -25,8 +25,9 @@
 // PAGE CREATED DATE: 2020-09-21
 
 // DATE   		|| NAME 					|| MODIFICATION
-// 2020-09-21 	|| Phillip Kraguljac 		|| v1.0.
-// 2020-02-17 	|| Phillip Kraguljac 		|| v1.4.
+// 2020-09-21 	|| Phillip Kraguljac 		|| v1.0
+// 2020-02-17 	|| Phillip Kraguljac 		|| v1.4
+// 2022-06-03 	|| Phillip Kraguljac 		|| v1.8
 
 // /////////////////////////////////////////////////////////////////////// VERSION CONTROL
 ?>
@@ -57,9 +58,13 @@ $Search_Description = Search_0001($Database_Connection, $Display_Array);
 
 <?php // UPPER PAGE OPTIONS
 
-$Data['Item_ID'] = $Item_ID;
-$Data['Page'] = "REP_Controls";
-Upper_Options_0001($Data);
+$Data['Options_Description'] = "Reports";
+$Data['Total_Items'] = 1;
+$Data['Item_Prefix'] = array("");
+$Data['Item_Suffix'] = array("");
+$Data['Page'] = array("REP_Controls");
+$Data['Label'] = array("Control");
+Upper_Options_0003($Data);
 
 ?>
 

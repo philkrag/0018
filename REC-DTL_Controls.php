@@ -48,6 +48,15 @@
 <?php $Item_ID = Basic_Filter_Input($_GET['ID']); ?>
 
 
+<?php // QR QUICK LINK
+
+$Display_Array['ID'] = $Item_ID;
+
+Display_Quick_Reference($Database_Connection, $Display_Array);
+
+?>
+
+
 <?php
 
 $Display_Array = null;

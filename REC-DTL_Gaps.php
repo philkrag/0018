@@ -48,6 +48,15 @@
 <?php if(isset($_GET['ID'])){$Item_ID = Basic_Filter_Input($_GET['ID']);}else{$Item_ID = null;} ?>
 
 
+<?php // QR QUICK LINK
+
+$Display_Array['ID'] = $Item_ID;
+
+Display_Quick_Reference($Database_Connection, $Display_Array);
+
+?>
+
+
 <?php // UPLOAD IMAGE
 
 $Display_Array['ID'] = $Item_ID;
@@ -161,6 +170,9 @@ $Display_Array['Display_Items'] = array("ID",
 "(E):Control ID:rec_controls:Associated Document",
 "(E):Control ID:rec_controls:Change Description",
 "(E):Control ID:rec_controls:Status",
+"",
+"Modified Date",
+"Modified By"
 );
 $Display_Array['Column_Width'] = array("50px", "50px", "200px", "*", "200px");
 $Display_Array['Item_Links'] = "REC-DTL_Gaps-Controls.php";

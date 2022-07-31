@@ -25,10 +25,12 @@
 // PAGE CREATED DATE: 2020-09-21
 
 // DATE   		|| NAME 					|| MODIFICATION
-// 2020-09-21 	|| Phillip Kraguljac 		|| v1.0.
-// 2020-10-07 	|| Phillip Kraguljac 		|| v1.1.
-// 2020-10-21 	|| Phillip Kraguljac 		|| v1.1.
-// 2021-04-23 	|| Phillip Kraguljac 		|| v1.5.
+// 2020-09-21 	|| Phillip Kraguljac 		|| v1.0
+// 2020-10-07 	|| Phillip Kraguljac 		|| v1.1
+// 2020-10-21 	|| Phillip Kraguljac 		|| v1.1
+// 2021-04-23 	|| Phillip Kraguljac 		|| v1.5
+// 2022-01-12 	|| Phillip Kraguljac 		|| v1.7
+// 2022-07-13 	|| Phillip Kraguljac 		|| v1.8
 
 // /////////////////////////////////////////////////////////////////////// VERSION CONTROL
 ?>
@@ -43,7 +45,7 @@
 
 <?php include $_SERVER['DOCUMENT_ROOT'].'/Formats/Header_Basic.php';?>
 
-<title><?php echo "[".$Heading_Index."]"; ?> <?php echo date("Y-m-d"); ?> Project Overview <?php echo "ID:".$_GET['ID']; ?></title>
+<title><?php echo "[".$_GET['Project_ID']."]"; ?> Project Overview <?php echo "(".$Heading_Index.")" ?> <?php echo date("Y-m-d"); ?></title>
 </head>
 <body onload="">
 
@@ -64,6 +66,7 @@ $Report_Array['Display_Week']="";
 $Report_Array['Display_Week_Start_Date']="";
 $Report_Array['Display_Week_Finish_Date']="";
 $Report_Array['Print_Date']="";
+
 Report_Details_0001($Database_Connection, $Report_Array);
 
 ?>
@@ -275,8 +278,9 @@ Dispaly_List_0001($Database_Connection, $Display_Array);
 
 ?>
 
+
 <br>
-<div style="text-align: right;"><button onclick="window.print()">Print</button></div>
+<!-- <div style="text-align: right;"><button onclick="window.print()">Print</button></div> -->
 
 </div>
 </body>

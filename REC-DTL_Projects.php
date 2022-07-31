@@ -25,17 +25,20 @@
 // PAGE CREATED DATE: 2020-09-21
 
 // DATE   		|| NAME 					|| MODIFICATION
-// 2020-09-21 	|| Phillip Kraguljac 		|| v1.0.
-// 2020-10-06 	|| Phillip Kraguljac 		|| v1.1.
-// 2020-10-21 	|| Phillip Kraguljac 		|| v1.1.
-// 2020-10-23 	|| Phillip Kraguljac 		|| v1.2.
-// 2020-10-23 	|| Phillip Kraguljac 		|| v1.3.
-// 2021-03-30 	|| Phillip Kraguljac 		|| v1.5.
-// 2021-04-24 	|| Phillip Kraguljac 		|| v1.5.
-// 2021-05-04 	|| Phillip Kraguljac 		|| v1.5.
-// 2021-05-07 	|| Phillip Kraguljac 		|| v1.5.
-// 2021-05-27 	|| Phillip Kraguljac 		|| v1.5.
-// 2021-10-11 	|| Phillip Kraguljac 		|| v1.6.
+// 2020-09-21 	|| Phillip Kraguljac 		|| v1.0
+// 2020-10-06 	|| Phillip Kraguljac 		|| v1.1
+// 2020-10-21 	|| Phillip Kraguljac 		|| v1.1
+// 2020-10-23 	|| Phillip Kraguljac 		|| v1.2
+// 2020-10-23 	|| Phillip Kraguljac 		|| v1.3
+// 2021-03-30 	|| Phillip Kraguljac 		|| v1.5
+// 2021-04-24 	|| Phillip Kraguljac 		|| v1.5
+// 2021-05-04 	|| Phillip Kraguljac 		|| v1.5
+// 2021-05-07 	|| Phillip Kraguljac 		|| v1.5
+// 2021-05-27 	|| Phillip Kraguljac 		|| v1.5
+// 2021-10-11 	|| Phillip Kraguljac 		|| v1.6
+// 2022-06-17 	|| Phillip Kraguljac 		|| v1.8
+// 2022-07-06 	|| Phillip Kraguljac 		|| v1.88
+// 2022-07-14 	|| Phillip Kraguljac 		|| v1.8
 
 // /////////////////////////////////////////////////////////////////////// VERSION CONTROL
 ?>
@@ -54,40 +57,68 @@
 </head>
 <body onload="<?php echo $Menu_Peference; ?>">
 
+
 <?php if(isset($_GET['ID'])){$Item_ID = Basic_Filter_Input($_GET['ID']);}else{$Item_ID = null;} ?>
+
+
+<?php // QR QUICK LINK
+
+$Display_Array['ID'] = $Item_ID;
+
+Display_Quick_Reference($Database_Connection, $Display_Array);
+
+?>
+
+
+<?php // QR QUICK LINK
+
+$Display_Array['ID'] = $Item_ID;
+
+Display_Quick_Reference($Database_Connection, $Display_Array);
+
+?>
+
+
+<?php // UPLOAD IMAGE
+
+$Display_Array['ID'] = $Item_ID;
+$Display_Array['File_Folder'] = "Project_Photos";
+$Display_Array['Column_Width'] = array("300px", "*" );
+$Display_Array['IS_Report'] = false;
+$Display_Array['File_Type'] = "Photo";
+
+Upload_Dialog($Database_Connection, $Display_Array);
+
+?>
 
 
 <?php // UPPER PAGE OPTIONS
 
-$Data['Total_Items'] = 11;
-$Data['Item_ID'] = array($Item_ID, $Item_ID, $Item_ID, $Item_ID, $Item_ID, $Item_ID, $Item_ID, $Item_ID, $Item_ID, $Item_ID, $Item_ID);
-$Data['Item_ID_Prefix'] = "Project_ID";
+$Data['Options_Description'] = "Reports";
+$Data['Total_Items'] = 10;
+$Data['Item_Prefix'] = array("Project_ID", "Project_ID", "Project_ID", "Project_ID", "Project_ID", "Project_ID", "Project_ID", "Project_ID", "Project_ID", "Project_ID");
+$Data['Item_Suffix'] = array($Item_ID, $Item_ID, $Item_ID, $Item_ID, $Item_ID, $Item_ID, $Item_ID, $Item_ID, $Item_ID, $Item_ID);
+$Data['Page'] = array("REP_Project", "REP_Project-Overview", "REP_Project-Scope-Proforma", "REP_Project-Authorisation", "REP_Project-Scope-Management", "REP_Project-Tasks", "REP_Project-Parts", "REP_Inspection-Points", "REP_Project-Risks", "REP_Project-Contingencies");
+$Data['Label'] = array("General", "Overview", "Scope", "Authorisation", "Scope Mgt", "WBS", "Parts", "Inspection Point", "Risks", "Contingencies");
+Upper_Options_0003($Data);
+
+?>
+
+
+<?php // UPPER PAGE OPTIONS
+
+$Data['Options_Description'] = "Labels";
+$Data['Total_Items'] = 1;
+$Data['Item_ID'] = array($Item_ID);
+$Data['Item_Indexer_Specific'] = array("ID");
 $Data['Page'] = array(
-"REP_Project",
-"REP_Project-Overview",
-"REP_Project-Scope-Proforma",
-"REP_Project-Authorisation",
-"REP_Project-Scope-Management",
-"REP_Project-Tasks",
-"REP_Project-Parts",
-"REP_Inspection-Points",
-"REP_Project-Risks",
-"REP_Project-Contingencies",
-"REP-Inspection-Method-Matrix"
+"LBL_Quick-Reference-Project"
 );
 $Data['Label'] = array(
-"Report",
-"Overview",
-"Scope",
-"Authorisation",
-"Scope Mgt",
-"WBS",
-"Parts",
-"Inspection Point",
-"Risks",
-"Contingencies",
-"Matrix"
+"Quick Reference"
 );
+$Data['Item_Prefix'] = array("");
+$Data['Item_Suffix'] = array("");
 Upper_Options_0003($Data);
 
 ?>
@@ -124,6 +155,31 @@ $Display_Array['Display_Items'] = array("ID",
 "",
 "Modified Date",
 "Modified By"
+);
+$Display_Array['Column_Width'] = array("300px", "*" );
+$Display_Array['Item_Links'] = "REC_Projects.php";
+
+$Display_Array['MySQL_Action'] = "SELECT * ";
+$Display_Array['MySQL_Table'] = "FROM `reg_projects` ";
+$Display_Array['MySQL_Filter'] = "WHERE `ID` = ".$Display_Array['ID']." ";
+$Display_Array['MySQL_Order'] = "";
+$Display_Array['MySQL_Limit'] = "LIMIT 1";
+$Display_Array['MySQL_Offset'] = "";
+
+Dispaly_Details_0001($Database_Connection, $Display_Array);
+
+?>
+
+
+<?php
+
+$Display_Array = null;
+$Display_Array['ID'] = $Item_ID;
+$Display_Array['IS_Report'] = false;
+$Display_Array['Table_Major_Heading'] = "";
+$Display_Array['Table_Minor_Heading'] = "Associated Links";
+$Display_Array['Display_Items'] = array(
+"Equipment ID"
 );
 $Display_Array['Column_Width'] = array("300px", "*" );
 $Display_Array['Item_Links'] = "REC_Projects.php";
@@ -197,7 +253,7 @@ $Display_Array['IS_Report'] = false;
 $Display_Array['Table_Major_Heading'] = "[".($Heading_Index=$Heading_Index+1)."] PHASE(S)";
 $Display_Array['Table_Minor_Heading'] = "...";
 $Display_Array['Display_Items'] = array("ID", "Step", "Description", "Status");
-$Display_Array['Column_Width'] = array("50px", "50px", "*", "100px");
+$Display_Array['Column_Width'] = array("50px", "50px", "*", "150px");
 $Display_Array['Item_Links'] = "REC-DTL_Phases.php";
 $Display_Array['New_Link_Reference'] = "Project ID";
 
@@ -505,7 +561,7 @@ $Display_Array['Display_Items'] = array("ID",
 "Description"
 );
 $Display_Array['Column_Width'] = array("50px", "50px", "200px", "200px", "200px", "100px", "100px", "100px", "100px", "100px", "100px", "*");
-$Display_Array['Item_Links'] = "REC-DTL_Performance_Reporting.php";
+$Display_Array['Item_Links'] = "REC-DTL_Performance-Reporting.php";
 $Display_Array['New_Link_Reference'] = "Project ID";
 
 $Display_Array['MySQL_Action'] = "SELECT * ";
@@ -599,16 +655,43 @@ Dispaly_List_0001($Database_Connection, $Display_Array);
 
 $Display_Array = null;
 $Display_Array['ID'] = $Item_ID;
+$Display_Array['Table_Major_Heading'] = "[".($Heading_Index=$Heading_Index+1)."] DESIGN FUNCTION(S)";
+$Display_Array['Table_Minor_Heading'] = "...";
+$Display_Array['Display_Items'] = array(
+"ID",
+"Description"
+);
+$Display_Array['Column_Width'] = array("50px", "*");
+$Display_Array['Item_Links'] = "REC-DTL_Functionality.php";
+$Display_Array['New_Link_Reference'] = "Project ID";
+
+$Display_Array['MySQL_Action'] = "SELECT * ";
+$Display_Array['MySQL_Table'] = "FROM `reg_design-functionality` ";
+$Display_Array['MySQL_Filter'] = "WHERE `Project ID` = ".$Item_ID." AND (`Deleted Date` IS NULL OR `Deleted Date` = '".date("Y-m-d")."') ";
+$Display_Array['MySQL_Order'] = "";
+$Display_Array['MySQL_Limit'] = "";
+$Display_Array['MySQL_Offset'] = "";
+
+Dispaly_List_0001($Database_Connection, $Display_Array);
+
+?>
+
+
+<?php
+
+$Display_Array = null;
+$Display_Array['ID'] = $Item_ID;
 $Display_Array['Table_Major_Heading'] = "[".($Heading_Index=$Heading_Index+1)."] TASK(S)";
 $Display_Array['Table_Minor_Heading'] = "...";
 $Display_Array['Display_Items'] = array(
 "ID",
 "(E):Phase ID:rec_phases:Description",
+"(P):Tasks_Photos",
 "Task Status",
 "Planned Work Date",
 "Description"
 );
-$Display_Array['Column_Width'] = array("50px", "150px", "150px", "150px", "*");
+$Display_Array['Column_Width'] = array("50px", "200px", "100px", "150px", "150px", "*");
 $Display_Array['Item_Links'] = "REC-DTL_Tasks.php";
 $Display_Array['New_Link_Reference'] = "Project ID";
 
@@ -655,17 +738,40 @@ Dispaly_Details_0001($Database_Connection, $Display_Array);
 
 <?php
 
+// $Display_Array = null;
+// $Display_Array['ID'] = $Item_ID;
+// $Display_Array['Table_Major_Heading'] = "Parts";
+// $Display_Array['Table_Minor_Heading'] = "General";
+// $Display_Array['Display_Items'] = array("ID", "Description", "Estimated Total Cost ($) exc GST");
+// $Display_Array['Column_Width'] = array("80px", "*", "150px");
+// $Display_Array['Item_Links'] = "REC-DTL_Parts-Project.php";
+// $Display_Array['New_Link_Reference'] = "Project ID";
+
+// $Display_Array['MySQL_Action'] = "SELECT * ";
+// $Display_Array['MySQL_Table'] = "FROM `rec_parts-project` ";
+// $Display_Array['MySQL_Filter'] = "WHERE `Project ID` = ".$Item_ID." AND (`Deleted Date` IS NULL OR `Deleted Date` = '".date("Y-m-d")."') ";
+// $Display_Array['MySQL_Order'] = "";
+// $Display_Array['MySQL_Limit'] = "";
+// $Display_Array['MySQL_Offset'] = "";
+
+// Dispaly_List_0001($Database_Connection, $Display_Array);
+
+?>
+
+
+<?php
+
 $Display_Array = null;
 $Display_Array['ID'] = $Item_ID;
 $Display_Array['Table_Major_Heading'] = "Parts";
 $Display_Array['Table_Minor_Heading'] = "General";
-$Display_Array['Display_Items'] = array("ID", "Description", "Estimated Total Cost ($) exc GST");
-$Display_Array['Column_Width'] = array("80px", "*", "150px");
+$Display_Array['Display_Items'] = array("ID", "Description", "Manufacturer", "Manufacturer Part #", "Total Price (exc GST)");
+$Display_Array['Column_Width'] = array("80px", "*", "150px", "150px", "150px");
 $Display_Array['Item_Links'] = "REC-DTL_Parts-Project.php";
 $Display_Array['New_Link_Reference'] = "Project ID";
 
 $Display_Array['MySQL_Action'] = "SELECT * ";
-$Display_Array['MySQL_Table'] = "FROM `rec_parts-project` ";
+$Display_Array['MySQL_Table'] = "FROM `rec_parts-order` ";
 $Display_Array['MySQL_Filter'] = "WHERE `Project ID` = ".$Item_ID." AND (`Deleted Date` IS NULL OR `Deleted Date` = '".date("Y-m-d")."') ";
 $Display_Array['MySQL_Order'] = "";
 $Display_Array['MySQL_Limit'] = "";

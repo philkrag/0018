@@ -24,7 +24,8 @@
 // PAGE CREATED DATE: 2020-09-21
 
 // DATE   		|| NAME 					|| MODIFICATION
-// 2020-09-21 	|| Phillip Kraguljac 		|| v1.0.
+// 2020-09-21 	|| Phillip Kraguljac 		|| v1.0
+// 2022-07-31 	|| Phillip Kraguljac 		|| v1.8
 
 // /////////////////////////////////////////////////////////////////////// VERSION CONTROL
 ?>
@@ -33,12 +34,12 @@
 <?php
 
 $servername = "localhost";
-$username = "root";
-$password = "password";
+$username = "HtmlAccess";
+$password = "Password123*";
 $Database_Name = "main_database";
 
 $Database_Connection = mysqli_connect($servername, $username, $password, $Database_Name);
 if ($Database_Connection->connect_error) {die("Connection failed: " . $Database_Connection->connect_error);} 
-//echo "Connected successfully";
+//echo "<br>[Connected successfully]";
 
 ?>

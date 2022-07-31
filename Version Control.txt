@@ -2,8 +2,10 @@
 
 Date Started	Date Finished	Notes
 2020-10-06	2020-10-23	v1.1
-2020-10-23	2020-10-23	v1.2	Project Task Report.
+2020-10-23	2020-10-23	v1.2	Project task report.
 2020-10-23	2020-10-23	v1.3	Change control improvement, 
-2020-10-23	2021-03-24	v1.4	Formatting changes, Modifications to RCA.
-2021-03-24	2020-09-06	v1.5	Document Dataset, Equipment Page Created, DB Structure Adjusted. 
-2021-09-06	2021-12-24	v1.6	Access Control Added, Product Management Added, Controller Dialog Added, Controller Status Function Added.
+2020-10-23	2021-03-24	v1.4	Formatting changes, modifications to RCA.
+2021-03-24	2020-09-06	v1.5	Document dataset, equipment page created, DB structure adjusted. 
+2021-09-06	2021-12-24	v1.6	Access control zdded, product management added, controller dialog added, controller status function added.
+2021-12-29	2022-06-01	v1.7	Added work instruction section, added work instruction report, fixed rquipment detail page error, added extended (E) option to dispaly function, added 'components' to instruction steps, added tool section to WMS, added field to document details, added options for document discipline, added link function within reports multi display. Adjusted report view of the version controls, added extended table option, added access log functionality.
+2022-06-01	2022-07-31	v1.8	QR Functionality added, assistance pages added, walkthru and fixed any apprenent faults, added photos to notes, added QR quick link option, added dynamic CSS (now php based)

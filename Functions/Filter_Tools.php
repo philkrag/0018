@@ -24,7 +24,8 @@
 // PAGE CREATED DATE: 2020-09-21
 
 // DATE   		|| NAME 					|| MODIFICATION
-// 2020-09-21 	|| Phillip Kraguljac 		|| v1.0.
+// 2020-09-21 	|| Phillip Kraguljac 		|| v1.0
+// 2021-12-29 	|| Phillip Kraguljac 		|| v1.7
 
 // /////////////////////////////////////////////////////////////////////// VERSION CONTROL
 ?>
@@ -42,7 +43,9 @@ return $Filtered_Item ;
 
 function Basic_Array_Filter_Input($String_To_Be_Filtered){
 $Filtered_Item = "";
+if(isset($String_To_Be_Filtered)){
 $Filtered_Item = filter_var_array($String_To_Be_Filtered, FILTER_SANITIZE_STRING);
+}
 return $Filtered_Item ;
 }
 

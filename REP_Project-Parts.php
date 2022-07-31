@@ -25,9 +25,13 @@
 // PAGE CREATED DATE: 2020-10-06
 
 // DATE   		|| NAME 					|| MODIFICATION
-// 2020-10-06 	|| Phillip Kraguljac 		|| v1.1.
-// 2020-10-21 	|| Phillip Kraguljac 		|| v1.1.
-// 2021-04-23 	|| Phillip Kraguljac 		|| v1.5.
+// 2020-10-06 	|| Phillip Kraguljac 		|| v1.1
+// 2020-10-21 	|| Phillip Kraguljac 		|| v1.1
+// 2021-04-23 	|| Phillip Kraguljac 		|| v1.5
+// 2022-01-12 	|| Phillip Kraguljac 		|| v1.7
+// 2022-03-24 	|| Phillip Kraguljac 		|| v1.7
+// 2022-07-13 	|| Phillip Kraguljac 		|| v1.8
+// 2022-07-14 	|| Phillip Kraguljac 		|| v1.8
 
 // /////////////////////////////////////////////////////////////////////// VERSION CONTROL
 ?>
@@ -42,7 +46,7 @@
 
 <?php include $_SERVER['DOCUMENT_ROOT'].'/Formats/Header_Basic.php';?>
 
-<title><?php echo "[".$Heading_Index."]"; ?> <?php echo date("Y-m-d"); ?> Project Parts Report <?php echo "ID:".$_GET['ID']; ?></title>
+<title><?php echo "[".$_GET['Project_ID']."]"; ?> Project Parts Report <?php echo "(".$Heading_Index.")" ?> <?php echo date("Y-m-d"); ?></title>
 </head>
 <body onload="">
 
@@ -59,7 +63,11 @@ $Search_Description = Hidden_Search_0001($Database_Connection, $Display_Array);
 
 <?php
 
-$Report_Array['Default'] = false;
+$Report_Array['Display_Week']="";
+$Report_Array['Display_Week_Start_Date']="";
+$Report_Array['Display_Week_Finish_Date']="";
+$Report_Array['Print_Date']="";
+
 Report_Details_0001($Database_Connection, $Report_Array);
 
 ?>
@@ -142,7 +150,7 @@ $Display_Array['Display_Items'] = array("ID",
 "Quantity Required",
 "Status"
 );
-$Display_Array['Column_Width'] = array("50px",  "*", "150px", "150px", "150px", "150px", "150px");
+$Display_Array['Column_Width'] = array("50px",  "*", "150px", "150px", "150px", "150px", "150px", "150px", "150px", "150px");
 $Display_Array['Item_Links'] = "";
 $Display_Array['New_Link_Reference'] = "";
 
@@ -157,8 +165,9 @@ Dispaly_List_0001($Database_Connection, $Display_Array);
 
 ?>
 
+
 <br>
-<div style="text-align: right;"><button onclick="window.print()">Print</button></div>
+<!-- <div style="text-align: right;"><button onclick="window.print()">Print</button></div> -->
 
 </div>
 </body>

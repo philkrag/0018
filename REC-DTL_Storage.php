@@ -22,10 +22,16 @@
 // /////////////////////////////////////////////////////////////////////// VERSION CONTROL
 
 // PAGE CREATED BY: Phillip Kraguljac
-// PAGE CREATED DATE: 2020-09-21
+// PAGE CREATED DATE: 2021-09-16
 
 // DATE   		|| NAME 					|| MODIFICATION
-// 2021-09-16 	|| Phillip Kraguljac 		|| v1.6. (created)
+// 2021-09-16 	|| Phillip Kraguljac 		|| v1.6 (created)
+// 2022-01-10 	|| Phillip Kraguljac 		|| v1.7
+// 2022-02-28 	|| Phillip Kraguljac 		|| v1.7
+// 2022-03-07	|| Phillip Kraguljac 		|| v1.7
+// 2022-06-02 	|| Phillip Kraguljac 		|| v1.8
+// 2022-06-16 	|| Phillip Kraguljac 		|| v1.8
+// 2022-07-25 	|| Phillip Kraguljac 		|| v1.8
 
 // /////////////////////////////////////////////////////////////////////// VERSION CONTROL
 ?>
@@ -46,13 +52,20 @@
 <?php if(isset($_GET['ID'])){$Item_ID = Basic_Filter_Input($_GET['ID']);}else{$Item_ID = null;} ?>
 
 
-<?php // UPPER PAGE OPTIONS
+<?php // QR QUICK LINK
 
-$Data['Total_Items'] = 2;
-$Data['Item_ID'] = array($Item_ID, $Item_ID);
-$Data['Page'] = array("REP_Storage-Label", "REP_Storage-Contents");
-$Data['Label'] = array("Label", "Contents Report");
-Upper_Options_0002($Data);
+$Display_Array['ID'] = $Item_ID;
+
+Display_Quick_Reference($Database_Connection, $Display_Array);
+
+?>
+
+
+<?php // QR QUICK LINK
+
+$Display_Array['ID'] = $Item_ID;
+
+Display_Quick_Reference($Database_Connection, $Display_Array);
 
 ?>
 
@@ -70,14 +83,72 @@ Upload_Dialog($Database_Connection, $Display_Array);
 ?>
 
 
+<?php // UPPER PAGE OPTIONS
+
+$Data['Options_Description'] = "Reports";
+$Data['Total_Items'] = 5;
+$Data['Item_ID'] = array($Item_ID, $Item_ID, $Item_ID, $Item_ID, $Item_ID, $Item_ID);
+$Data['Item_Indexer_Specific'] = array("ID", "ID", "ID", "ID", "ID", "ID", "ID", "ID", "ID", "ID");
+$Data['Page'] = array(
+"REP_Storage-Contents",
+"REP_Storage-Audit",
+"REP_Storage-Audit",
+"REP_Storage-Cost",
+"REP_Storage-Cost"
+);
+$Data['Label'] = array(
+"Contents Report",
+"Audit (Images)",
+"Audit (No Images)",
+"Cost (Images)",
+"Cost (No Images)"
+);
+$Data['Item_Suffix'] = array(
+"",
+"",
+"Hide_Images=Yes",
+"",
+"Hide_Images=Yes"
+);
+Upper_Options_0003($Data);
+
+?>
+
+
+<?php // UPPER PAGE OPTIONS
+
+$Data['Options_Description'] = "Labels";
+$Data['Total_Items'] = 3;
+$Data['Item_ID'] = array($Item_ID, $Item_ID, $Item_ID);
+$Data['Item_Indexer_Specific'] = array("ID", "ID", "ID");
+$Data['Page'] = array(
+"REP_Storage-Label",
+"LBL_Quick-Reference-Shipping",
+"LBL_Quick-Reference-Storage",
+"LBL_QR-Storage"
+);
+$Data['Label'] = array(
+"Detailed Shipping",
+"Quick Shipping",
+"Quick Reference",
+"QR Stickers"
+);
+$Data['Item_Prefix'] = array("","","");
+$Data['Item_Suffix'] = array("","","");
+Upper_Options_0003($Data);
+
+?>
+
+
 <?php
 
 $Display_Array = null;
 $Display_Array['ID'] = $Item_ID;
 $Display_Array['Table_Major_Heading'] = "STORAGE";
 $Display_Array['Table_Minor_Heading'] = "General Details";
-$Display_Array['Display_Items'] = array("ID",
-"Location Name",
+$Display_Array['Display_Items'] = array(
+"ID",
+"Storage Name",
 "Short Description",
 "Long Description",
 "",
@@ -104,10 +175,134 @@ Dispaly_Details_0001($Database_Connection, $Display_Array);
 
 $Display_Array = null;
 $Display_Array['ID'] = $Item_ID;
+$Display_Array['Table_Major_Heading'] = "";
+$Display_Array['Table_Minor_Heading'] = "Internal Location";
+$Display_Array['Display_Items'] = array(
+"Rack",
+"Shelf",
+"Bin"
+);
+$Display_Array['Column_Width'] = array("300px", "*" );
+$Display_Array['Item_Links'] = "";
+
+$Display_Array['MySQL_Action'] = "SELECT * ";
+$Display_Array['MySQL_Table'] = "FROM `reg_storage` ";
+$Display_Array['MySQL_Filter'] = "WHERE `ID` = ".$Display_Array['ID']." ";
+$Display_Array['MySQL_Order'] = "";
+$Display_Array['MySQL_Limit'] = "LIMIT 1";
+$Display_Array['MySQL_Offset'] = "";
+
+Dispaly_Details_0001($Database_Connection, $Display_Array);
+
+?>
+
+
+<?php
+
+$Display_Array = null;
+$Display_Array['ID'] = $Item_ID;
+$Display_Array['Table_Major_Heading'] = "";
+$Display_Array['Table_Minor_Heading'] = "Shipping Information";
+$Display_Array['Display_Items'] = array(
+"Height (mm)",
+"Width (mm)",
+"Depth (mm)",
+"Weight (kg) Loaded",
+"Weight (kg) Unloaded"
+);
+$Display_Array['Column_Width'] = array("300px", "*" );
+$Display_Array['Item_Links'] = "";
+
+$Display_Array['MySQL_Action'] = "SELECT * ";
+$Display_Array['MySQL_Table'] = "FROM `reg_storage` ";
+$Display_Array['MySQL_Filter'] = "WHERE `ID` = ".$Display_Array['ID']." ";
+$Display_Array['MySQL_Order'] = "";
+$Display_Array['MySQL_Limit'] = "LIMIT 1";
+$Display_Array['MySQL_Offset'] = "";
+
+Dispaly_Details_0001($Database_Connection, $Display_Array);
+
+?>
+
+
+<?php
+
+$Display_Array = null;
+$Display_Array['ID'] = $Item_ID;
+$Display_Array['Table_Major_Heading'] = "EQUIPMENT(S)";
+$Display_Array['Table_Minor_Heading'] = "...";
+$Display_Array['Display_Items'] = array(
+"ID",
+"(P):Equipment_Photos",
+"Equipment Name",
+"Part",
+"Serial Number",
+"Serviceability Rating"
+);
+$Display_Array['Column_Width'] = array("50px", "100px", "*", "150px", "150px", "150px");
+$Display_Array['Item_Links'] = "REC-DTL_Equipment.php";
+$Display_Array['New_Link_Reference'] = "Storage ID";
+
+$Display_Array['MySQL_Action'] = "SELECT * ";
+$Display_Array['MySQL_Table'] = "FROM `reg_equipment` ";
+$Display_Array['MySQL_Filter'] = "WHERE `Storage ID` = ".$Item_ID." AND (`Deleted Date` IS NULL OR `Deleted Date` = '".date("Y-m-d")."') ";
+$Display_Array['MySQL_Order'] = "ORDER BY 'Equipment Name' ASC "; 
+$Display_Array['MySQL_Limit'] = "";
+$Display_Array['MySQL_Offset'] = "";
+
+Dispaly_List_0001($Database_Connection, $Display_Array);
+
+?>
+
+
+<?php
+
+$Display_Array = null;
+$Display_Array['ID'] = $Item_ID;
+$Display_Array['Table_Major_Heading'] = "TOOL(S)";
+$Display_Array['Table_Minor_Heading'] = "...";
+$Display_Array['Display_Items'] = array(
+"ID",
+"(P):Tool_Photos",
+"Description",
+"OEM",
+"OEM Part #",
+"Supplier",
+"Supplier Part #",
+"Estimated Cost ($)",
+"Serial #"
+);
+$Display_Array['Column_Width'] = array("50px", "100px", "*", "150px", "150px", "150px", "150px", "150px");
+$Display_Array['Item_Links'] = "REC-DTL_Tools.php";
+$Display_Array['New_Link_Reference'] = "Storage ID";
+
+$Display_Array['MySQL_Action'] = "SELECT * ";
+$Display_Array['MySQL_Table'] = "FROM `reg_tools` ";
+$Display_Array['MySQL_Filter'] = "WHERE `Storage ID` = ".$Item_ID." AND (`Deleted Date` IS NULL OR `Deleted Date` = '".date("Y-m-d")."') ";
+$Display_Array['MySQL_Order'] = "ORDER BY Description ASC "; 
+$Display_Array['MySQL_Limit'] = "";
+$Display_Array['MySQL_Offset'] = "";
+
+Dispaly_List_0001($Database_Connection, $Display_Array);
+
+?>
+
+
+<?php
+
+$Display_Array = null;
+$Display_Array['ID'] = $Item_ID;
 $Display_Array['Table_Major_Heading'] = "CONTROLLED PART(S)";
 $Display_Array['Table_Minor_Heading'] = "...";
-$Display_Array['Display_Items'] = array("ID", "Status", "Manufacturer", "Manufacturer Part #", "Serial #");
-$Display_Array['Column_Width'] = array("50px", "*", "150px");
+$Display_Array['Display_Items'] = array(
+"ID",
+"(P):Part_Controlled_Photos",
+"Status",
+"Manufacturer",
+"Manufacturer Part #",
+"Serial #"
+);
+$Display_Array['Column_Width'] = array("50px", "100px", "*", "150px");
 $Display_Array['Item_Links'] = "REC-DTL_Parts-Controlled.php";
 $Display_Array['New_Link_Reference'] = "Storage ID";
 

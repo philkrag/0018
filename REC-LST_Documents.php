@@ -30,7 +30,8 @@
 // 2020-05-20 	|| Phillip Kraguljac 		|| v1.5
 // 2020-06-02 	|| Phillip Kraguljac 		|| v1.5
 // 2020-09-07 	|| Phillip Kraguljac 		|| v1.6
-
+// 2022-01-27 	|| Phillip Kraguljac 		|| v1.7
+// 2022-02-01 	|| Phillip Kraguljac 		|| v1.7
 
 // /////////////////////////////////////////////////////////////////////// VERSION CONTROL
 ?>
@@ -48,15 +49,24 @@
 </head>
 <body onload="<?php echo $Menu_Peference; ?>">
 
-<?php if(isset($_GET['ID'])){$Item_ID = Basic_Filter_Input($_GET['ID']);}else{$Item_ID = null;} ?>
+<?php
+
+if(isset($_GET['ID'])){$Item_ID = Basic_Filter_Input($_GET['ID']);}else{$Item_ID = null;}
+if(isset($_GET['Export_File_Option'])){$Export_File_Option = Basic_Filter_Input($_GET['Export_File_Option']);}else{$Export_File_Option = "No";}
+
+?>
 
 
 <?php // SEARCH WIDGET
 
-$Display_Array['Search_Items'] = array("ID", "Document Title", "Document Title (Short)", "Publisher");
+$Display_Array['Search_Items'] = array("ID", "Document Title", "Document Title (Short)", "Type", "Discipline", "Publisher");
 $Search_Description = Search_0001($Database_Connection, $Display_Array);
 
 ?>
+
+
+<?php //Download_File_0001("Library", "test", "pdf"); ?>
+<?php //Download_File_0001("Library", "test", "pdf"); ?>
 
 
 <?php
@@ -64,10 +74,12 @@ $Search_Description = Search_0001($Database_Connection, $Display_Array);
 $Display_Array = null;
 $Display_Array['ID'] = null;
 $Display_Array['IS_Report'] = false;
+$Display_Array['Export_File_Option'] = $Export_File_Option;
+$Display_Array['Export_File_Data'] = array("Library", "pdf");
 $Display_Array['Table_Major_Heading'] = "DOCUMENTS";
 $Display_Array['Table_Minor_Heading'] = "";
-$Display_Array['Display_Items'] = array("ID", "Site Relevant", "Document Title (Short)", "Document Title") ;
-$Display_Array['Column_Width'] = array("50px", "150px", "150px", "*");
+$Display_Array['Display_Items'] = array("ID", "Site Relevant", "Type", "Document Title", "Discipline", "Publisher") ;
+$Display_Array['Column_Width'] = array("50px", "150px", "150px", "*", "150px", "150px");
 $Display_Array['Item_Links'] = "REC-DTL_Documents.php";
 $Display_Array['New_Link_Reference'] = "Document Title";
 

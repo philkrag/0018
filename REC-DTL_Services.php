@@ -52,6 +52,15 @@ if(isset($_GET['Equipment_ID'])){$Equipment_ID = Basic_Filter_Input($_GET['Equip
 ?>
 
 
+<?php // QR QUICK LINK
+
+$Display_Array['ID'] = $Item_ID;
+
+Display_Quick_Reference($Database_Connection, $Display_Array);
+
+?>
+
+
 <?php // UPLOAD PDF
 
 $Document_ID = Retrieve_Database_Entry_0001($Database_Connection, "rec_services", $Item_ID, "Document ID");
@@ -158,10 +167,10 @@ $Display_Array['Display_Items'] = array(
 );
 $Display_Array['Column_Width'] = array("50px", "150px", "150px", "*");
 $Display_Array['Item_Links'] = "REC-DTL_Tasks.php";
-$Display_Array['New_Link_Reference'] = "Equipment ID";
+$Display_Array['New_Link_Reference'] = "Service ID";
 $Display_Array['MySQL_Action'] = "SELECT * ";
 $Display_Array['MySQL_Table'] = "FROM `rec_tasks` ";
-$Display_Array['MySQL_Filter'] = "WHERE `Service ID` IS NULL  AND `Equipment ID` = ".$Equipment_ID." AND (`Deleted Date` IS NULL OR `Deleted Date` = '".date("Y-m-d")."') ";
+$Display_Array['MySQL_Filter'] = "WHERE `Service ID` = ".$Item_ID."  AND (`Deleted Date` IS NULL OR `Deleted Date` = '".date("Y-m-d")."') ";
 $Display_Array['MySQL_Order'] = "";
 $Display_Array['MySQL_Limit'] = "";
 $Display_Array['MySQL_Offset'] = "";

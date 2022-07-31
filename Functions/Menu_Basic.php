@@ -24,7 +24,10 @@
 // PAGE CREATED DATE: 2020-09-21
 
 // DATE   		|| NAME 					|| MODIFICATION
-// 2020-09-21 	|| Phillip Kraguljac 		|| v1.0.
+// 2020-09-21 	|| Phillip Kraguljac 		|| v1.0
+// 2022-02-21 	|| Phillip Kraguljac 		|| v1.7
+// 2022-06-03 	|| Phillip Kraguljac 		|| v1.8
+// 2022-06-16 	|| Phillip Kraguljac 		|| v1.8
 
 // /////////////////////////////////////////////////////////////////////// VERSION CONTROL
 ?>
@@ -99,26 +102,51 @@ echo "</table>";
 
 function Upper_Options_0003($Data) {
 
-// $Data['Total_Items'] = 0;
-// $Data['Item_ID'] = array();
-// $Data['Item_ID_Prefix'] = "";
-// $Data['Page'] = array();
-// $Data['Bookmark'] = array();
-// $Data['Label'] = array();
+if(!isset($Data['Options_Description'])){$Data['Options_Description'] = "";}
+if(!isset($Data['Item_Indexer_Master'])){$Data['Item_Indexer_Master'] = "";}
+if(!isset($Data['Item_Indexer_Specific'])){for ($x = 0; $x < $Data['Total_Items']; $x++) {$Data['Item_Indexer_Specific'][$x]="";}}
+if(!isset($Data['Item_Prefix'])){for ($x = 0; $x < $Data['Total_Items']; $x++) {$Data['Item_Prefix'][$x]="";}}
+if(!isset($Data['Item_Suffix'])){for ($x = 0; $x < $Data['Total_Items']; $x++) {$Data['Item_Suffix'][$x]="";}}
+if(!isset($Data['Item_Description'])){for ($x = 0; $x < $Data['Total_Items']; $x++) {$Data['Item_Description'][$x]="";}}
 
 echo "<br>";
 echo "<table style=\"width:100%\">";
 
-for ($x = 0; $x < $Data['Total_Items']; $x++) {echo "<col width=\"80\">";}
-echo "<col width=\"*\">";
-
-for ($x = 0; $x < $Data['Total_Items']; $x++) {
-if(isset($Data['Bookmark'])){if($Data['Bookmark'][$x]!=null){$Bookmark_Inset = "#".$Data['Bookmark'][$x];}else{$Bookmark_Inset = "";}}else{$Bookmark_Inset = "";}
-
-echo "<td><form action=\"{$Data['Page'][$x]}.php?{$Data['Item_ID_Prefix']}={$Data['Item_ID'][$x]}{$Bookmark_Inset}\"  method=\"post\"><input class=\"New_Button_Format\" type=\"submit\"  name=\"Submission_Button\" value=\"{$Data['Label'][$x]}\"></form></td>";
+if($Data['Options_Description']!=""){
+echo "<col width=\"300px\">";
 }
 
-echo "<td></td>";
+echo "<col width=\"*\">";
+
+echo "<tr>";
+
+if($Data['Options_Description']!=""){
+echo "<td class=\"Details_Options_Heading\">".$Data['Options_Description']." ► </td>";
+}
+
+echo "<td>";
+
+$Linking_Character = "";
+
+for ($x = 0; $x < $Data['Total_Items']; $x++) {
+$Indexer_Inset = "";
+if($Data['Item_Indexer_Master']!=""){$Indexer_Inset = $Data['Item_Indexer_Master']."=".$Data['Item_ID'][$x];$Linking_Character="&";}
+if($Data['Item_Indexer_Specific'][$x]!=""){$Indexer_Inset = $Data['Item_Indexer_Specific'][$x]."=".$Data['Item_ID'][$x];$Linking_Character="&";}
+if($Data['Item_Suffix'][$x]!=""){$Suffix_Inset = $Linking_Character.$Data['Item_Suffix'][$x];}else{$Suffix_Inset = "";}
+if(isset($Data['Bookmark'])){if($Data['Bookmark'][$x]!=null){$Bookmark_Inset = "#".$Data['Bookmark'][$x];}else{$Bookmark_Inset = "";}}else{$Bookmark_Inset = "";}
+
+if($Data['Item_Prefix'][$x]==""){
+	$Get_Data = "";
+}else{
+	$Get_Data = $Data['Item_Prefix'][$x]."=".$Data['Item_Suffix'][$x];
+}
+
+echo "<form style=\"display: inline-block; padding-bottom: 5px; padding-right: 5px;\" action=\"{$Data['Page'][$x]}.php?{$Indexer_Inset}{$Get_Data}{$Bookmark_Inset}\" method=\"post\"><input class=\"New_Button_Format\" style=\"width:150px;\" type=\"submit\"  name=\"Submission_Button\" value=\"{$Data['Label'][$x]}\"></form>";
+}
+
+echo "</td>";
+
+echo "</tr>";
 echo "</table>";
 
 }

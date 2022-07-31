@@ -45,6 +45,7 @@ $Display_Array['MySQL_Limit'] = "LIMIT 1";
 $Display_Array['MySQL_Offset'] = "";
 $sql = $Display_Array['MySQL_Action'].$Display_Array['MySQL_Table'].$Display_Array['MySQL_Filter'].$Display_Array['MySQL_Order'].$Display_Array['MySQL_Limit'].$Display_Array['MySQL_Offset'];
 $result = mysqli_query($Database_Connection, $sql);
+//echo $sql."<br>";
 if($result){
 while($row = mysqli_fetch_assoc($result)) {	
 $Return_Value = $row[$Extract_Column];	
@@ -56,8 +57,11 @@ return $Return_Value;
 
 
 <?php function Retrieve_Database_Last_Entry_0001($Database_Connection, $Table, $Parent_ID, $Date_Column, $Extract_Column) { 
-	
+
 $Return_Value = "";
+
+if($Parent_ID!=null){
+
 $Display_Array['MySQL_Action'] = "SELECT * ";
 $Display_Array['MySQL_Table'] = "FROM `{$Table}` ";
 $Display_Array['MySQL_Filter'] = "WHERE `Document ID` = {$Parent_ID} ";
@@ -65,13 +69,14 @@ $Display_Array['MySQL_Order'] = "ORDER BY `{$Date_Column}` DESC ";
 $Display_Array['MySQL_Limit'] = "LIMIT 1";
 $Display_Array['MySQL_Offset'] = "";
 $sql = $Display_Array['MySQL_Action'].$Display_Array['MySQL_Table'].$Display_Array['MySQL_Filter'].$Display_Array['MySQL_Order'].$Display_Array['MySQL_Limit'].$Display_Array['MySQL_Offset'];
+//echo $sql."<br>";
 $result = mysqli_query($Database_Connection, $sql);
 if($result){
 while($row = mysqli_fetch_assoc($result)) {	
 $Return_Value = $row[$Extract_Column];	
 }}
 return $Return_Value;	
-}
+}}
 
 ?>
 
